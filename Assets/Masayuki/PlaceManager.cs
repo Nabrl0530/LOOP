@@ -29,6 +29,9 @@ public class PlaceManager : MonoBehaviour
     [SerializeField]
     private bool m_use_default_distance = true;
 
+    [SerializeField]
+    private float m_height = 0.0f;
+
 
 
     // Start is called before the first frame update
@@ -76,10 +79,12 @@ public class PlaceManager : MonoBehaviour
         Adjust_Angle(m_snap_angle);
 
         Transform my_transform = this.gameObject.transform;
-        Vector3 my_pos = my_transform.localPosition;
+        Vector3 my_pos = my_transform.position;
 
         Vector3 target_vec = parent_pipe.transform.forward;
+
         Vector3 result_vec = Quaternion.Euler(0.0f, m_angle, 0.0f) * target_vec;
+
 
         my_pos.x = result_vec.x * m_distance;
         my_pos.y = result_vec.y * m_distance;
