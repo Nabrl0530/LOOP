@@ -9,7 +9,8 @@ public class Beam_Start : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(Laser, this.transform.position, Quaternion.identity);
+        var parent = this.transform;
+        Instantiate(Laser, this.transform.position, Quaternion.identity, parent);
     }
 
     // Update is called once per frame
