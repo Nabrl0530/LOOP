@@ -1,0 +1,14 @@
+
+// プリセット種類
+virtual		万能
+free look	操作
+blend list	アニメーション
+state driven	対象ステート毎
+clear shot	障害物回避
+dolly 		パスに沿わせる
+dolly cart	対象をパスに沿わせる
+target group	複数オブジェクト
+mixing		カメラ合成
+
+// Cinemachineでできること
+Noise
