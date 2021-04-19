@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Yoonbeom/Scene/MainMenu.unity
+    guid: 921b0fdf38a3e5d4e9666fd97cdbd034
+  - enabled: 1
+    path: Assets/Yoonbeom/Scene/ChoiceStage.unity
+    guid: 785b88cfac8e8354a9297643926692c9
+  - enabled: 1
+    path: Assets/Yoonbeom/Scene/Stage1.unity
+    guid: cb88a3b61a64615438a8ecb6e202d74e
   m_configObjects: {}
