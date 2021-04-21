@@ -5,9 +5,9 @@ using UnityEngine;
 public class miya_player_move : MonoBehaviour
 {
 	// 変数
+	[SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
+	[SerializeField] private float Speed_Move = 2.0f;
 	Rigidbody Rigid;
-	public GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
-	public float Speed_Move = 1.0f;
 
 	// 初期化
 	void Start()
