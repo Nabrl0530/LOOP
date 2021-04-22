@@ -46,6 +46,9 @@ public class PlaceController : MonoBehaviour
     private float m_height = 0.0f;
 
     [SerializeField]
+    private float m_snap_height = 2.0f;
+
+    [SerializeField]
     private bool m_use_default_height = true;
 
 
@@ -101,6 +104,7 @@ public class PlaceController : MonoBehaviour
             }
         }
 
+        Adjust_Height(m_snap_height);
         my_pos += my_transform.up * m_height;
 
 
@@ -113,11 +117,25 @@ public class PlaceController : MonoBehaviour
         {
             return;
         }
-        for (float i = 0; i < 360; i += angle)
+        Snap(0.0f, 360.0f, angle, ref m_angle);
+    }
+
+    private void Adjust_Height(float height)
+    {
+        if(height <= 0)
         {
-            if (i < m_angle && m_angle <= i + angle)
+            return;
+        }
+        Snap(0.0f, 9.0f, height, ref m_height);
+    }
+
+    private void Snap(float initial,float finish,float add,ref float target)
+    {
+        for(float i = initial; i < finish; i += add)
+        {
+            if(i < target && target <= i + add)
             {
-                m_angle = i + angle;
+                target = i + add;
             }
         }
     }
