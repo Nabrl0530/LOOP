@@ -41,7 +41,7 @@ public class Door : MonoBehaviour
     {
         Make_Pair();
         Hit_Count = 0;
-        Debug.Log("HIT");
+        //Debug.Log("HIT");
         Use = true;
     }
 

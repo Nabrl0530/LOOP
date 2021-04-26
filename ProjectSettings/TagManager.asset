@@ -8,6 +8,7 @@ TagManager:
   - ONE
   - TWO
   - THREE
+  - HOLE
   layers:
   - Default
   - TransparentFX

@@ -70,6 +70,8 @@ public class Player_Move : MonoBehaviour
         }
         */
 
+        //float len_sub = transform.position.x * transform.position.x;
+        len = Mathf.Sqrt(Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.z, 2)); 
 
         if(len >= 4.5f)
         {
