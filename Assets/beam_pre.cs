@@ -46,7 +46,12 @@ public class beam_pre : MonoBehaviour
                 hit.collider.gameObject.GetComponent<Door>().HitLaser();
             }
 
-                   
+            if (hit.collider.CompareTag("HOLE"))
+            {
+                Debug.Log("HIT_HOLE?");
+                hit.collider.gameObject.GetComponent<TOWER_HOLE>().HitLaser();
+            }
+
         }
 
         var positions = new Vector3[]{
