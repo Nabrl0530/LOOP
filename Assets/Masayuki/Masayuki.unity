@@ -72357,7 +72357,7 @@ GameObject:
   - component: {fileID: 1794051635}
   m_Layer: 0
   m_Name: Ladder
-  m_TagString: Untagged
+  m_TagString: MasayukiDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,6 +9,7 @@ TagManager:
   - TWO
   - THREE
   - HOLE
+  - MasayukiDoor
   layers:
   - Default
   - TransparentFX
