@@ -21,34 +21,43 @@ public class PlaceController : MonoBehaviour
 
 
     [SerializeField]
+    [Tooltip("床の何層目に親子付けするか?")]
     private FLOOR_NUMBER m_floor_number = FLOOR_NUMBER.ONE;
 
     [SerializeField]
+    [Tooltip("何度の位置に配置するか")]
     [Range(0.0f, 360.0f)]
     private float m_angle = 0.0f;
 
     [SerializeField]
+    [Tooltip("配置時のスナップ")]
     private float m_snap_angle = 30.0f;
 
     [SerializeField]
     [Range(0.0f, 6.0f)]
+    [Tooltip("ステージ中心からどれだけ離れるか")]
     private float m_distance = 0.0f;
 
     [SerializeField]
+    [Tooltip("ステージ中心からどれだけ離れるかのパラメーターに、デフォルト値を使用するか")]
     private bool m_use_default_distance = true;
 
 
     [SerializeField]
+    [Tooltip("高さのプリセット")]
     private HEIGHT_PRESET m_heiht_preset = HEIGHT_PRESET.ONE;
 
     [SerializeField]
     [Range(0.0f, 6.0f)]
+    [Tooltip("高さを調整できます")]
     private float m_height = 0.0f;
 
     [SerializeField]
+    [Tooltip("高さを調整時のスナップ")]
     private float m_snap_height = 2.0f;
 
     [SerializeField]
+    [Tooltip("高さの調整にデフォルト値を使用するか")]
     private bool m_use_default_height = true;
 
 

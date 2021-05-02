@@ -9,8 +9,7 @@ TagManager:
   - TWO
   - THREE
   - HOLE
-  - MasayukiDoor
-  - Laser
+  - RayColliderDoor
   layers:
   - Default
   - TransparentFX
