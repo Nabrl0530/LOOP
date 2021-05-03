@@ -8,12 +8,16 @@ public class miya_player_move : MonoBehaviour
 	[SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
 	[SerializeField] private float Speed_Move = 2.0f;
 	Rigidbody Rigid;
+	private Vector3 Position_Latest_m;
+	public float RotateSpeed = 5.0f;
 
 	// 初期化
 	void Start()
 	{
 		// Rigidbody取得
 		Rigid = this.GetComponent<Rigidbody>();
+		// 過去の位置
+		Position_Latest_m = this.transform.position;
 
 		// カメラ未設定時
 		if ( !Camera ) Debug.Log("【miya_player_move】there is no camera");
@@ -46,6 +50,16 @@ public class miya_player_move : MonoBehaviour
 
 			// 移動
 			Rigid.velocity = direction_move;
+
+			// 回転
+			Vector3 difference = this.transform.position - Position_Latest_m;
+			Position_Latest_m = this.transform.position;
+			if (difference.magnitude > 0.001f)
+			{
+				Quaternion rot = Quaternion.LookRotation(difference);
+				rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+				this.transform.rotation = rot;
+			}
 		}
 	}
 }
