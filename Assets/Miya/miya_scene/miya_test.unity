@@ -11951,7 +11951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &320029254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23745,8 +23745,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.0561733, z: -7.4428453}
+  m_LocalRotation: {x: 0.2729575, y: -0.000000042051497, z: 0.000000011931349, w: 0.9620261}
+  m_LocalPosition: {x: 0.00000056606683, y: 3.996054, z: -6.4750495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72231,7 +72231,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728770938}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1728770942
 Transform:
   m_ObjectHideFlags: 0
@@ -72260,6 +72260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 320029253}
   Speed_Move: 2
+  RotateSpeed: 5
 --- !u!65 &1728770944
 BoxCollider:
   m_ObjectHideFlags: 0
