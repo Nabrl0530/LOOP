@@ -11,6 +11,11 @@ public class Player_Move : MonoBehaviour
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
+    bool LOCK;  //手動操作禁止状態
+
+    private Vector3 latestPos;  //前回のPosition
+    private Vector3 lastDirection;
+    public float RotateSpeed = 1f;
 
     //private GameObject camera;   //プレイヤー情報格納用
     public float rot;  //角度
@@ -33,6 +38,8 @@ public class Player_Move : MonoBehaviour
 
         rot = 0;
         len = 3;
+
+        LOCK = false;
     }
 
     // Update is called once per frame
@@ -104,6 +111,26 @@ public class Player_Move : MonoBehaviour
         myTransform.position = pos;  // 座標を設定
         */
 
+        //向きの更新
+        /*
+        Vector3 diff = transform.position - latestPos;   //前回からどこに進んだかをベクトルで取得
+        latestPos = transform.position;  //前回のPositionの更新
+
+        //ベクトルの大きさが0.01以上の時に向きを変える処理をする
+        if (diff.magnitude > 0.01f)
+        {
+            transform.rotation = Quaternion.LookRotation(diff); //向きを変更する
+        }
+        */
+
+        //Vector3 forward = new Vector3(RotateLookX, RotateLookY, RotateLookZ);
+        Quaternion rot = Quaternion.LookRotation(lastDirection);
+
+        rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+        this.transform.rotation = rot;
+
+
+
         Camera.Update_Auto();
     }
 
@@ -113,7 +140,14 @@ public class Player_Move : MonoBehaviour
         Vector3 camera_front = Camera.transform.forward;
         Vector3 camera_right = Camera.transform.right;
 
+        //ギミック操作
+        if (Input.GetKey(KeyCode.Space))
+        {
+            
+        }
+
         // 移動
+        if (!LOCK)
         {
             // 入力
             Vector3 direction_move = new Vector3(0, 0, 0);
@@ -127,6 +161,7 @@ public class Player_Move : MonoBehaviour
             {
                 // Y方向を削除
                 direction_move.y = 0;
+                lastDirection = direction_move;
                 direction_move = direction_move.normalized * Speed_Move;// * Time.deltaTime;
                                                                         //Debug.Log(direction_move);
             }
