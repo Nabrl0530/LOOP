@@ -5,18 +5,18 @@ using UnityEngine;
 public class miya_camera_move : MonoBehaviour
 {
 	// ’è”
-	const float HEIGHT_MAX = 12.0f;
+	const float HEIGHT_MAX = 17.5f;
 	const float HEIGHT_MIN = 4.0f;
 
 	// •Ï”
-	bool	Looking_FromUp_m = false;
-	float	Length_FromCenter = 0;
+	bool	Looking_FromUp_m	= false;
+	float	Length_FromCenter	= 0;
 	float	Length_FromCenter_Current = 0;
 	[SerializeField] private float Speed_Rotate = 30.0f;
-	[SerializeField] private float Speed_Height = 2.0f;
-	float	Degree = -180;
-	float	Height_Default = 0;
-	float	Height = 0;
+	//[SerializeField] private float Speed_Height = 2.0f;
+	float	Degree			= -180;
+	float	Height_Default	= 0;
+	float	Height			= 0;
 
     // ‰Šú‰»
     void Start()

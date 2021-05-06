@@ -7,6 +7,7 @@ public class miya_player_move : MonoBehaviour
 	// 変数
 	[SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
 	[SerializeField] private float Speed_Move = 2.0f;
+	[SerializeField] private float Speed_Fall = 4.0f;
 	Rigidbody Rigid;
 	private Vector3 Position_Latest_m;
 	public float RotateSpeed = 5.0f;
@@ -30,7 +31,7 @@ public class miya_player_move : MonoBehaviour
 		Vector3 camera_front = Camera.transform.forward;
 		Vector3 camera_right = Camera.transform.right;
 
-		// 移動
+		// 移動//カメラの外側の時に不自然だから直す
 		{
 			// 入力
 			Vector3 direction_move = new Vector3(0, 0, 0);
@@ -44,18 +45,27 @@ public class miya_player_move : MonoBehaviour
 			{
 				// Y方向を削除
 				direction_move.y = 0;
-				direction_move = direction_move.normalized * Speed_Move;// * Time.deltaTime;
-				//Debug.Log(direction_move);
+				direction_move = direction_move.normalized;// * Time.deltaTime;
 			}
 
 			// 移動
-			Rigid.velocity = direction_move;
+			Rigid.velocity = direction_move * Speed_Move;
 
 			// 回転
 			Vector3 difference = this.transform.position - Position_Latest_m;
 			Position_Latest_m = this.transform.position;
 			if (difference.magnitude > 0.001f)
 			{
+				// 落下判定
+				//miya_player_stateのm_AnimationStateをHOVERINGに設定
+
+				// 落下
+				Rigid.velocity = new Vector3(direction_move.x, -Speed_Fall, direction_move.z);
+
+				// 制御
+				difference.y = 0;
+
+				// 回転計算
 				Quaternion rot = Quaternion.LookRotation(difference);
 				rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
 				this.transform.rotation = rot;
