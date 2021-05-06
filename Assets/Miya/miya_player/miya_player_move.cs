@@ -9,8 +9,24 @@ public class miya_player_move : MonoBehaviour
 	[SerializeField] private float Speed_Move = 2.0f;
 	Rigidbody Rigid;
 
-	// 初期化
-	void Start()
+
+    /// <ユンボム追加>
+     
+    //メニュー画面をon,offを管理する変数
+    public bool UseMenu = false;
+
+    //メニュー画面ののイメージオブジェクト
+    [SerializeField]
+    public GameObject Image_MenuWindow;
+    //メニュー画面以外を半透明にするパンネルオブジェクト
+    [SerializeField]
+    public GameObject Image_PanelWindow;
+    //カーソルの移動の待機時間
+    public int WaitCount = 0;
+
+
+    // 初期化
+    void Start()
 	{
 		// Rigidbody取得
 		Rigid = this.GetComponent<Rigidbody>();
@@ -35,8 +51,29 @@ public class miya_player_move : MonoBehaviour
 			if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
 			if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
 
-			// 正規化
-			if (direction_move != new Vector3(0, 0, 0))
+            /// <ユンボム追加>
+
+            WaitCount--;
+            if(Input.GetKey(KeyCode.P) && !UseMenu && WaitCount < 0)
+            {
+                UseMenu = true;
+                Image_PanelWindow.SetActive(true);
+                Image_MenuWindow.SetActive(true);
+                WaitCount = 30;
+            }
+            if (Input.GetKey(KeyCode.P) && UseMenu && WaitCount < 0)
+            {
+                UseMenu = false;
+                Image_PanelWindow.SetActive(false);
+                Image_MenuWindow.SetActive(false);
+                WaitCount = 30;
+            }
+
+            /// <ユンボム追加>
+
+
+            // 正規化
+            if (direction_move != new Vector3(0, 0, 0))
 			{
 				// Y方向を削除
 				direction_move.y = 0;
@@ -45,6 +82,7 @@ public class miya_player_move : MonoBehaviour
 			}
 
 			// 移動
+            if(!UseMenu)　//ユンボム追加
 			Rigid.velocity = direction_move;
 		}
 	}
