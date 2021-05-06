@@ -13,6 +13,10 @@ public class Player_Move : MonoBehaviour
     GameObject Pipe3;
     bool LOCK;  //手動操作禁止状態
 
+    public bool HIT_TOWER;
+    bool HIT_LEVER;
+    bool HIT_LEVER_BACK;
+
     private Vector3 latestPos;  //前回のPosition
     private Vector3 lastDirection;
     public float RotateSpeed = 1f;
@@ -129,6 +133,19 @@ public class Player_Move : MonoBehaviour
         rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
         this.transform.rotation = rot;
 
+        //ギミック操作
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (HIT_TOWER && !LOCK)
+            {
+                LOCK = true;
+            }
+            else if (HIT_TOWER && LOCK)
+            {
+                LOCK = false;
+            }
+        }
+
 
 
         Camera.Update_Auto();
@@ -140,11 +157,7 @@ public class Player_Move : MonoBehaviour
         Vector3 camera_front = Camera.transform.forward;
         Vector3 camera_right = Camera.transform.right;
 
-        //ギミック操作
-        if (Input.GetKey(KeyCode.Space))
-        {
-            
-        }
+        
 
         // 移動
         if (!LOCK)
@@ -179,5 +192,35 @@ public class Player_Move : MonoBehaviour
     public void AddRot(int R)
     {
         rot += R;
+    }
+
+    public void SetHIT_TOWER()
+    {
+        HIT_TOWER = true;
+    }
+
+    public void ClearHIT_TOWER()
+    {
+        HIT_TOWER = false;
+    }
+
+    public void SetHIT_LEVER()
+    {
+        HIT_LEVER = true;
+    }
+
+    public void ClearHIT_LEVER()
+    {
+        HIT_LEVER = false;
+    }
+
+    public void SetHIT_LEVER_BACK()
+    {
+        HIT_LEVER_BACK = true;
+    }
+
+    public void ClearHIT_LEVER_BACK()
+    {
+        HIT_LEVER_BACK = false;
     }
 }
