@@ -35833,6 +35833,25 @@ MonoBehaviour:
   m_AmplitudeGain: 0.5
   m_FrequencyGain: 0.5
   mNoiseOffsets: {x: -43.216797, y: 425.57928, z: -403.95483}
+--- !u!1 &884916415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5766740385433058678, guid: 3f9c1d0861cf779428dc8c8bdc14f10f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5766740384765248160}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &884916416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884916415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!43 &912289534
 Mesh:
   m_ObjectHideFlags: 0

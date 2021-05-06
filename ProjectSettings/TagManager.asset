@@ -10,6 +10,9 @@ TagManager:
   - THREE
   - HOLE
   - RayColliderDoor
+  - TOWER
+  - LEVER
+  - LEVER_BACK
   layers:
   - Default
   - TransparentFX
