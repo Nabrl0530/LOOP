@@ -27,20 +27,28 @@ public class PlaceController : MonoBehaviour
     [SerializeField]
     [Tooltip("何度の位置に配置するか")]
     [Range(0.0f, 360.0f)]
-    private float m_angle = 0.0f;
+    private float m_place_angle = 0.0f;
 
     [SerializeField]
     [Tooltip("配置時のスナップ")]
-    private float m_snap_angle = 30.0f;
+    private float m_snap_angle = 45.0f;
 
     [SerializeField]
-    [Range(0.0f, 6.0f)]
+    [Tooltip("配置角度と自身の角度を合わせるか")]
+    private bool m_adjust_place_angle_and_rotation = true;
+
+    [SerializeField]
+    [Tooltip("回転の補正値")]
+    private Vector3 m_offset_rotation = default;
+
+    [SerializeField]
+    [Range(0.0f, 17.0f)]
     [Tooltip("ステージ中心からどれだけ離れるか")]
     private float m_distance = 0.0f;
 
     [SerializeField]
     [Tooltip("ステージ中心からどれだけ離れるかのパラメーターに、デフォルト値を使用するか")]
-    private bool m_use_default_distance = true;
+    private bool m_use_default_distance = false;
 
 
     [SerializeField]
@@ -54,11 +62,11 @@ public class PlaceController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("高さを調整時のスナップ")]
-    private float m_snap_height = 2.0f;
+    private float m_snap_height = 0.0f;
 
     [SerializeField]
     [Tooltip("高さの調整にデフォルト値を使用するか")]
-    private bool m_use_default_height = true;
+    private bool m_use_default_height = false;
 
 
 
@@ -89,7 +97,7 @@ public class PlaceController : MonoBehaviour
 
         Vector3 target_vec = parent_pipe.transform.forward;
 
-        Vector3 result_vec = Quaternion.AngleAxis(m_angle, my_transform.up) * target_vec;
+        Vector3 result_vec = Quaternion.AngleAxis(m_place_angle, my_transform.up) * target_vec;
 
         my_pos.x = result_vec.x * m_distance;
         my_pos.y = result_vec.y * m_distance;
@@ -99,7 +107,7 @@ public class PlaceController : MonoBehaviour
         {
             if (m_heiht_preset == HEIGHT_PRESET.ONE)
             {
-                m_height = 0.0f;
+                m_height = 1.23f;
             }
             else
             if (m_heiht_preset == HEIGHT_PRESET.TWO)
@@ -118,6 +126,11 @@ public class PlaceController : MonoBehaviour
 
 
         this.gameObject.transform.position = my_pos;
+
+        if(m_adjust_place_angle_and_rotation)
+        {
+            this.gameObject.transform.rotation = Quaternion.Euler(m_offset_rotation.x,m_offset_rotation.y + m_place_angle, m_offset_rotation.z);
+        }
     }
 
     private void Adjust_Angle(float angle)
@@ -126,7 +139,7 @@ public class PlaceController : MonoBehaviour
         {
             return;
         }
-        Snap(0.0f, 360.0f, angle, ref m_angle);
+        Snap(0.0f, 360.0f, angle, ref m_place_angle);
     }
 
     private void Adjust_Height(float height)
@@ -144,7 +157,7 @@ public class PlaceController : MonoBehaviour
         {
             if(i < target && target <= i + add)
             {
-                target = i + add;
+                target = i + add ;
             }
         }
     }
@@ -159,7 +172,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("ONE");
             if (m_use_default_distance)
             {
-                m_distance = 2.4f;
+                m_distance = 7.25f;
             }
         }
         else
@@ -168,7 +181,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("TWO");
             if (m_use_default_distance)
             {
-                m_distance = 3.7f;
+                m_distance = 10.7f;
             }
         }
         else
@@ -177,7 +190,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("THREE");
             if (m_use_default_distance)
             {
-                m_distance = 5.1f;
+                m_distance = 14.56f;
             }
         }
 

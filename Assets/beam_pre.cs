@@ -54,6 +54,8 @@ public class beam_pre : MonoBehaviour
 
         }
 
+        DoorController.CollideWithRayOpenDoor(Pos_base, Ditector);
+
         var positions = new Vector3[]{
         transform.position,               // 開始点
         transform.position + Ditector * 5,               // 終了点
