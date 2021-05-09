@@ -13,6 +13,7 @@ TagManager:
   - TOWER
   - LEVER
   - LEVER_BACK
+  - MIRROR
   layers:
   - Default
   - TransparentFX
