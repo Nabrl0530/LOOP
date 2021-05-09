@@ -98,6 +98,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_hole: {fileID: 8666390388321995665}
+  Base1: {fileID: 844312383513504603}
+  Base2: {fileID: 3228611040406081613}
+  Base3: {fileID: 8311698892767118319}
 --- !u!65 &3187422731441107131
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -238,6 +241,69 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &2388599284098909216
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3095112613292865895}
+  - component: {fileID: 4016500226282539016}
+  - component: {fileID: 4702890176900146818}
+  m_Layer: 2
+  m_Name: TOWER_HIT2
+  m_TagString: TOWER
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3095112613292865895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2388599284098909216}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5766740385433058679}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4016500226282539016
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2388599284098909216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 5.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 3, z: 0}
+--- !u!114 &4702890176900146818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2388599284098909216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e8246e35e3cd914384fcdbeea982d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hole1: {fileID: 185164907608960288}
+  hole2: {fileID: 8666390388321995665}
+  hole1_base: {fileID: 844312383513504603}
+  hole2_base: {fileID: 3228611040406081613}
+  hole3_base: {fileID: 8311698892767118319}
 --- !u!1 &3228611040406081613
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +538,7 @@ GameObject:
   - component: {fileID: 6824437062826108032}
   m_Layer: 0
   m_Name: TOWER_HIT
-  m_TagString: TOWER
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -634,6 +700,7 @@ Transform:
   - {fileID: 5420601656416353656}
   - {fileID: 3163943349521266850}
   - {fileID: 983796128960411090}
+  - {fileID: 3095112613292865895}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1051,6 +1118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_hole: {fileID: 185164907608960288}
+  Base1: {fileID: 844312383513504603}
+  Base2: {fileID: 3228611040406081613}
+  Base3: {fileID: 8311698892767118319}
 --- !u!65 &8498939222684370953
 BoxCollider:
   m_ObjectHideFlags: 0

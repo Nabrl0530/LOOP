@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
+    TOWER TOWER;
     Camera Camera;
     public GameObject g_Camera;
     float Speed_Move = 2.5f;
@@ -12,6 +13,7 @@ public class Player_Move : MonoBehaviour
     GameObject Pipe2;
     GameObject Pipe3;
     bool LOCK;  //手動操作禁止状態
+    int NoComand;
 
     public bool HIT_TOWER;
     bool HIT_LEVER;
@@ -44,6 +46,7 @@ public class Player_Move : MonoBehaviour
         len = 3;
 
         LOCK = false;
+        NoComand = 0;
     }
 
     // Update is called once per frame
@@ -133,20 +136,65 @@ public class Player_Move : MonoBehaviour
         rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
         this.transform.rotation = rot;
 
-        //ギミック操作
+        //ギミック操作（塔をつかむ）
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (HIT_TOWER && !LOCK)
+            if (HIT_TOWER && !LOCK && NoComand == 0)
             {
                 LOCK = true;
+                NoComand = 0;
             }
-            else if (HIT_TOWER && LOCK)
+            else if (HIT_TOWER && LOCK && NoComand == 0)
+            {
+                //LOCK = false;
+                NoComand = 60;
+            }
+        }
+
+        //塔の操作穴１の移動
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if(LOCK)
+            {
+                TOWER.HoleMove_1();
+            }
+        }
+
+        //塔の操作穴２の移動
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            if (LOCK)
+            {
+                TOWER.HoleMove_2();
+            }
+        }
+
+        //塔の操作穴１の回転
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (LOCK)
+            {
+                TOWER.HoleSpin_1();
+            }
+        }
+
+        //塔の操作穴２の回転
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            if (LOCK)
+            {
+                TOWER.HoleSpin_2();
+            }
+        }
+
+        if (NoComand > 0)
+        {
+            NoComand--;
+            if(NoComand == 0)
             {
                 LOCK = false;
             }
         }
-
-
 
         Camera.Update_Auto();
     }
@@ -157,13 +205,12 @@ public class Player_Move : MonoBehaviour
         Vector3 camera_front = Camera.transform.forward;
         Vector3 camera_right = Camera.transform.right;
 
-        
+        Vector3 direction_move = new Vector3(0, 0, 0);
 
         // 移動
         if (!LOCK)
         {
-            // 入力
-            Vector3 direction_move = new Vector3(0, 0, 0);
+            // 入力            
             if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
             if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
             if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
@@ -222,5 +269,13 @@ public class Player_Move : MonoBehaviour
     public void ClearHIT_LEVER_BACK()
     {
         HIT_LEVER_BACK = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("TOWER"))
+        {
+            TOWER = other.GetComponent<TOWER>();
+        }
     }
 }

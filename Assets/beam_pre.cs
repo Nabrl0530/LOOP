@@ -41,6 +41,7 @@ public class beam_pre : MonoBehaviour
             //Debug.Log(hit.collider.gameObject.transform.position);
             //Pos_End = hit.collider.gameObject.transform.position;
             Pos_End = hit.point;
+            Debug.Log(hit.point);
             if(hit.collider.CompareTag("Door"))
             {
                 hit.collider.gameObject.GetComponent<Door>().HitLaser();
