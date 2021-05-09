@@ -6,6 +6,9 @@ public class TOWER_HOLE : MonoBehaviour
 {
     public GameObject Laser;
     public GameObject pair_hole;
+    public GameObject Base1;
+    public GameObject Base2;
+    public GameObject Base3;
     private GameObject C_Laser = null;
     private bool Use = false;
     private bool Move = false;
@@ -36,6 +39,22 @@ public class TOWER_HOLE : MonoBehaviour
             pair_hole.GetComponent<TOWER_HOLE>().Finish_Laser();
             Use = false;
         }
+
+        //e‚ÌŽ²‚ðØ‚è‘Ö‚¦‚é
+        if(transform.position.y > 4.9f)
+        {
+            transform.SetParent(Base3.transform);
+        }
+        else if(transform.position.y > 2.9f)
+        {
+            transform.SetParent(Base2.transform);
+        }
+        else
+        {
+            transform.SetParent(Base1.transform);
+        }
+
+
     }
 
     public void HitLaser()
