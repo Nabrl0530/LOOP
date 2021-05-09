@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class miya_player_state : MonoBehaviour
 {
+	// 参照
+	public miya_player_move sc_move;
+
 	// 列挙
 	public enum e_PlayerAnimationState
 	{
@@ -23,7 +26,9 @@ public class miya_player_state : MonoBehaviour
 		LANDING,		// 着地
 	}
 	// 変数
+	Rigidbody Rigid;
 	int		m_AnimationState	= (int)e_PlayerAnimationState.WAITING;
+	bool	m_CanAction			= true;
 	//bool	m_IsClockwise		= true;
 	// デバッグ用
 	int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -31,45 +36,72 @@ public class miya_player_state : MonoBehaviour
 	// 初期化
 	void Start()
 	{
-
+		// Rigidbody取得
+		Rigid = this.GetComponent<Rigidbody>();
 	}
 
 	// 更新
 	void Update()
 	{
+		// デバッグ
 		if (state_past != m_AnimationState)
 		{
 			state_past = m_AnimationState;
 			Debug.Log("Animation State：" + m_AnimationState);
 		}
 
-		// 切替
-		if
-		(
-		Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-		Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
-		) 
-		m_AnimationState = (int)e_PlayerAnimationState.WALKING;
-
-		if (Input.GetKey(KeyCode.J))// Aボダン
+		// アクション可能
+		if ( m_CanAction )
 		{
-			// 対象によってステート変更
+			// 何もしていない
+			m_AnimationState = (int)e_PlayerAnimationState.WAITING;
 
-		}
-		if (Input.GetKey(KeyCode.K))// Bボタン
-		{
+			// 歩行
 			if
 			(
-				m_AnimationState == (int)e_PlayerAnimationState.PUSH_WAITING ||
-				m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING ||
-				m_AnimationState == (int)e_PlayerAnimationState.PULL_WAITING ||
-				m_AnimationState == (int)e_PlayerAnimationState.PULL_PULLING ||
-				m_AnimationState == (int)e_PlayerAnimationState.LEVER_WAITING ||
-				m_AnimationState == (int)e_PlayerAnimationState.LEVER_RIGHT ||
-				m_AnimationState == (int)e_PlayerAnimationState.LEVER_LEFT
+			Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+			Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
 			)
+				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+
+			// よじ登る
+			if (Input.GetKey(KeyCode.Space))
 			{
-				m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+				// 登れるものがあれば
+				if (true)
+				{
+					m_AnimationState = (int)e_PlayerAnimationState.CLIMBING;
+					m_CanAction = false;
+
+					Rigid.useGravity = false;
+
+					sc_move.Set_StartPosition(this.transform.position);
+				}
+			}
+
+			// 作動
+			if (Input.GetKey(KeyCode.J))// Aボダン
+			{
+				// 対象によってステート変更
+
+			}
+			// キャンセル
+			if (Input.GetKey(KeyCode.K))// Bボタン
+			{
+				// 該当動作チェック
+				if
+				(
+					m_AnimationState == (int)e_PlayerAnimationState.PUSH_WAITING ||
+					m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING ||
+					m_AnimationState == (int)e_PlayerAnimationState.PULL_WAITING ||
+					m_AnimationState == (int)e_PlayerAnimationState.PULL_PULLING ||
+					m_AnimationState == (int)e_PlayerAnimationState.LEVER_WAITING ||
+					m_AnimationState == (int)e_PlayerAnimationState.LEVER_RIGHT ||
+					m_AnimationState == (int)e_PlayerAnimationState.LEVER_LEFT
+				)
+				{
+					m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+				}
 			}
 		}
 	}
@@ -78,5 +110,23 @@ public class miya_player_state : MonoBehaviour
 	void FixedUpdate()
 	{
 
+	}
+
+	public void Set_CanAction(bool _can)
+	{
+		m_CanAction = _can;
+	}
+	public void Set_AnimationState(e_PlayerAnimationState _state)
+	{
+		m_AnimationState = (int)_state;
+	}
+
+	public int Get_AnimationState()
+	{
+		return m_AnimationState;
+	}
+	public bool Get_CanAction()
+	{
+		return m_CanAction;
 	}
 }
