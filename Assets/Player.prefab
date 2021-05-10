@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6679183082462478076}
   - component: {fileID: 6679183082462478077}
   - component: {fileID: 2239462048508774434}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   g_Camera: {fileID: 0}
+  HIT_TOWER: 0
   RotateSpeed: 5
   rot: 0
   len: 0
