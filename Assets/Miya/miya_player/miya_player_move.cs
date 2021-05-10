@@ -142,9 +142,9 @@ public class miya_player_move : MonoBehaviour
 		StartPosition = _start;
 	}
 
-	//オブジェクトが触れている間
-	void OnCollisionStay(Collision collision)
-	{
-		Debug.Log("Hiting");
-	}
+	////オブジェクトが触れている間
+	//void OnCollisionStay(Collision collision)
+	//{
+	//	Debug.Log("Hiting");
+	//}
 }
