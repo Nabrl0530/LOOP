@@ -16,16 +16,23 @@ public class CRISTAL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(HIT)
+        
+    }
+
+    void FixedUpdate()
+    {
+        if (HIT)
         {
             count++;
 
-            if(count == 120)
+            if (count == 180)
             {
                 Debug.Log("clear");
+                GoToClear.Go();
             }
         }
     }
+
 
     public void HitCristal()
     {
