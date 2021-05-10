@@ -43,7 +43,7 @@ public class PlaceController : MonoBehaviour
     private Vector3 m_offset_rotation = default;
 
     [SerializeField]
-    [Range(0.0f, 17.0f)]
+    [Range(0.0f, 100.0f)]
     [Tooltip("ステージ中心からどれだけ離れるか")]
     private float m_distance = 0.0f;
 
@@ -57,7 +57,7 @@ public class PlaceController : MonoBehaviour
     private HEIGHT_PRESET m_heiht_preset = HEIGHT_PRESET.ONE;
 
     [SerializeField]
-    [Range(0.0f, 6.0f)]
+    [Range(0.0f, 100.0f)]
     [Tooltip("高さを調整できます")]
     private float m_height = 0.0f;
 
