@@ -14,6 +14,7 @@ TagManager:
   - LEVER
   - LEVER_BACK
   - MIRROR
+  - FLOOR_NONE
   layers:
   - Default
   - TransparentFX
