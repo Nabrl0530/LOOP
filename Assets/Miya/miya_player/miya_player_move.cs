@@ -22,6 +22,9 @@ public class miya_player_move : MonoBehaviour
 	private Vector3 Position_Latest_m;
 	private Vector3 StartPosition = new Vector3(0, 0, 0);
 
+	private bool is_block = false;
+	private bool is_stage = false;
+
 	// 初期化
 	void Start()
 	{
@@ -41,6 +44,17 @@ public class miya_player_move : MonoBehaviour
 		Vector3 difference = this.transform.position - Position_Latest_m;
 		Position_Latest_m = this.transform.position;
 
+		// どっち
+		if (sc_state.Get_IsBlock())
+		{
+			is_block = true;
+			is_stage = false;
+		}
+		if (sc_state.Get_IsStage())
+		{
+			is_block = false;
+			is_stage = true;
+		}
 
 		// カメラベクトル取得
 		Vector3 distance = this.transform.position - Camera.transform.position; distance.y = 0;
@@ -143,14 +157,12 @@ public class miya_player_move : MonoBehaviour
 					this.transform.rotation = rot;
 				}//difference.magnitude > Rotate_Tolerance
 			}//ブロック押す
-
+			
 			// よじ登る
 			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
 			{
-				// どっち
-
 				// ブロック
-				if (sc_state.Get_IsBlock())
+				if (is_block)
 				{
 					if (this.transform.position.y < StartPosition.y + Height_Climb_Block)
 					{
@@ -174,8 +186,9 @@ public class miya_player_move : MonoBehaviour
 					}
 				}
 				// ステージ
-				if (sc_state.Get_IsStage())
+				if (is_stage)
 				{
+					
 					if (this.transform.position.y < StartPosition.y + Height_Climb_Stage)
 					{
 						Rigid.velocity = new Vector3(0, Speed_Climb, 0);

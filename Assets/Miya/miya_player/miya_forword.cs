@@ -43,7 +43,6 @@ public class miya_forword : MonoBehaviour
 
 		sc_state.Set_IsBlock(false);
 		sc_state.Set_IsStage(false);
-		//m_Block = null;
 	}
 
 	public GameObject Get_Block()
