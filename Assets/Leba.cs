@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Leba : MonoBehaviour
 {
+    private GameObject Pipe;
     // Start is called before the first frame update
     void Start()
     {
