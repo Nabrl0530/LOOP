@@ -32,9 +32,9 @@ public class Player_Move : MonoBehaviour
     void Start()
     {
         Camera= GameObject.Find("Main Camera").GetComponent<Camera>();
-        Pipe1 = GameObject.Find("PIPE_1_BASE");
-        Pipe2 = GameObject.Find("PIPE_2_BASE");
-        Pipe3 = GameObject.Find("PIPE_3_BASE");
+        Pipe1 = GameObject.Find("FloorOne");
+        Pipe2 = GameObject.Find("FloorTwo");
+        Pipe3 = GameObject.Find("FloorThree");
 
         // Rigidbody取得
         Rigid = this.GetComponent<Rigidbody>();
@@ -196,14 +196,14 @@ public class Player_Move : MonoBehaviour
             }
         }
 
-        Camera.Update_Auto();
+        //Camera.Update_Auto();
     }
 
     void FixedUpdate()
     {
         // カメラベクトル取得
-        Vector3 camera_front = Camera.transform.forward;
-        Vector3 camera_right = Camera.transform.right;
+        Vector3 camera_front = g_Camera.transform.forward;
+        Vector3 camera_right = g_Camera.transform.right;
 
         Vector3 direction_move = new Vector3(0, 0, 0);
 
