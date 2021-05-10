@@ -15,8 +15,7 @@ TagManager:
   - LEVER_BACK
   - MIRROR
   - FLOOR_NONE
-  - Block
-  - Stage
+  - CRISTAL
   layers:
   - Default
   - TransparentFX

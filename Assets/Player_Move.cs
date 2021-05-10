@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player_Move : MonoBehaviour
 {
     TOWER TOWER;
+    Leba leba;
+    leba_2 leba_2;
     Camera Camera;
     public GameObject g_Camera;
     float Speed_Move = 2.5f;
@@ -16,7 +18,8 @@ public class Player_Move : MonoBehaviour
     int NoComand;
 
     public bool HIT_TOWER;
-    bool HIT_LEVER;
+    public bool HIT_LEVER;
+    public bool HIT_LEVER2;
     bool HIT_LEVER_BACK;
 
     private Vector3 latestPos;  //前回のPosition
@@ -47,6 +50,9 @@ public class Player_Move : MonoBehaviour
 
         LOCK = false;
         NoComand = 0;
+
+        HIT_LEVER = false;
+        HIT_LEVER2 = false;
     }
 
     // Update is called once per frame
@@ -85,14 +91,14 @@ public class Player_Move : MonoBehaviour
         */
 
         //float len_sub = transform.position.x * transform.position.x;
-        len = Mathf.Sqrt(Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.z, 2)); 
-
-        if(len >= 4.5f)
+        len = Mathf.Sqrt(Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.z, 2));
+        //Debug.Log(len);
+        if(len >= 12.0f)
         {
             transform.SetParent(Pipe3.transform);
             Layer = 3;
         }
-        else if(len >= 3.0f)
+        else if(len >= 8.5f)
         {
             transform.SetParent(Pipe2.transform);
             Layer = 2;
@@ -158,6 +164,18 @@ public class Player_Move : MonoBehaviour
             {
                 TOWER.HoleMove_1();
             }
+
+            if(HIT_LEVER)
+            {
+                //Debug.Log("レバー操作");
+                leba.SpinL();
+            }
+
+            if (HIT_LEVER2)
+            {
+                //Debug.Log("レバー操作");
+                leba_2.SpinL();
+            }
         }
 
         //塔の操作穴２の移動
@@ -166,6 +184,18 @@ public class Player_Move : MonoBehaviour
             if (LOCK)
             {
                 TOWER.HoleMove_2();
+            }
+
+            if (HIT_LEVER)
+            {
+                //Debug.Log("レバー操作");
+                leba.SpinR();
+            }
+
+            if (HIT_LEVER2)
+            {
+                //Debug.Log("レバー操作");
+                leba_2.SpinR();
             }
         }
 
@@ -256,9 +286,19 @@ public class Player_Move : MonoBehaviour
         HIT_LEVER = true;
     }
 
+    public void SetHIT_LEVER2()
+    {
+        HIT_LEVER2 = true;
+    }
+
     public void ClearHIT_LEVER()
     {
         HIT_LEVER = false;
+    }
+
+    public void ClearHIT_LEVER2()
+    {
+        HIT_LEVER2 = false;
     }
 
     public void SetHIT_LEVER_BACK()
@@ -276,6 +316,17 @@ public class Player_Move : MonoBehaviour
         if (other.gameObject.CompareTag("TOWER"))
         {
             TOWER = other.GetComponent<TOWER>();
+        }
+
+        if(other.gameObject.CompareTag("LEVER"))
+        {
+            leba = other.GetComponent<Leba>();
+        }
+
+        if (other.gameObject.CompareTag("LEVER_BACK"))
+        {
+            Debug.Log("獲得");
+            leba_2 = other.GetComponent<leba_2>();
         }
     }
 }

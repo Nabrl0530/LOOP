@@ -41,8 +41,8 @@ public class beam_pre : MonoBehaviour
             //Debug.Log(hit.collider.gameObject.transform.position);
             //Pos_End = hit.collider.gameObject.transform.position;
             Pos_End = hit.point;
-            Debug.Log(hit.point);
-            Debug.Log(hit.collider.gameObject);
+            //Debug.Log(hit.point);
+            //Debug.Log(hit.collider.gameObject);
             if(hit.collider.CompareTag("Door"))
             {
                 hit.collider.gameObject.GetComponent<Door>().HitLaser();
@@ -50,16 +50,22 @@ public class beam_pre : MonoBehaviour
 
             if (hit.collider.CompareTag("HOLE"))
             {
-                Debug.Log("HIT_HOLE?");
+                //Debug.Log("HIT_HOLE?");
                 hit.collider.gameObject.GetComponent<TOWER_HOLE>().HitLaser();
             }
 
             if (hit.collider.CompareTag("MIRROR"))
             {
-                Debug.Log("HIT_MIRROR");
+                //Debug.Log("HIT_MIRROR");
                 hit.collider.gameObject.GetComponent<MIRROR>().SetBasepos(hit.point,Ditector);
 
                 hit.collider.gameObject.GetComponent<MIRROR>().HitLaser();
+            }
+
+            if (hit.collider.CompareTag("CRISTAL"))
+            {
+                //Debug.Log("クリスタル");
+                hit.collider.gameObject.GetComponent<CRISTAL>().HitCristal();
             }
 
         }
