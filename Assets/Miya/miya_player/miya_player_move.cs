@@ -14,8 +14,9 @@ public class miya_player_move : MonoBehaviour
 	[SerializeField] private float RotateSpeed				= 20.0f;
 	[SerializeField] private float Speed_Fall				= 4.0f;
 	[SerializeField] private float Speed_Climb				= 4.0f;
-	[SerializeField] private float Height_Climb				= 1.8f;
-	[SerializeField] private float GoLength_AfterClimbing	= 2.0f;
+	[SerializeField] private float Height_Climb_Block		= 2.3f;
+	[SerializeField] private float Height_Climb_Stage		= 0.75f;//1.8f;
+	[SerializeField] private float GoLength_AfterClimbing	= 0.5f;
 	[SerializeField] private float Rotate_Tolerance			= 0.1f;
 	[SerializeField] private float Camera_DistanceTolerance = 100;
 	private Vector3 Position_Latest_m;
@@ -59,7 +60,7 @@ public class miya_player_move : MonoBehaviour
 		// アクション可能
 		if (sc_state.Get_CanAction())
 		{
-			// 移動//カメラの外側の時に不自然だから直す
+			// 移動
 			{
 				// 入力
 				Vector3 direction_move = new Vector3(0, 0, 0);
@@ -87,6 +88,7 @@ public class miya_player_move : MonoBehaviour
 				}
 				else if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.HOVERING)
 				{
+					// 着地
 					sc_state.Set_AnimationState(miya_player_state.e_PlayerAnimationState.WAITING);
 				}
 
@@ -108,19 +110,55 @@ public class miya_player_move : MonoBehaviour
 		}//sc_state.Get_CanAction()
 		else
 		{
+			// ブロック押す
+			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.PUSH_PUSHING)
+			{
+				// 入力
+				Vector3 direction_move = new Vector3(0, 0, 0);
+				if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+				if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+				if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+				if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+				// 正規化
+				if (direction_move != new Vector3(0, 0, 0))
+				{
+					// Y方向を削除
+					direction_move.y = 0;
+					direction_move = direction_move.normalized;// * Time.deltaTime;
+				}
+
+				// 移動//進行方向にオブジェクトがあったら法線方向へ回転
+				Rigid.velocity = direction_move * Speed_Move * 0.5f;
+
+				// 回転
+				// 制御
+				difference.y = 0;
+				
+				if (difference.magnitude > Rotate_Tolerance * 0.5f)
+				{
+					// 回転計算
+					Quaternion rot = Quaternion.LookRotation(direction_move);
+					rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed * 0.5f);
+					this.transform.rotation = rot;
+				}//difference.magnitude > Rotate_Tolerance
+			}//ブロック押す
+
 			// よじ登る
 			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
 			{
-				// 前方に登れるオブジェクトがあれば
-				if (true)
+				// どっち
+
+				// ブロック
+				if (sc_state.Get_IsBlock())
 				{
-					if (this.transform.position.y < StartPosition.y + Height_Climb)
+					if (this.transform.position.y < StartPosition.y + Height_Climb_Block)
 					{
 						Rigid.velocity = new Vector3(0, Speed_Climb, 0);
 					}
 					else
 					{
-						Vector3 length = this.transform.position - StartPosition;
+						Vector3 length = this.transform.position - StartPosition; length.y = 0;
 						if (length.magnitude < GoLength_AfterClimbing && true)// 秒数を指定してバグを回避
 						{
 							Rigid.velocity = this.transform.forward;
@@ -130,6 +168,32 @@ public class miya_player_move : MonoBehaviour
 						{
 							sc_state.Set_CanAction(true);
 							Rigid.useGravity = true;
+
+							sc_state.Set_IsBlock(false);
+						}
+					}
+				}
+				// ステージ
+				if (sc_state.Get_IsStage())
+				{
+					if (this.transform.position.y < StartPosition.y + Height_Climb_Stage)
+					{
+						Rigid.velocity = new Vector3(0, Speed_Climb, 0);
+					}
+					else
+					{
+						Vector3 length = this.transform.position - StartPosition; length.y = 0;
+						if (length.magnitude < GoLength_AfterClimbing && true)// 秒数を指定してバグを回避
+						{
+							Rigid.velocity = this.transform.forward;
+						}
+						// 終了
+						else
+						{
+							sc_state.Set_CanAction(true);
+							Rigid.useGravity = true;
+
+							sc_state.Set_IsStage(false);
 						}
 					}
 				}
