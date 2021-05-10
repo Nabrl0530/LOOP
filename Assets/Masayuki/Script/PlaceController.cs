@@ -10,6 +10,7 @@ public class PlaceController : MonoBehaviour
         ONE,
         TWO,
         THREE,
+        NONE,
     }
 
     private enum HEIGHT_PRESET
@@ -127,9 +128,10 @@ public class PlaceController : MonoBehaviour
 
         this.gameObject.transform.position = my_pos;
 
-        if(m_adjust_place_angle_and_rotation)
+        if (m_adjust_place_angle_and_rotation)
         {
-            this.gameObject.transform.rotation = Quaternion.Euler(m_offset_rotation.x,m_offset_rotation.y + m_place_angle, m_offset_rotation.z);
+            Vector3 parent_rot = this.gameObject.transform.parent.rotation.eulerAngles;
+            this.gameObject.transform.rotation = Quaternion.Euler(parent_rot.x + m_offset_rotation.x, parent_rot.y + m_offset_rotation.y + m_place_angle, parent_rot.z + m_offset_rotation.z);
         }
     }
 
@@ -144,20 +146,20 @@ public class PlaceController : MonoBehaviour
 
     private void Adjust_Height(float height)
     {
-        if(height <= 0)
+        if (height <= 0)
         {
             return;
         }
         Snap(0.0f, 9.0f, height, ref m_height);
     }
 
-    private void Snap(float initial,float finish,float add,ref float target)
+    private void Snap(float initial, float finish, float add, ref float target)
     {
-        for(float i = initial; i < finish; i += add)
+        for (float i = initial; i < finish; i += add)
         {
-            if(i < target && target <= i + add)
+            if (i < target && target <= i + add)
             {
-                target = i + add ;
+                target = i + add;
             }
         }
     }
@@ -191,6 +193,15 @@ public class PlaceController : MonoBehaviour
             if (m_use_default_distance)
             {
                 m_distance = 14.56f;
+            }
+        }
+        else
+            if (m_floor_number == FLOOR_NUMBER.NONE)
+        {
+            parent_pipe = GameObject.FindGameObjectWithTag("FLOOR_NONE");
+            if (m_use_default_distance)
+            {
+                m_distance = 0.0f;
             }
         }
 
