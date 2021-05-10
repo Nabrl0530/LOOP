@@ -63,6 +63,10 @@ public class beam_pre : MonoBehaviour
             }
 
         }
+        else
+        {
+            Pos_End = transform.position + Ditector * 30;
+        }
 
         DoorController.CollideWithRayOpenDoor(Pos_base, Ditector);
 
