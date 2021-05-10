@@ -6,6 +6,7 @@ public class Player_Move : MonoBehaviour
 {
     TOWER TOWER;
     Leba leba;
+    leba_2 leba_2;
     Camera Camera;
     public GameObject g_Camera;
     float Speed_Move = 2.5f;
@@ -17,7 +18,8 @@ public class Player_Move : MonoBehaviour
     int NoComand;
 
     public bool HIT_TOWER;
-    bool HIT_LEVER;
+    public bool HIT_LEVER;
+    public bool HIT_LEVER2;
     bool HIT_LEVER_BACK;
 
     private Vector3 latestPos;  //前回のPosition
@@ -48,6 +50,9 @@ public class Player_Move : MonoBehaviour
 
         LOCK = false;
         NoComand = 0;
+
+        HIT_LEVER = false;
+        HIT_LEVER2 = false;
     }
 
     // Update is called once per frame
@@ -162,8 +167,14 @@ public class Player_Move : MonoBehaviour
 
             if(HIT_LEVER)
             {
-                Debug.Log("レバー操作");
+                //Debug.Log("レバー操作");
                 leba.SpinL();
+            }
+
+            if (HIT_LEVER2)
+            {
+                //Debug.Log("レバー操作");
+                leba_2.SpinL();
             }
         }
 
@@ -177,8 +188,14 @@ public class Player_Move : MonoBehaviour
 
             if (HIT_LEVER)
             {
-                Debug.Log("レバー操作");
+                //Debug.Log("レバー操作");
                 leba.SpinR();
+            }
+
+            if (HIT_LEVER2)
+            {
+                //Debug.Log("レバー操作");
+                leba_2.SpinR();
             }
         }
 
@@ -269,9 +286,19 @@ public class Player_Move : MonoBehaviour
         HIT_LEVER = true;
     }
 
+    public void SetHIT_LEVER2()
+    {
+        HIT_LEVER2 = true;
+    }
+
     public void ClearHIT_LEVER()
     {
         HIT_LEVER = false;
+    }
+
+    public void ClearHIT_LEVER2()
+    {
+        HIT_LEVER2 = false;
     }
 
     public void SetHIT_LEVER_BACK()
@@ -294,6 +321,12 @@ public class Player_Move : MonoBehaviour
         if(other.gameObject.CompareTag("LEVER"))
         {
             leba = other.GetComponent<Leba>();
+        }
+
+        if (other.gameObject.CompareTag("LEVER_BACK"))
+        {
+            Debug.Log("獲得");
+            leba_2 = other.GetComponent<leba_2>();
         }
     }
 }
