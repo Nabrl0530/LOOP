@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Move : MonoBehaviour
 {
     TOWER TOWER;
+    Leba leba;
     Camera Camera;
     public GameObject g_Camera;
     float Speed_Move = 2.5f;
@@ -85,14 +86,14 @@ public class Player_Move : MonoBehaviour
         */
 
         //float len_sub = transform.position.x * transform.position.x;
-        len = Mathf.Sqrt(Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.z, 2)); 
-
-        if(len >= 4.5f)
+        len = Mathf.Sqrt(Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.z, 2));
+        //Debug.Log(len);
+        if(len >= 12.0f)
         {
             transform.SetParent(Pipe3.transform);
             Layer = 3;
         }
-        else if(len >= 3.0f)
+        else if(len >= 8.5f)
         {
             transform.SetParent(Pipe2.transform);
             Layer = 2;
@@ -158,6 +159,12 @@ public class Player_Move : MonoBehaviour
             {
                 TOWER.HoleMove_1();
             }
+
+            if(HIT_LEVER)
+            {
+                Debug.Log("レバー操作");
+                leba.SpinL();
+            }
         }
 
         //塔の操作穴２の移動
@@ -166,6 +173,12 @@ public class Player_Move : MonoBehaviour
             if (LOCK)
             {
                 TOWER.HoleMove_2();
+            }
+
+            if (HIT_LEVER)
+            {
+                Debug.Log("レバー操作");
+                leba.SpinR();
             }
         }
 
@@ -276,6 +289,11 @@ public class Player_Move : MonoBehaviour
         if (other.gameObject.CompareTag("TOWER"))
         {
             TOWER = other.GetComponent<TOWER>();
+        }
+
+        if(other.gameObject.CompareTag("LEVER"))
+        {
+            leba = other.GetComponent<Leba>();
         }
     }
 }
