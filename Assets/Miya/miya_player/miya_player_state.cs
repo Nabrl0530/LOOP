@@ -6,6 +6,8 @@ public class miya_player_state : MonoBehaviour
 {
 	// 参照
 	public miya_player_move sc_move;
+	public miya_forword		sc_forword;
+	public miya_check		sc_check;
 
 	// 列挙
 	public enum e_PlayerAnimationState
@@ -25,11 +27,14 @@ public class miya_player_state : MonoBehaviour
 		HOVERING,		// 空中
 		LANDING,		// 着地
 	}
+
 	// 変数
 	Rigidbody Rigid;
 	int		m_AnimationState	= (int)e_PlayerAnimationState.WAITING;
 	bool	m_CanAction			= true;
 	//bool	m_IsClockwise		= true;
+	bool	m_CanClimb_forword	= false;
+	bool	m_CanClimb_check	= false;
 	// デバッグ用
 	int state_past = (int)e_PlayerAnimationState.WAITING;
 
@@ -64,16 +69,20 @@ public class miya_player_state : MonoBehaviour
 			)
 				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
 
+			// デバッグ
+			Debug.Log("F : " + m_CanClimb_forword);
+			Debug.Log("C : " + m_CanClimb_check);
+
 			// よじ登る
 			if (Input.GetKey(KeyCode.Space))
 			{
 				// 登れるものがあれば
-				if (true)
+				if (m_CanClimb_forword && !m_CanClimb_check)
 				{
-					m_AnimationState = (int)e_PlayerAnimationState.CLIMBING;
-					m_CanAction = false;
+					m_AnimationState	= (int)e_PlayerAnimationState.CLIMBING;
+					m_CanAction			= false;
 
-					Rigid.useGravity = false;
+					Rigid.useGravity	= false;
 
 					sc_move.Set_StartPosition(this.transform.position);
 				}
@@ -119,6 +128,14 @@ public class miya_player_state : MonoBehaviour
 	public void Set_AnimationState(e_PlayerAnimationState _state)
 	{
 		m_AnimationState = (int)_state;
+	}
+	public void Set_CanClimb_Forword(bool _can)
+	{
+		m_CanClimb_forword = _can;
+	}
+	public void Set_CanClimb_Check(bool _can)
+	{
+		m_CanClimb_check = _can;
 	}
 
 	public int Get_AnimationState()
