@@ -129,7 +129,8 @@ public class PlaceController : MonoBehaviour
 
         if(m_adjust_place_angle_and_rotation)
         {
-            this.gameObject.transform.rotation = Quaternion.Euler(m_offset_rotation.x,m_offset_rotation.y + m_place_angle, m_offset_rotation.z);
+            Vector3 parent_rot = this.gameObject.transform.parent.rotation.eulerAngles;
+            this.gameObject.transform.rotation = Quaternion.Euler(parent_rot.x + m_offset_rotation.x,parent_rot.y + m_offset_rotation.y + m_place_angle,parent_rot.z + m_offset_rotation.z);
         }
     }
 
