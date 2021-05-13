@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class miya_forword : MonoBehaviour
+public class yb_forword : MonoBehaviour
 {
 	// éQè∆
-	public miya_player_state	sc_state;
-	public miya_player_move		sc_move;
+	public yb_player_state sc_state;
+	public yb_player_move sc_move;
 
 	// ïœêî
 	GameObject m_Block = null;
@@ -25,15 +25,14 @@ public class miya_forword : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
+		sc_state.Set_CanClimb_Forword(true);
 		if (other.gameObject.tag == "Block")
 		{
-			sc_state.Set_CanClimb_Forword(true);
 			sc_state.Set_IsBlock(true);
 			m_Block = other.gameObject;
 		}
 		if (other.gameObject.tag == "Stage")
 		{
-			sc_state.Set_CanClimb_Forword(true);
 			sc_state.Set_IsStage(true);
 		}
 	}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class miya_player_move : MonoBehaviour
+public class miya_player_move_copy : MonoBehaviour
 {
 	// 参照
 	public miya_player_state sc_state;
@@ -25,10 +25,9 @@ public class miya_player_move : MonoBehaviour
 	private bool is_block = false;
 	private bool is_stage = false;
 
-
-	// 初期化
+	// Start is called before the first frame update
 	void Start()
-	{
+    {
 		// Rigidbody取得
 		Rigid = this.GetComponent<Rigidbody>();
 		// 過去の位置
@@ -37,6 +36,8 @@ public class miya_player_move : MonoBehaviour
 		// カメラ未設定時
 		if (!Camera) Debug.Log("【miya_player_move】there is no camera");
 	}
+
+
 
 	// 定期更新
 	void FixedUpdate()
