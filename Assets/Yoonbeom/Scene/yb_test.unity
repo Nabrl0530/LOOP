@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 88660477}
   - component: {fileID: 88660476}
   m_Layer: 0
-  m_Name: miya_camera_player
+  m_Name: yb_camera_player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12026,7 +12026,7 @@ GameObject:
   - component: {fileID: 320029254}
   - component: {fileID: 320029256}
   m_Layer: 0
-  m_Name: miya_camera_default
+  m_Name: yb_camera_default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12074,7 +12074,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320029253}
-  m_LocalRotation: {x: 0.10374477, y: -0.000000017640222, z: 0.0000000018400093, w: 0.994604}
+  m_LocalRotation: {x: 0.10374477, y: 0.000000017640232, z: -0.0000000018400104, w: 0.994604}
   m_LocalPosition: {x: 0, y: 9.222, z: -16.737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -23824,7 +23824,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.10374477, y: -0.000000017640222, z: 0.0000000018400093, w: 0.994604}
+  m_LocalRotation: {x: 0.10374477, y: 0.000000017640232, z: -0.0000000018400104, w: 0.994604}
   m_LocalPosition: {x: 0, y: 9.222, z: -16.737}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -72896,10 +72896,12 @@ GameObject:
   - component: {fileID: 1728770945}
   - component: {fileID: 1728770944}
   - component: {fileID: 1728770946}
+  - component: {fileID: 1728770947}
+  - component: {fileID: 1728770948}
   - component: {fileID: 1728770943}
   - component: {fileID: 1728770939}
   m_Layer: 0
-  m_Name: miya_player
+  m_Name: yb_player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72912,7 +72914,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728770938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ebcdda5fec343d441bdd87b9c8725797, type: 3}
   m_Name: 
@@ -72992,7 +72994,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1728770938}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82934855e39895d45a1c80f41c2e8c7d, type: 3}
   m_Name: 
@@ -73055,6 +73057,48 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1728770947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728770938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4270f840cefc07e48b219acaa149f144, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sc_state: {fileID: 1728770948}
+  Camera: {fileID: 320029253}
+  Speed_Move: 8
+  RotateSpeed: 20
+  Speed_Fall: 4
+  Speed_Climb: 4
+  Height_Climb_Block: 2.3
+  Height_Climb_Stage: 0.75
+  GoLength_AfterClimbing: 0.5
+  Rotate_Tolerance: 0.1
+  Camera_DistanceTolerance: 100
+  UseMenu: 0
+  Image_MenuWindow: {fileID: 0}
+  Image_PanelWindow: {fileID: 0}
+  WaitCount: 0
+--- !u!114 &1728770948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728770938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53bc78a1879297e478a0a84e1f35cf10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sc_move: {fileID: 1728770947}
+  sc_forword: {fileID: 0}
+  sc_check: {fileID: 0}
 --- !u!1 &1749514478 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6113215942076138567, guid: 531ea1568fdf0984f9ce8904627dc834,
@@ -73809,7 +73853,7 @@ PrefabInstance:
     - target: {fileID: 1689206241855656142, guid: 7f1781b9e397efc478393d9030d4b822,
         type: 3}
       propertyPath: m_Name
-      value: miya_Point Light
+      value: yb_Point Light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f1781b9e397efc478393d9030d4b822, type: 3}
@@ -73878,7 +73922,7 @@ PrefabInstance:
     - target: {fileID: 4280675490810346791, guid: 7f8a053360084c3458d1416083505459,
         type: 3}
       propertyPath: m_Name
-      value: miya_Plane
+      value: yb_Plane
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8a053360084c3458d1416083505459, type: 3}
@@ -73947,7 +73991,7 @@ PrefabInstance:
     - target: {fileID: 6868641622143356751, guid: 645a20e0c2bebce4384b186e8574aaff,
         type: 3}
       propertyPath: m_Name
-      value: miya_Spot Light
+      value: yb_Spot Light
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 645a20e0c2bebce4384b186e8574aaff, type: 3}

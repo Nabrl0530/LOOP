@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class miya_player_move : MonoBehaviour
+public class yb_player_move : MonoBehaviour
 {
     // 参照
-    public miya_player_state sc_state;
+    public yb_player_state sc_state;
 
 	// 変数
 	Rigidbody Rigid;
@@ -24,7 +24,22 @@ public class miya_player_move : MonoBehaviour
 
 	private bool is_block = false;
 	private bool is_stage = false;
-    
+
+
+    /// <ユンボム追加>
+     
+    //メニュー画面をon,offを管理する変数
+    public bool UseMenu = false;
+
+    //メニュー画面ののイメージオブジェクト
+    [SerializeField]
+    public GameObject Image_MenuWindow;
+    //メニュー画面以外を半透明にするパンネルオブジェクト
+    [SerializeField]
+    public GameObject Image_PanelWindow;
+    //カーソルの移動の待機時間
+    public int WaitCount = 0;
+
 
     // 初期化
     void Start()
@@ -82,7 +97,26 @@ public class miya_player_move : MonoBehaviour
 			if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
 			if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
 
-           
+            /// <ユンボム追加>
+
+            WaitCount--;
+            if(Input.GetKey(KeyCode.P) && !UseMenu && WaitCount < 0)
+            {
+                UseMenu = true;
+                Image_PanelWindow.SetActive(true);
+                Image_MenuWindow.SetActive(true);
+                WaitCount = 30;
+            }
+            if (Input.GetKey(KeyCode.P) && UseMenu && WaitCount < 0)
+            {
+                UseMenu = false;
+                Image_PanelWindow.SetActive(false);
+                Image_MenuWindow.SetActive(false);
+                WaitCount = 30;
+            }
+
+            /// <ユンボム追加>
+
 
             // 正規化
             if (direction_move != new Vector3(0, 0, 0))
@@ -97,6 +131,7 @@ public class miya_player_move : MonoBehaviour
 				if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
 
 			// 移動
+            if(!UseMenu)　//ユンボム追加
 			Rigid.velocity = direction_move;
 				// 正規化
 				if (direction_move != new Vector3(0, 0, 0))
@@ -112,17 +147,17 @@ public class miya_player_move : MonoBehaviour
 				// 落下
 				if (difference.y < -0.003f)
 				{
-					sc_state.Set_AnimationState(miya_player_state.e_PlayerAnimationState.HOVERING);
+					sc_state.Set_AnimationState(yb_player_state.e_PlayerAnimationState.HOVERING);
 					Rigid.velocity = new Vector3(direction_move.x, -Speed_Fall, direction_move.z);
 				}
-				else if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.HOVERING)
+				else if (sc_state.Get_AnimationState() == (int)yb_player_state.e_PlayerAnimationState.HOVERING)
 				{
 					// 着地
-					sc_state.Set_AnimationState(miya_player_state.e_PlayerAnimationState.WAITING);
+					sc_state.Set_AnimationState(yb_player_state.e_PlayerAnimationState.WAITING);
 				}
 
 				// 回転
-				if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING)
+				if (sc_state.Get_AnimationState() == (int)yb_player_state.e_PlayerAnimationState.WALKING)
 				{
 					// 制御
 					difference.y = 0;
@@ -140,7 +175,7 @@ public class miya_player_move : MonoBehaviour
 		else
 		{
 			// ブロック押す
-			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.PUSH_PUSHING)
+			if (sc_state.Get_AnimationState() == (int)yb_player_state.e_PlayerAnimationState.PUSH_PUSHING)
 			{
 				// 入力
 				Vector3 direction_move = new Vector3(0, 0, 0);
@@ -174,7 +209,7 @@ public class miya_player_move : MonoBehaviour
 			}//ブロック押す
 			
 			// よじ登る
-			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
+			if (sc_state.Get_AnimationState() == (int)yb_player_state.e_PlayerAnimationState.CLIMBING)
 			{
 				// ブロック
 				if (is_block)
@@ -203,6 +238,7 @@ public class miya_player_move : MonoBehaviour
 				// ステージ
 				if (is_stage)
 				{
+					
 					if (this.transform.position.y < StartPosition.y + Height_Climb_Stage)
 					{
 						Rigid.velocity = new Vector3(0, Speed_Climb, 0);
