@@ -8,6 +8,14 @@ TagManager:
   - ONE
   - TWO
   - THREE
+  - HOLE
+  - RayColliderDoor
+  - TOWER
+  - LEVER
+  - LEVER_BACK
+  - MIRROR
+  - FLOOR_NONE
+  - CRISTAL
   layers:
   - Default
   - TransparentFX
