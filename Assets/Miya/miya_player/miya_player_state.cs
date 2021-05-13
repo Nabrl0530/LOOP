@@ -1,3 +1,5 @@
+// ギミック操作時キャンセル待ちに
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +14,8 @@ public class miya_player_state : MonoBehaviour
 	// 列挙
 	public enum e_PlayerAnimationState
 	{
-		WAITING,		// 待機
+		WAITING,        // 待機
+		WAITING_TOWER,	// タワー操作
 		WALKING,		// 歩き
 		ABANDONED,		// 放置
 		RUNNING,		// 走る
@@ -142,8 +145,7 @@ public class miya_player_state : MonoBehaviour
 				m_AnimationState == (int)e_PlayerAnimationState.PULL_WAITING ||
 				m_AnimationState == (int)e_PlayerAnimationState.PULL_PULLING ||
 				m_AnimationState == (int)e_PlayerAnimationState.LEVER_WAITING ||
-				m_AnimationState == (int)e_PlayerAnimationState.LEVER_RIGHT ||
-				m_AnimationState == (int)e_PlayerAnimationState.LEVER_LEFT
+				m_AnimationState == (int)e_PlayerAnimationState.LEVER_RIGHT
 			)
 			{
 				m_AnimationState = (int)e_PlayerAnimationState.WAITING;
