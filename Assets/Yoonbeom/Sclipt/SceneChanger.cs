@@ -28,7 +28,6 @@ public class SceneChanger : MonoBehaviour
         if(Input.GetKey(KeyCode.Return))
         {
             OutStartFadeAnim();
-
         }
 
         if (ClearFade)

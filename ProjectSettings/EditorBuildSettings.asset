@@ -6,15 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Harada/Stage.unity
-    guid: 0c220e62c3031bc4e859b36d1cdae7cd
-  - enabled: 0
     path: Assets/Yoonbeom/Scene/yb_MainScene.unity
     guid: b6bf848fb0f75f1498bcb420123bfe39
-  - enabled: 0
-    path: Assets/Yoonbeom/Scene/yb_Stage1.unity
-    guid: ae90ccc278f26a040ab20518ace1529b
   - enabled: 1
-    path: Assets/Masayuki/GameClear.unity
-    guid: 842d4f76d9f6a844cacc1f3b24c69fdf
+    path: Assets/Yoonbeom/Scene/yb_ChoiceScene.unity
+    guid: 1d48dc1180560304a9e4d057cde1fe2c
+  - enabled: 1
+    path: Assets/Yoonbeom/Scene/yb_test.unity
+    guid: 263de6cef7373b544a891dd7375f0b09
   m_configObjects: {}
