@@ -53,6 +53,17 @@ public class miya_player_state : MonoBehaviour
 	// 更新
 	void Update()
 	{
+		// 別のスクリプトとの差分
+		if
+		(
+			m_AnimationState == (int)e_PlayerAnimationState.LEVER_WAITING	||
+			m_AnimationState == (int)e_PlayerAnimationState.LEVER_RIGHT		||
+			m_AnimationState == (int)e_PlayerAnimationState.LEVER_LEFT
+		)
+		{
+			
+		}
+
 		// デバッグ
 		if (state_past != m_AnimationState)
 		{

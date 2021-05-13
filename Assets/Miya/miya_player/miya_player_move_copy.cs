@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class miya_player_move : MonoBehaviour
+public class miya_player_move_copy : MonoBehaviour
 {
 	// 参照
 	public miya_player_state sc_state;
@@ -10,14 +10,14 @@ public class miya_player_move : MonoBehaviour
 	// 変数
 	Rigidbody Rigid;
 	[SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
-	[SerializeField] private float Speed_Move				= 8.0f;
-	[SerializeField] private float RotateSpeed				= 20.0f;
-	[SerializeField] private float Speed_Fall				= 4.0f;
-	[SerializeField] private float Speed_Climb				= 4.0f;
-	[SerializeField] private float Height_Climb_Block		= 2.3f;
-	[SerializeField] private float Height_Climb_Stage		= 0.75f;//1.8f;
-	[SerializeField] private float GoLength_AfterClimbing	= 0.5f;
-	[SerializeField] private float Rotate_Tolerance			= 0.1f;
+	[SerializeField] private float Speed_Move = 8.0f;
+	[SerializeField] private float RotateSpeed = 20.0f;
+	[SerializeField] private float Speed_Fall = 4.0f;
+	[SerializeField] private float Speed_Climb = 4.0f;
+	[SerializeField] private float Height_Climb_Block = 2.3f;
+	[SerializeField] private float Height_Climb_Stage = 0.75f;//1.8f;
+	[SerializeField] private float GoLength_AfterClimbing = 0.5f;
+	[SerializeField] private float Rotate_Tolerance = 0.1f;
 	[SerializeField] private float Camera_DistanceTolerance = 100;
 	private Vector3 Position_Latest_m;
 	private Vector3 StartPosition = new Vector3(0, 0, 0);
@@ -25,17 +25,19 @@ public class miya_player_move : MonoBehaviour
 	private bool is_block = false;
 	private bool is_stage = false;
 
-	// 初期化
+	// Start is called before the first frame update
 	void Start()
-	{
+    {
 		// Rigidbody取得
 		Rigid = this.GetComponent<Rigidbody>();
 		// 過去の位置
 		Position_Latest_m = this.transform.position;
 
 		// カメラ未設定時
-		if ( !Camera ) Debug.Log("【miya_player_move】there is no camera");
+		if (!Camera) Debug.Log("【miya_player_move】there is no camera");
 	}
+
+
 
 	// 定期更新
 	void FixedUpdate()
@@ -93,7 +95,7 @@ public class miya_player_move : MonoBehaviour
 
 				// 移動//進行方向にオブジェクトがあったら法線方向へ回転
 				Rigid.velocity = direction_move * Speed_Move;
-				
+
 				// 落下
 				if (difference.y < -0.003f)
 				{
@@ -148,7 +150,7 @@ public class miya_player_move : MonoBehaviour
 				// 回転
 				// 制御
 				difference.y = 0;
-				
+
 				if (difference.magnitude > Rotate_Tolerance * 0.5f)
 				{
 					// 回転計算
@@ -157,7 +159,7 @@ public class miya_player_move : MonoBehaviour
 					this.transform.rotation = rot;
 				}//difference.magnitude > Rotate_Tolerance
 			}//ブロック押す
-			
+
 			// よじ登る
 			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
 			{
