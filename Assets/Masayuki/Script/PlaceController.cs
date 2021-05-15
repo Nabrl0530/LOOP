@@ -31,6 +31,11 @@ public class PlaceController : MonoBehaviour
     private float m_place_angle = 0.0f;
 
     [SerializeField]
+    [Tooltip("何度の位置に配置するかの補正値")]
+    [Range(0.0f, 360.0f)]
+    private float m_offset_place_angle = 0.0f;
+
+    [SerializeField]
     [Tooltip("配置時のスナップ")]
     private float m_snap_angle = 45.0f;
 
@@ -99,6 +104,8 @@ public class PlaceController : MonoBehaviour
         Vector3 target_vec = parent_pipe.transform.forward;
 
         Vector3 result_vec = Quaternion.AngleAxis(m_place_angle, my_transform.up) * target_vec;
+        result_vec = Quaternion.AngleAxis(m_offset_place_angle, my_transform.up) * result_vec;
+
 
         my_pos.x = result_vec.x * m_distance;
         my_pos.y = result_vec.y * m_distance;
