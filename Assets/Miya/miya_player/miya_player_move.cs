@@ -25,6 +25,11 @@ public class miya_player_move : MonoBehaviour
 	private bool is_block = false;
 	private bool is_stage = false;
 
+	private int Frame_Climb_m = 0;
+	[SerializeField] private float SECOND_FOR_CLEAR_BUG = 1.0f;
+
+	bool IsUnder_m = false;
+
 
 	// 初期化
 	void Start()
@@ -36,11 +41,16 @@ public class miya_player_move : MonoBehaviour
 
 		// カメラ未設定時
 		if (!Camera) Debug.Log("【miya_player_move】there is no camera");
+
+		// 初期化
+		IsUnder_m = false;
 	}
 
 	// 定期更新
 	void FixedUpdate()
 	{
+		if ( IsUnder_m ) Rigid.AddForce(new Vector3(0, 0.1f, 0));
+
 		// 情報
 		Vector3 difference = this.transform.position - Position_Latest_m;
 		Position_Latest_m = this.transform.position;
@@ -172,7 +182,7 @@ public class miya_player_move : MonoBehaviour
 					else
 					{
 						Vector3 length = this.transform.position - StartPosition; length.y = 0;
-						if (length.magnitude < GoLength_AfterClimbing && true)// 秒数を指定してバグを回避
+						if (length.magnitude < GoLength_AfterClimbing && Frame_Climb_m < SECOND_FOR_CLEAR_BUG * 50)
 						{
 							Rigid.velocity = this.transform.forward;
 						}
@@ -183,7 +193,11 @@ public class miya_player_move : MonoBehaviour
 							Rigid.useGravity = true;
 
 							sc_state.Set_IsBlock(false);
+
+							Frame_Climb_m = 0;
 						}
+						
+						Frame_Climb_m++;
 					}
 				}
 				// ステージ
@@ -196,7 +210,7 @@ public class miya_player_move : MonoBehaviour
 					else
 					{
 						Vector3 length = this.transform.position - StartPosition; length.y = 0;
-						if (length.magnitude < GoLength_AfterClimbing && true)// 秒数を指定してバグを回避
+						if (length.magnitude < GoLength_AfterClimbing && Frame_Climb_m < SECOND_FOR_CLEAR_BUG * 50)
 						{
 							Rigid.velocity = this.transform.forward;
 						}
@@ -207,7 +221,11 @@ public class miya_player_move : MonoBehaviour
 							Rigid.useGravity = true;
 
 							sc_state.Set_IsStage(false);
+
+							Frame_Climb_m = 0;
 						}
+
+						Frame_Climb_m++;
 					}
 				}
 			}
@@ -217,6 +235,11 @@ public class miya_player_move : MonoBehaviour
 	public void Set_StartPosition(Vector3 _start)
 	{
 		StartPosition = _start;
+	}
+
+	public void Set_IsUnder(bool _is)
+	{
+		IsUnder_m = _is;
 	}
 
 	////オブジェクトが触れている間
