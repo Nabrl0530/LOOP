@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     GameObject Pipe3;
     bool LOCK;  //è“®‘€ì‹Ö~ó‘Ô
     int NoComand;
+    public float len;  //’·‚³
 
     public bool HIT_TOWER;
     public bool HIT_LEVER;
@@ -49,6 +50,28 @@ public class Player : MonoBehaviour
 
         // ƒJƒƒ‰–¢İ’è
         if (!Camera) Debug.Log("ymiya_player_movezthere is no camera");
+
+        Pipe1 = GameObject.Find("FloorOne");
+        Pipe2 = GameObject.Find("FloorTwo");
+        Pipe3 = GameObject.Find("FloorThree");
+    }
+
+    void Update()
+    {
+        len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
+        //Debug.Log(len);
+        if (len >= 12.0f)
+        {
+            transform.SetParent(Pipe3.transform);
+        }
+        else if (len >= 8.5f)
+        {
+            transform.SetParent(Pipe2.transform);
+        }
+        else
+        {
+            transform.SetParent(Pipe1.transform);
+        }
     }
 
     // ’èŠúXV
