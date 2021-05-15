@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class memo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+ 
+	/*
+	 * ƒJƒƒ‰‚ÌƒY[ƒ€
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	*/
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
