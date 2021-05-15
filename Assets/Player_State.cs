@@ -39,8 +39,8 @@ public class Player_State : MonoBehaviour
     private bool IsStage = false;
 
     //俺が追加
-    public bool IsLever = false;
-    public bool IsTower = false;
+    private bool IsLever = false;
+    private bool IsTower = false;
 
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -96,7 +96,7 @@ public class Player_State : MonoBehaviour
             }
 
             // 作動
-            if (Input.GetKey(KeyCode.J))// Aボダン
+            if (Input.GetKey(KeyCode.J))// Aボタン
             {
                 // 対象によってステート変更
                 // ブロック
@@ -111,6 +111,16 @@ public class Player_State : MonoBehaviour
                 if(IsLever)
                 {
                     sc_move.UseLever();
+                }
+            }
+
+            if (Input.GetKey(KeyCode.I))// Xボタン
+            {
+                // 対象によってステート変更
+
+                if (IsLever)
+                {
+                    sc_move.UseLever_inv();
                 }
             }
 

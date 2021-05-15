@@ -4497,6 +4497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc_state: {fileID: 1703755029}
+  HIT_TOWER: 0
+  HIT_LEVER: 0
+  HIT_LEVER2: 0
   Camera: {fileID: 973384606}
   Speed_Move: 8
   RotateSpeed: 10
@@ -4507,6 +4510,8 @@ MonoBehaviour:
   GoLength_AfterClimbing: 0.5
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
+  is_block: 0
+  is_stage: 0
 --- !u!114 &1703755029
 MonoBehaviour:
   m_ObjectHideFlags: 0

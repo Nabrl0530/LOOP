@@ -36,8 +36,8 @@ public class Player : MonoBehaviour
     private Vector3 Position_Latest_m;
     private Vector3 StartPosition = new Vector3(0, 0, 0);
 
-    private bool is_block = false;
-    private bool is_stage = false;
+    public bool is_block = false;
+    public bool is_stage = false;
 
     // 初期化
     void Start()
@@ -114,14 +114,14 @@ public class Player : MonoBehaviour
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.HOVERING);
                     Rigid.velocity = new Vector3(direction_move.x, -Speed_Fall, direction_move.z);
                 }
-                else if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.HOVERING)
+                else if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.HOVERING)
                 {
                     // 着地
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
                 }
 
                 // 回転
-                if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING)
+                if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WALKING)
                 {
                     // 制御
                     difference.y = 0;
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         else
         {
             // ブロック押す
-            if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.PUSH_PUSHING)
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_PUSHING)
             {
                 // 入力
                 Vector3 direction_move = new Vector3(0, 0, 0);
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
             }//ブロック押す
 
             // よじ登る
-            if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.CLIMBING)
             {
                 // ブロック
                 if (is_block)
@@ -297,6 +297,19 @@ public class Player : MonoBehaviour
         if (HIT_LEVER2)
         {
             leba_2.SpinL();
+        }
+    }
+
+    public void UseLever_inv()
+    {
+        if (HIT_LEVER)
+        {
+            leba.SpinR();
+        }
+
+        if (HIT_LEVER2)
+        {
+            leba_2.SpinR();
         }
     }
     
