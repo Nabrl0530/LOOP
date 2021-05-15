@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 29766589}
   - component: {fileID: 29766591}
   - component: {fileID: 29766590}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HIT
   m_TagString: LEVER_BACK
   m_Icon: {fileID: 0}
@@ -652,6 +652,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 1
   m_place_angle: 135
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
@@ -856,6 +857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 0
   m_place_angle: 90
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 180, z: 0}
@@ -1259,6 +1261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 3
   m_place_angle: 135
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
@@ -2723,6 +2726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 1
   m_place_angle: 45
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 180, z: 0}
@@ -2995,7 +2999,7 @@ GameObject:
   - component: {fileID: 1209026342}
   - component: {fileID: 1209026344}
   - component: {fileID: 1209026343}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HIT
   m_TagString: LEVER
   m_Icon: {fileID: 0}
@@ -3182,6 +3186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 3
   m_place_angle: 315
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
@@ -3494,6 +3499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 0
   m_place_angle: 0
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
@@ -3703,17 +3709,17 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.10375522
+      value: 0.1037552
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000014335243
+      value: 0.000000025393067
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000014954272
+      value: -0.0000000026489593
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -4441,7 +4447,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9d647e5633ccd1d4595205d7c9fb0fb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4976,7 +4982,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.10375522, y: -0.000000014335243, z: 0.0000000014954272, w: 0.99460286}
+  m_LocalRotation: {x: 0.1037552, y: 0.000000025393067, z: -0.0000000026489593, w: 0.99460286}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5226,6 +5232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 3
   m_place_angle: 135
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
@@ -5957,6 +5964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_floor_number: 3
   m_place_angle: 315
+  m_offset_place_angle: 0
   m_snap_angle: 45
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
