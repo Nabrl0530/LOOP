@@ -67,7 +67,7 @@ public class miya_camera_move : MonoBehaviour
 		else
 		{
 			// ’‹“_
-			Vector3 new_pos = new Vector3(0, Height_Default, 0);
+			Vector3 new_pos = new Vector3(0, 5.692f, 0);
 			GazePoint.transform.position = new_pos;
 
 			// ˆÚ“®
