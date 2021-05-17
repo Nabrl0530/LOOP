@@ -5366,17 +5366,17 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1037552
+      value: 0.10375522
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000025393067
+      value: -0.000000014335245
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000026489593
+      value: 0.0000000014954274
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -5398,6 +5398,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: miya_camera_default
       objectReference: {fileID: 0}
+    - target: {fileID: 3099816323204661774, guid: 8fdb477176ff6f24d8987575bb61ad58,
+        type: 3}
+      propertyPath: GazePoint
+      value: 
+      objectReference: {fileID: 58269599}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8fdb477176ff6f24d8987575bb61ad58, type: 3}
 --- !u!1001 &1588618962
@@ -6093,13 +6098,11 @@ MonoBehaviour:
   Speed_Move: 8
   RotateSpeed: 10
   Speed_Fall: 4
-  Speed_Climb: 4
   Height_Climb_Block: 2.7
-  Height_Climb_Stage: 1.5
   GoLength_AfterClimbing: 0.5
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
-  SECOND_FOR_CLEAR_BUG: 1
+  m_Second_Climb: 3
 --- !u!136 &1703755022
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6729,7 +6732,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.1037552, y: 0.000000025393067, z: -0.0000000026489593, w: 0.99460286}
+  m_LocalRotation: {x: 0.10375522, y: -0.000000014335245, z: 0.0000000014954274, w: 0.99460286}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
