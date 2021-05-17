@@ -11,21 +11,25 @@ public class miya_camera_move : MonoBehaviour
 	const float HEIGHT_MAX = 17.5f;
 	const float HEIGHT_MIN = 4.0f;
 
-	// 変数
+	// 変数------------------------------------------------------------------------------------------
+	// 視点モード
 	bool	Looking_FromUp_m	= false;
+	// 基本
 	float	Length_FromCenter	= 0;
+	float Length_FromCenter_Current = 0;
 	[SerializeField] private float Speed_Rotate = 60.0f;
 	//[SerializeField] private float Speed_Height = 2.0f;
-	float	Degree			= -180;
 	float	Height_Default	= 0;
 	float	Height			= 0;
-
-	float Length_FromCenter_Current = 0;
-
+	// 角度
+	float Degree = -180;
+	// タワー操作時
+	float Length_FromCenter_Zoom = 7;
+	// オブジェクト参照
 	public GameObject GazePoint = null;
 	public GameObject Tower_m = null;
 
-	// 初期化
+	// 初期化--------------------------------------------------------------------------------------------
 	void Start()
     {
 		// 初期値取得
@@ -33,6 +37,7 @@ public class miya_camera_move : MonoBehaviour
 		Length_FromCenter_Current = Length_FromCenter;
 		Height_Default = this.transform.position.y;
 		Height = Height_Default;
+		Length_FromCenter_Zoom = 7;
 	}
 
 	// 更新
@@ -45,17 +50,26 @@ public class miya_camera_move : MonoBehaviour
 		if (Tower_m && sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING_TOWER)
 		{
 			// 注視点
-			Vector3 new_pos = new Vector3(0, Height_Default, 0);
+			Vector3 new_pos = new Vector3(0, 5.692f, 0);
 			new_pos.x = Tower_m.transform.position.x;
-			new_pos.y = Tower_m.transform.position.y;
+			new_pos.z = Tower_m.transform.position.z;
 			GazePoint.transform.position = new_pos;
-			// カメラ位置//タワー視認時の制御数値用意
-
-			// 角度による位置設定
-
+			// Length制御
+			//if (Length_FromCenter_Current < Length_MostNear) Length_FromCenter_Current = Length_MostNear;
+			//if (Length_FromCenter_Current > Length_MostFar) Length_FromCenter_Current = Length_MostFar;
+			// カメラ位置
+			Vector3 result = new Vector3(0, 0, 0);
+			result.x = Mathf.Sin(Degree * Mathf.Deg2Rad) * Length_FromCenter_Zoom;
+			result.z = Mathf.Cos(Degree * Mathf.Deg2Rad) * Length_FromCenter_Zoom;
+			result.y = Height_Default;
+			this.transform.position = result;
 		}
 		else
 		{
+			// 注視点
+			Vector3 new_pos = new Vector3(0, Height_Default, 0);
+			GazePoint.transform.position = new_pos;
+
 			// 移動
 			if (!Looking_FromUp_m)
 			{
@@ -105,5 +119,9 @@ public class miya_camera_move : MonoBehaviour
 	public void Set_Tower(GameObject _Tower)
 	{
 		Tower_m = _Tower;
+	}
+	public void Release_Tower()
+	{
+		Tower_m = null;
 	}
 }
