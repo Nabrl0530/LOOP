@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     {
         if (IsUnder_m)
         {
-            Rigid.AddForce(new Vector3(0, 0.5f, 0));
+            Rigid.AddForce(new Vector3(0, 0.05f, 0));
         }
 
         // èÓïÒ
