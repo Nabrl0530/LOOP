@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class yb_camera_move : MonoBehaviour
 {
+<<<<<<< HEAD
+=======
+    // 参照
+    public yb_player_move sc_move;
+
+    public yb_player_state sc_state;        
+>>>>>>> develop
 	// 定数
 	const float HEIGHT_MAX = 17.5f;
 	const float HEIGHT_MIN = 4.0f;
@@ -11,13 +18,17 @@ public class yb_camera_move : MonoBehaviour
 	// 変数
 	bool	Looking_FromUp_m	= false;
 	float	Length_FromCenter	= 0;
+<<<<<<< HEAD
 	float	Length_FromCenter_Current = 0;
+=======
+>>>>>>> develop
 	[SerializeField] private float Speed_Rotate = 60.0f;
 	//[SerializeField] private float Speed_Height = 2.0f;
 	float	Degree			= -180;
 	float	Height_Default	= 0;
 	float	Height			= 0;
 
+<<<<<<< HEAD
 
     yb_player_move player;
 
@@ -28,6 +39,18 @@ public class yb_camera_move : MonoBehaviour
         player = comp;
         // 初期値取得
         Length_FromCenter = Mathf.Abs(this.transform.position.z);
+=======
+	float Length_FromCenter_Current = 0;
+
+	public GameObject GazePoint = null;
+	public GameObject Tower_m = null;
+
+	// 初期化
+	void Start()
+    {
+		// 初期値取得
+		Length_FromCenter = Mathf.Abs(this.transform.position.z);
+>>>>>>> develop
 		Length_FromCenter_Current = Length_FromCenter;
 		Height_Default = this.transform.position.y;
 		Height = Height_Default;
@@ -37,6 +60,7 @@ public class yb_camera_move : MonoBehaviour
 	void Update()
 	{
 		// 入力
+<<<<<<< HEAD
 		if (Input.GetKey(KeyCode.LeftArrow	)) Degree += Speed_Rotate * Time.deltaTime;
 		if (Input.GetKey(KeyCode.RightArrow	)) Degree -= Speed_Rotate * Time.deltaTime;
 
@@ -79,6 +103,62 @@ public class yb_camera_move : MonoBehaviour
                if (Input.GetKey(KeyCode.DownArrow)) Looking_FromUp_m = false;
 			// 過去可変
 			//if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
+=======
+		if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
+		if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
+
+		if (Tower_m && sc_state.Get_AnimationState() == (int)yb_player_state.e_PlayerAnimationState.WAITING_TOWER)
+		{
+			// 注視点
+			Vector3 new_pos = new Vector3(0, Height_Default, 0);
+			new_pos.x = Tower_m.transform.position.x;
+			new_pos.y = Tower_m.transform.position.y;
+			GazePoint.transform.position = new_pos;
+			// カメラ位置//タワー視認時の制御数値用意
+
+			// 角度による位置設定
+
+		}
+		else
+		{
+			// 移動
+			if (!Looking_FromUp_m)
+			{
+				// 見下ろし視点へ切替
+				if (Input.GetKey(KeyCode.UpArrow) && !sc_move.UseMenu) Looking_FromUp_m = true;
+				// 過去可変
+				//if (Input.GetKey(KeyCode.UpArrow	)) Height += Speed_Height * Time.deltaTime;
+				//if (Height > HEIGHT_MAX - 0.1f) Height = HEIGHT_MAX - 0.1f;
+
+				// 移動
+				Vector3 result = new Vector3(0, 0, 0);
+				result.x = Mathf.Sin(Degree * Mathf.Deg2Rad) * Length_FromCenter;
+				result.z = Mathf.Cos(Degree * Mathf.Deg2Rad) * Length_FromCenter;
+				result.y = Height_Default;
+				this.transform.position = result;
+			}
+			else
+			{
+				// 高さ
+				Height = HEIGHT_MAX - 0.1f;
+
+				// 高さの変更に伴う中央からの距離変更
+				float degree = Height * 90.0f / HEIGHT_MAX;// 0.0f~10.0f = 0°~90°
+				Length_FromCenter_Current = Mathf.Cos(degree * Mathf.Deg2Rad) * Length_FromCenter;// 90°= 0.0f
+
+				// 移動
+				Vector3 result = new Vector3(0, 0, 0);
+				result.x = Mathf.Sin(Degree * Mathf.Deg2Rad) * Length_FromCenter_Current;
+				result.z = Mathf.Cos(Degree * Mathf.Deg2Rad) * Length_FromCenter_Current;
+				result.y = Height;
+				this.transform.position = result;
+
+				// 通常視点へ切替
+				if (Input.GetKey(KeyCode.DownArrow) && !sc_move.UseMenu) Looking_FromUp_m = false;
+				// 過去可変
+				//if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
+			}
+>>>>>>> develop
 		}
 	}
 
@@ -87,4 +167,12 @@ public class yb_camera_move : MonoBehaviour
     {
 		
 	}
+<<<<<<< HEAD
+=======
+
+	public void Set_Tower(GameObject _Tower)
+	{
+		Tower_m = _Tower;
+	}
+>>>>>>> develop
 }
