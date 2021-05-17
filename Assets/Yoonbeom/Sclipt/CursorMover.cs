@@ -93,17 +93,9 @@ public class CursorMover : MonoBehaviour
             switch (Step)
             {
                 case 1:
-                    SceneManager.LoadScene("yb_Stage1");
+                    SceneManager.LoadScene("yb_test");
                     break;
-                case 2:
-                    SceneManager.LoadScene("yb_Stage2");
-                    break;
-                case 3:
-                    SceneManager.LoadScene("yb_Stage3");
-                    break;
-                case 4:
-                    SceneManager.LoadScene("yb_Stage4");
-                    break;
+                
             }
         }
     }

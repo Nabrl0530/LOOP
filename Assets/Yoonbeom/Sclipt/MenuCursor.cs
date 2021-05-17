@@ -1,4 +1,4 @@
-/*
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +11,7 @@ public class MenuCursor : MonoBehaviour
     private float yMove;
     private int WaitTime = 0;
     private int Step = 1;
-    miya_player_move player;
+    yb_player_move player;
 
 
     public float FadeTime = 2f;
@@ -27,7 +27,7 @@ public class MenuCursor : MonoBehaviour
     private Color fadecolor;
     void Start()
     {
-        miya_player_move comp = GameObject.Find("Player").GetComponent<miya_player_move>();
+        yb_player_move comp = GameObject.Find("yb_player").GetComponent<yb_player_move>();
         player = comp;
         start = 0f;
         end = 1f;
@@ -43,7 +43,7 @@ public class MenuCursor : MonoBehaviour
         }
         if(ClearFade && Step == 1)
         {
-            SceneManager.LoadScene("yb_Stage1");
+            SceneManager.LoadScene("yb_test");
         }
 
 
@@ -152,4 +152,3 @@ public class MenuCursor : MonoBehaviour
 
     }
 }
-*/
