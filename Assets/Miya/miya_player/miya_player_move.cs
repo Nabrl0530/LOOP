@@ -102,7 +102,7 @@ public class miya_player_move : MonoBehaviour
 					direction_move = direction_move.normalized;// * Time.deltaTime;
 				}
 
-				// 移動
+				// 移動//進行方向にオブジェクトがあったら法線方向へ回転
 				Rigid.velocity = direction_move * Speed_Move;
 
 				// 落下
@@ -153,7 +153,7 @@ public class miya_player_move : MonoBehaviour
 					direction_move = direction_move.normalized;// * Time.deltaTime;
 				}
 
-				// 移動
+				// 移動//進行方向にオブジェクトがあったら法線方向へ回転
 				Rigid.velocity = direction_move * Speed_Move * 0.5f;
 
 				// 回転

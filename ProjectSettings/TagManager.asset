@@ -18,7 +18,6 @@ TagManager:
   - CRISTAL
   - Stage
   - Block
-  - Button
   layers:
   - Default
   - TransparentFX

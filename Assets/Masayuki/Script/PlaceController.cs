@@ -62,7 +62,7 @@ public class PlaceController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("高さのプリセット")]
-    private HEIGHT_PRESET m_heiht_preset = HEIGHT_PRESET.ONE;
+    private HEIGHT_PRESET m_height_preset = HEIGHT_PRESET.ONE;
 
 
     //[Range(0.0f, 100.0f)]
@@ -124,17 +124,17 @@ public class PlaceController : MonoBehaviour
             
         //}
 
-        if (m_heiht_preset == HEIGHT_PRESET.ONE)
+        if (m_height_preset == HEIGHT_PRESET.ONE)
         {
             m_height = 1.23f;
         }
         else
-            if (m_heiht_preset == HEIGHT_PRESET.TWO)
+            if (m_height_preset == HEIGHT_PRESET.TWO)
         {
             m_height = 4;
         }
         else
-            if (m_heiht_preset == HEIGHT_PRESET.THREE)
+            if (m_height_preset == HEIGHT_PRESET.THREE)
         {
             m_height = 8;
         }
@@ -191,7 +191,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("ONE");
             if (m_use_default_distance)
             {
-                m_distance = 7.25f;
+                m_distance = 6.8f;
             }
         }
         else
@@ -200,7 +200,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("TWO");
             if (m_use_default_distance)
             {
-                m_distance = 10.43f;
+                m_distance = 10.23f;
             }
         }
         else
@@ -209,7 +209,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("THREE");
             if (m_use_default_distance)
             {
-                m_distance = 13.93f;
+                m_distance = 13.73f;
             }
         }
         else
