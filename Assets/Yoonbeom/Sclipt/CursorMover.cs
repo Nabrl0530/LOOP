@@ -93,7 +93,7 @@ public class CursorMover : MonoBehaviour
             switch (Step)
             {
                 case 1:
-                    SceneManager.LoadScene("yb_test");
+                    SceneManager.LoadScene("yb_play");
                     break;
                 
             }

@@ -37,18 +37,15 @@ public class MenuCursor : MonoBehaviour
     void Update()
     {
 
-<<<<<<< HEAD
         if (ClearFade && Step == 2)
         {
             SceneManager.LoadScene("yb_MainScene");
         }
         if(ClearFade && Step == 1)
         {
-            SceneManager.LoadScene("yb_test");
+            SceneManager.LoadScene("yb_play");
         }
-=======
-    
->>>>>>> develop
+
 
 
     }
@@ -64,7 +61,7 @@ public class MenuCursor : MonoBehaviour
         }
         if (ClearFade && Step == 1)
         {
-            SceneManager.LoadScene("yb_test");
+            SceneManager.LoadScene("yb_play");
         }
     }
     private void CursorMove()
