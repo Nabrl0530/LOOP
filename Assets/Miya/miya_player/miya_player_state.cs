@@ -19,7 +19,7 @@ public class miya_player_state : MonoBehaviour
 		WALKING,		// 歩き
 		ABANDONED,		// 放置
 		RUNNING,		// 走る
-		CLIMBING,       // よじ登る
+		CLIMBING,		// よじ登る
 		PUSH_WAITING,	// 押す待機
 		PUSH_PUSHING,	// 押す
 		PULL_WAITING,	// 引く待機
@@ -53,13 +53,6 @@ public class miya_player_state : MonoBehaviour
 	// 更新
 	void Update()
 	{
-		// デバッグ
-		if (state_past != m_AnimationState)
-		{
-			state_past = m_AnimationState;
-			Debug.Log("Animation State：" + m_AnimationState);
-		}
-
 		// 別のスクリプトとの差分
 		if
 		(
@@ -69,6 +62,13 @@ public class miya_player_state : MonoBehaviour
 		)
 		{
 			
+		}
+
+		// デバッグ
+		if (state_past != m_AnimationState)
+		{
+			state_past = m_AnimationState;
+			Debug.Log("Animation State：" + m_AnimationState);
 		}
 
 		// アクション可能
@@ -118,7 +118,7 @@ public class miya_player_state : MonoBehaviour
 				}
 			}
 		}//m_CanAction
-		else //!m_CanAction
+		else
 		{
 			// 押す
 			if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_WAITING)

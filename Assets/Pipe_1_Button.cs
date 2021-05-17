@@ -6,6 +6,7 @@ public class Pipe_1_Button : MonoBehaviour
 {
     Player_Move Player_Move;
     private GameObject Pipe;   //wallèÓïÒäiî[óp
+    public GameObject FloorOne;
     float rot;
     // Start is called before the first frame update
     void Start()
@@ -22,10 +23,8 @@ public class Pipe_1_Button : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Block"))
         {
-            //rot += 0.01f;
-
             Pipe.transform.Rotate(0, 1, 0);
             Player_Move = other.GetComponent<Player_Move>();
             if(Player_Move.GetLayer() == 1)

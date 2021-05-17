@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public bool HIT_LEVER2;
     bool HIT_LEVER_BACK;
 
+    bool IsUnder_m = false;
+
     // 変数
     Rigidbody Rigid;
     [SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
@@ -77,6 +79,11 @@ public class Player : MonoBehaviour
     // 定期更新
     void FixedUpdate()
     {
+        if (IsUnder_m)
+        {
+            Rigid.AddForce(new Vector3(0, 0.15f, 0));
+        }
+
         // 情報
         Vector3 difference = this.transform.position - Position_Latest_m;
         Position_Latest_m = this.transform.position;
@@ -180,13 +187,13 @@ public class Player : MonoBehaviour
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move * 0.5f;
+                Rigid.velocity = direction_move * Speed_Move * 1.0f;
 
                 // 回転
                 // 制御
                 difference.y = 0;
 
-                if (difference.magnitude > Rotate_Tolerance * 0.5f)
+                if (difference.magnitude > Rotate_Tolerance * 0.0f) //*0.5f
                 {
                     // 回転計算
                     Quaternion rot = Quaternion.LookRotation(direction_move);
@@ -256,6 +263,11 @@ public class Player : MonoBehaviour
         StartPosition = _start;
     }
 
+    public void Set_IsUnder(bool _is)
+    {
+        IsUnder_m = _is;
+    }
+
     ////オブジェクトが触れている間
     //void OnCollisionStay(Collision collision)
     //{
@@ -263,7 +275,7 @@ public class Player : MonoBehaviour
     //}
 
     //オブジェクトからの当たり判定操作
-    
+
     public void SetHIT_TOWER()
     {
         HIT_TOWER = true;

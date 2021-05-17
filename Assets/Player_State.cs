@@ -30,17 +30,17 @@ public class Player_State : MonoBehaviour
 
     // 変数
     Rigidbody Rigid;
-    int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
-    bool m_CanAction = true;
+    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+    public bool m_CanAction = true;
     //bool	m_IsClockwise		= true;
     bool m_CanClimb_forword = false;
     bool m_CanClimb_check = false;
-    private bool IsBlock = false;
-    private bool IsStage = false;
+    public bool IsBlock = false;
+    public bool IsStage = false;
 
     //俺が追加
-    private bool IsLever = false;
-    private bool IsTower = false;
+    public bool IsLever = false;
+    public bool IsTower = false;
 
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -105,10 +105,16 @@ public class Player_State : MonoBehaviour
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
                     m_CanAction = false;
 
-                    if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = this.transform;
-                }
+                    if (sc_forword.Get_Block())
+                    {
+                        sc_forword.Get_Block().transform.parent = this.transform;
+                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(1.0f,0.6f,1.0f);
+                        //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
+                        sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    }
 
-                if(IsLever)
+                }
+                else if(IsLever)
                 {
                     sc_move.UseLever();
                 }
@@ -171,7 +177,13 @@ public class Player_State : MonoBehaviour
                 m_AnimationState = (int)e_PlayerAnimationState.WAITING;
                 m_CanAction = true;
 
-                if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = null;
+                if (sc_forword.Get_Block())
+                {
+                    sc_forword.Get_Block().transform.parent = null;
+                    sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+                    //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                }
             }
         }
     }
