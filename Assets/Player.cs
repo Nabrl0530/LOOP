@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
     {
         if (IsUnder_m)
         {
-            Rigid.AddForce(new Vector3(0, 0.05f, 0));
+            Rigid.AddForce(new Vector3(0, 0.15f, 0));
         }
 
         // 情報
@@ -187,13 +187,13 @@ public class Player : MonoBehaviour
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move * 0.5f;
+                Rigid.velocity = direction_move * Speed_Move * 1.0f;
 
                 // 回転
                 // 制御
                 difference.y = 0;
 
-                if (difference.magnitude > Rotate_Tolerance * 0.5f)
+                if (difference.magnitude > Rotate_Tolerance * 0.0f) //*0.5f
                 {
                     // 回転計算
                     Quaternion rot = Quaternion.LookRotation(direction_move);
