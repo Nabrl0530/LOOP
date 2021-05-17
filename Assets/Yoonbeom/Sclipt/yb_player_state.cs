@@ -12,7 +12,8 @@ public class yb_player_state : MonoBehaviour
 	// 列挙
 	public enum e_PlayerAnimationState
 	{
-		WAITING,		// 待機
+        WAITING,        // 待機
+        WAITING_TOWER,  // タワー操作
 		WALKING,		// 歩き
 		ABANDONED,		// 放置
 		RUNNING,		// 走る
