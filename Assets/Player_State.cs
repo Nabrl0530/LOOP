@@ -30,17 +30,17 @@ public class Player_State : MonoBehaviour
 
     // 変数
     Rigidbody Rigid;
-    int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
-    bool m_CanAction = true;
+    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+    public bool m_CanAction = true;
     //bool	m_IsClockwise		= true;
     bool m_CanClimb_forword = false;
     bool m_CanClimb_check = false;
-    private bool IsBlock = false;
-    private bool IsStage = false;
+    public bool IsBlock = false;
+    public bool IsStage = false;
 
     //俺が追加
-    private bool IsLever = false;
-    private bool IsTower = false;
+    public bool IsLever = false;
+    public bool IsTower = false;
 
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -114,7 +114,7 @@ public class Player_State : MonoBehaviour
                     }
 
                 }
-                if(IsLever)
+                else if(IsLever)
                 {
                     sc_move.UseLever();
                 }
