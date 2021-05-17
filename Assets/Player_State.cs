@@ -105,9 +105,15 @@ public class Player_State : MonoBehaviour
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
                     m_CanAction = false;
 
-                    if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = this.transform;
-                }
+                    if (sc_forword.Get_Block())
+                    {
+                        sc_forword.Get_Block().transform.parent = this.transform;
+                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(1.0f,0.6f,1.0f);
+                        //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
+                        sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    }
 
+                }
                 if(IsLever)
                 {
                     sc_move.UseLever();
@@ -171,7 +177,13 @@ public class Player_State : MonoBehaviour
                 m_AnimationState = (int)e_PlayerAnimationState.WAITING;
                 m_CanAction = true;
 
-                if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = null;
+                if (sc_forword.Get_Block())
+                {
+                    sc_forword.Get_Block().transform.parent = null;
+                    sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(1.0f, 1.0f, 1.0f);
+                    //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                }
             }
         }
     }
