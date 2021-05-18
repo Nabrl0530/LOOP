@@ -23,7 +23,7 @@ public class PlaceController : MonoBehaviour
 
     [SerializeField]
     [Tooltip("床の何層目に親子付けするか?")]
-    private FLOOR_NUMBER m_floor_number = FLOOR_NUMBER.ONE;
+    private FLOOR_NUMBER m_floor_number = FLOOR_NUMBER.NONE;
 
     [SerializeField]
     [Tooltip("何度の位置に配置するか")]
@@ -35,6 +35,10 @@ public class PlaceController : MonoBehaviour
     private float m_snap_angle = 45.0f;
 
     [SerializeField]
+    [Tooltip("何度の位置に配置するかの補正値")]
+    private float m_offset_place_angle = 0.0f;
+
+    [SerializeField]
     [Tooltip("配置角度と自身の角度を合わせるか")]
     private bool m_adjust_place_angle_and_rotation = true;
 
@@ -42,32 +46,41 @@ public class PlaceController : MonoBehaviour
     [Tooltip("回転の補正値")]
     private Vector3 m_offset_rotation = default;
 
-    [SerializeField]
-    [Range(0.0f, 100.0f)]
-    [Tooltip("ステージ中心からどれだけ離れるか")]
+    //[SerializeField]
+    //[Range(0.0f, 100.0f)]
+    //[Tooltip("ステージ中心からどれだけ離れるか")]
     private float m_distance = 0.0f;
 
     [SerializeField]
-    [Tooltip("ステージ中心からどれだけ離れるかのパラメーターに、デフォルト値を使用するか")]
-    private bool m_use_default_distance = false;
+    [Tooltip("ステージ中心からどれだけ離れるか")]
+    private float m_offset_distance = 0.0f;
+
+    //[SerializeField]
+    //[Tooltip("ステージ中心からどれだけ離れるかのパラメーターに、デフォルト値を使用するか")]
+    private bool m_use_default_distance = true;
 
 
     [SerializeField]
     [Tooltip("高さのプリセット")]
-    private HEIGHT_PRESET m_heiht_preset = HEIGHT_PRESET.ONE;
+    private HEIGHT_PRESET m_height_preset = HEIGHT_PRESET.ONE;
 
-    [SerializeField]
-    [Range(0.0f, 100.0f)]
-    [Tooltip("高さを調整できます")]
+
+    //[Range(0.0f, 100.0f)]
+    //[SerializeField]
+    //[Tooltip("高さを調整できます")]
     private float m_height = 0.0f;
 
     [SerializeField]
-    [Tooltip("高さを調整時のスナップ")]
-    private float m_snap_height = 0.0f;
+    [Tooltip("高さを調整できます")]
+    private float m_offset_height = 0.0f;
 
-    [SerializeField]
-    [Tooltip("高さの調整にデフォルト値を使用するか")]
-    private bool m_use_default_height = false;
+    //[SerializeField]
+    //[Tooltip("高さを調整時のスナップ")]
+    //private float m_snap_height = 0.0f;
+
+    //[SerializeField]
+    //[Tooltip("高さの調整にデフォルト値を使用するか")]
+    private bool m_use_default_height = true;
 
 
 
@@ -99,31 +112,35 @@ public class PlaceController : MonoBehaviour
         Vector3 target_vec = parent_pipe.transform.forward;
 
         Vector3 result_vec = Quaternion.AngleAxis(m_place_angle, my_transform.up) * target_vec;
+        result_vec = Quaternion.AngleAxis(m_offset_place_angle, my_transform.up) * result_vec;
 
-        my_pos.x = result_vec.x * m_distance;
-        my_pos.y = result_vec.y * m_distance;
-        my_pos.z = result_vec.z * m_distance;
+        float temp_dist = m_distance + m_offset_distance;
+        my_pos.x = result_vec.x * temp_dist;
+        my_pos.y = result_vec.y * temp_dist;
+        my_pos.z = result_vec.z * temp_dist;
 
-        if (m_use_default_height)
+        //if (m_use_default_height)
+        //{
+            
+        //}
+
+        if (m_height_preset == HEIGHT_PRESET.ONE)
         {
-            if (m_heiht_preset == HEIGHT_PRESET.ONE)
-            {
-                m_height = 1.23f;
-            }
-            else
-            if (m_heiht_preset == HEIGHT_PRESET.TWO)
-            {
-                m_height = 2.0f;
-            }
-            else
-            if (m_heiht_preset == HEIGHT_PRESET.THREE)
-            {
-                m_height = 4.0f;
-            }
+            m_height = 1.23f;
         }
-
-        Adjust_Height(m_snap_height);
-        my_pos += my_transform.up * m_height;
+        else
+            if (m_height_preset == HEIGHT_PRESET.TWO)
+        {
+            m_height = 4;
+        }
+        else
+            if (m_height_preset == HEIGHT_PRESET.THREE)
+        {
+            m_height = 8;
+        }
+        float temp_height = m_height + m_offset_height;
+        //Adjust_Height(m_snap_height);
+        my_pos += my_transform.up * temp_height;
 
 
         this.gameObject.transform.position = my_pos;
@@ -131,7 +148,7 @@ public class PlaceController : MonoBehaviour
         if (m_adjust_place_angle_and_rotation)
         {
             Vector3 parent_rot = this.gameObject.transform.parent.rotation.eulerAngles;
-            this.gameObject.transform.rotation = Quaternion.Euler(parent_rot.x + m_offset_rotation.x, parent_rot.y + m_offset_rotation.y + m_place_angle, parent_rot.z + m_offset_rotation.z);
+            this.gameObject.transform.rotation = Quaternion.Euler(parent_rot.x + m_offset_rotation.x, parent_rot.y + m_offset_rotation.y + m_place_angle + m_offset_place_angle, parent_rot.z + m_offset_rotation.z);
         }
     }
 
@@ -174,7 +191,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("ONE");
             if (m_use_default_distance)
             {
-                m_distance = 7.25f;
+                m_distance = 6.8f;
             }
         }
         else
@@ -183,7 +200,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("TWO");
             if (m_use_default_distance)
             {
-                m_distance = 10.7f;
+                m_distance = 10.23f;
             }
         }
         else
@@ -192,7 +209,7 @@ public class PlaceController : MonoBehaviour
             parent_pipe = GameObject.FindGameObjectWithTag("THREE");
             if (m_use_default_distance)
             {
-                m_distance = 14.56f;
+                m_distance = 13.73f;
             }
         }
         else

@@ -84,7 +84,7 @@ public class miya_player_state : MonoBehaviour
 					m_AnimationState	= (int)e_PlayerAnimationState.CLIMBING;
 					m_CanAction			= false;
 
-					Rigid.useGravity	= false;
+					//Rigid.useGravity	= false;
 
 					sc_move.Set_StartPosition(this.transform.position);
 				}
