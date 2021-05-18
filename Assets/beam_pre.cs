@@ -50,22 +50,24 @@ public class beam_pre : MonoBehaviour
 
             if (hit.collider.CompareTag("HOLE"))
             {
-                //Debug.Log("HIT_HOLE?");
                 hit.collider.gameObject.GetComponent<TOWER_HOLE>().HitLaser();
             }
 
             if (hit.collider.CompareTag("MIRROR"))
             {
-                //Debug.Log("HIT_MIRROR");
                 hit.collider.gameObject.GetComponent<MIRROR>().SetBasepos(hit.point,Ditector);
-
                 hit.collider.gameObject.GetComponent<MIRROR>().HitLaser();
             }
 
             if (hit.collider.CompareTag("CRISTAL"))
             {
-                //Debug.Log("クリスタル");
                 hit.collider.gameObject.GetComponent<CRISTAL>().HitCristal();
+            }
+
+            if(hit.collider.CompareTag("Bridge"))
+            {
+                Debug.Log("ブリッジ");
+                hit.collider.gameObject.GetComponent<Bridge>().HitLaser();
             }
 
         }
