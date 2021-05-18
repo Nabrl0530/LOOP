@@ -32,8 +32,7 @@ public class Leba : MonoBehaviour
         //Debug.Log("レバー");
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<Player_Move>().SetHIT_LEVER();
-            other.GetComponent<Player>().SetHIT_LEVER();
+            other.GetComponent<Player_Move>().SetHIT_LEVER();
         }
     }
 
@@ -42,8 +41,7 @@ public class Leba : MonoBehaviour
         //Debug.Log("レバー抜け");
         if (other.gameObject.CompareTag("Player"))
         {
-            //.GetComponent<Player_Move>().ClearHIT_LEVER();
-            other.GetComponent <Player>().ClearHIT_LEVER();
+            other.GetComponent<Player_Move>().ClearHIT_LEVER();
         }
     }
 }

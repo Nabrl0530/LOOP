@@ -25,15 +25,14 @@ public class miya_forword : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
 	{
+		sc_state.Set_CanClimb_Forword(true);
 		if (other.gameObject.tag == "Block")
 		{
-			sc_state.Set_CanClimb_Forword(true);
 			sc_state.Set_IsBlock(true);
 			m_Block = other.gameObject;
 		}
 		if (other.gameObject.tag == "Stage")
 		{
-			sc_state.Set_CanClimb_Forword(true);
 			sc_state.Set_IsStage(true);
 		}
 	}

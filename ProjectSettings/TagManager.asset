@@ -16,9 +16,6 @@ TagManager:
   - MIRROR
   - FLOOR_NONE
   - CRISTAL
-  - Stage
-  - Block
-  - Button
   layers:
   - Default
   - TransparentFX
@@ -27,7 +24,7 @@ TagManager:
   - Water
   - UI
   - 
-  - Volume
+  - 
   - PostProcessing
   - 
   - 

@@ -14,7 +14,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yoonbeom/Scene/yb_test.unity
     guid: 263de6cef7373b544a891dd7375f0b09
-  - enabled: 1
-    path: Assets/Masayuki/GameClear.unity
-    guid: 842d4f76d9f6a844cacc1f3b24c69fdf
   m_configObjects: {}

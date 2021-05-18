@@ -1,115 +1,100 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class MenuCursor : MonoBehaviour
+public class ArrowMover : MonoBehaviour
 {
-    [SerializeField]
-    private int Velocity;
-    private float yMove;
-    private int WaitTime = 0;
-    private int Step = 1;
-    yb_player_move player;
+ [SerializeField]
+ private int Velocity;
+ private float yMove;
 
-
-    public float FadeTime = 2f;
-
+ private int WaitTime = 0;
+ private int Step = 1;
+    private bool ClearFade = false;
+    bool isPlaying = false;
     public Image fadeImg;
     private float start;
     private float end;
+    private Color fadecolor;
+    public float FadeTime = 2f;
+
+
 
     float time = 0f;
 
-    bool isPlaying = false;
-    private bool ClearFade = false;
-    private Color fadecolor;
+
     void Start()
     {
-        yb_player_move comp = GameObject.Find("yb_player").GetComponent<yb_player_move>();
-        player = comp;
         start = 0f;
         end = 1f;
     }
-
-    // Update is called once per frame
     void Update()
     {
 
-        if (ClearFade && Step == 2)
-        {
-            SceneManager.LoadScene("yb_MainScene");
-        }
-        if(ClearFade && Step == 1)
-        {
-            SceneManager.LoadScene("yb_play");
-        }
-
-
+    
 
     }
-
+    // Update is called once per frame
     void FixedUpdate()
     {
-     
-        CursorMove();
-        ChoiceStage();
-        if (ClearFade && Step == 2)
+        if (ClearFade && Step == 3)
         {
-            SceneManager.LoadScene("yb_MainScene");
+            UnityEditor.EditorApplication.isPlaying = false;
         }
         if (ClearFade && Step == 1)
         {
-            SceneManager.LoadScene("yb_play");
+           SceneManager.LoadScene("yb_ChoiceScene");
         }
+
+        CursorMove();
+        ChoiceStage();
     }
+
+   
     private void CursorMove()
     {
         yMove = 0;
         WaitTime--;
-        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step > 1)
-        {
-            yMove = Velocity * Time.deltaTime;
-            WaitTime = 30;
-            Step--;
-        }
         if (Input.GetKey(KeyCode.DownArrow) && WaitTime < 0 && Step < 3)
         {
             yMove = -Velocity * Time.deltaTime;
             WaitTime = 30;
             Step++;
         }
+        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step > 1)
+        {
+            yMove = Velocity * Time.deltaTime;
+            WaitTime = 30;
+            Step--;
+        }
 
         this.transform.Translate(new Vector3(0, yMove, 0));
 
     }
-
     private void ChoiceStage()
     {
         if (Input.GetKey(KeyCode.Return))
         {
             switch (Step)
             {
-                
                 case 1:
-                    
                     OutStartFadeAnim();
                     break;
                 case 2:
                     OutStartFadeAnim();
+
+                    //ÉÅÉjÉÖÅ[âÊñ 
                     break;
                 case 3:
-                    player.WaitCount = 30;
-                    player.Image_PanelWindow.SetActive(false);
-                    player.Image_MenuWindow.SetActive(false);
-                    player.UseMenu = false;
+                    OutStartFadeAnim();
                     break;
 
             }
         }
-        
     }
+
+
 
     public void OutStartFadeAnim()
 
@@ -128,9 +113,6 @@ public class MenuCursor : MonoBehaviour
 
 
     }
-
-
-
     IEnumerator fadeinplay()
 
     {
@@ -160,6 +142,7 @@ public class MenuCursor : MonoBehaviour
 
         }
         fadecolor.a = 1.0f;
+
         ClearFade = true;
         isPlaying = false;
 
