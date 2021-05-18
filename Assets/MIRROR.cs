@@ -8,7 +8,7 @@ public class MIRROR : MonoBehaviour
     private GameObject C_Laser = null;
     private bool Use = false;
     private int Hit_Count = 0;
-    Vector3 BasePos;
+    public Vector3 BasePos;
     Vector3 MirrorVec;
     // Start is called before the first frame update
     void Start()

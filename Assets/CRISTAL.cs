@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CRISTAL : MonoBehaviour
 {
+    bool OK;
     bool HIT;
-    int count;
+    public int count;
+    public int no;
     // Start is called before the first frame update
     void Start()
     {
         HIT = false;
+        OK = false;
         count = 0;
+        no = 0;
     }
 
     // Update is called once per frame
@@ -30,7 +34,15 @@ public class CRISTAL : MonoBehaviour
                 Debug.Log("clear");
                 GoToClear.Go();
             }
-        }
+
+            no++;
+            if (no == 5)
+            {
+                no = 0;
+                count = 0;
+                HIT = false;
+            }
+        }        
     }
 
 
@@ -40,5 +52,7 @@ public class CRISTAL : MonoBehaviour
         {
             HIT = true;
         }
+
+        no = 0;
     }
 }
