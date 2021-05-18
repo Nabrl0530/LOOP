@@ -6,7 +6,7 @@ public class Bridge : MonoBehaviour
 {
     public GameObject Laser;
     private GameObject C_Laser = null;
-    public GameObject pair_door;
+    public GameObject pair_Gate;
     private bool Use = false;
     private int Hit_Count = 0;
     // Start is called before the first frame update
