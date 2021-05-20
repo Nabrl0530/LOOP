@@ -10,18 +10,22 @@ public class Player : MonoBehaviour
     TOWER TOWER;
     Leba leba;
     leba_2 leba_2;
+    Bridge bridge;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
-    bool LOCK;  //手動操作禁止状態
-    int NoComand;
-    public float len;  //長さ
+    //int NoComand;
 
-    private float searchAngle = 80f;
+    public int Actcount;    //各アクションの処理時間
+    public float set_spin;  //ギミック操作時の向き補正値
+    public float len;  //長さ
+    private float searchAngle = 80f;    //視野角
+
 
     public bool HIT_TOWER;
     public bool HIT_LEVER;
     public bool HIT_LEVER2;
+    public bool HIT_BRIDGE;
     bool HIT_LEVER_BACK;
 
     bool IsUnder_m = false;
@@ -257,6 +261,12 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
+            //橋によるワープ移動（向き変更）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_SET)
+            {
+                
+            }
         }
     }//FixedUpdate
 
@@ -323,6 +333,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void SetHIT_Bridge(Vector3 pos)
+    {
+        if (CheckView(pos))
+        {
+            HIT_BRIDGE = true;
+            sc_state.Set_IsBridge(HIT_BRIDGE);
+        }
+        else
+        {
+            ClearHIT_BRIDGE();
+        }
+    }
+
     public void ClearHIT_LEVER()
     {
         HIT_LEVER = false;
@@ -333,6 +356,12 @@ public class Player : MonoBehaviour
     {
         HIT_LEVER2 = false;
         sc_state.Set_IsLever(HIT_LEVER2);
+    }
+
+    public void ClearHIT_BRIDGE()
+    {
+        HIT_BRIDGE = false;
+        sc_state.Set_IsBridge(HIT_BRIDGE);
     }
 
     public void SetHIT_LEVER_BACK()
@@ -415,8 +444,12 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("LEVER_BACK"))
         {
-            //Debug.Log("獲得");
             leba_2 = other.GetComponent<leba_2>();
+        }
+
+        if (other.gameObject.CompareTag("Bridge_HIT"))
+        {
+            bridge = other.GetComponent<Bridge_HIT>().GetBridge();
         }
     }
     
