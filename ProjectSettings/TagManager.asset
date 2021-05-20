@@ -20,6 +20,7 @@ TagManager:
   - Block
   - Button
   - Bridge
+  - Bridge_HIT
   layers:
   - Default
   - TransparentFX

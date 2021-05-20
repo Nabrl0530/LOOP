@@ -32,7 +32,7 @@ public class Leba : MonoBehaviour
         //Debug.Log("ÉåÉoÅ[");
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_LEVER();
+            other.GetComponent<Player>().SetHIT_LEVER(transform.position);
         }
     }
 
@@ -40,7 +40,7 @@ public class Leba : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_LEVER();
+            other.GetComponent<Player>().SetHIT_LEVER(transform.position);
         }
     }
 
