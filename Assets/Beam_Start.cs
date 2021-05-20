@@ -10,7 +10,8 @@ public class Beam_Start : MonoBehaviour
     void Start()
     {
         var parent = this.transform;
-        Instantiate(Laser, this.transform.position, Quaternion.identity, parent);
+        Vector3 pos = this.transform.position;
+        Instantiate(Laser, pos, Quaternion.identity, parent);
     }
 
     // Update is called once per frame
