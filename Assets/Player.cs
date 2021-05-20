@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     int NoComand;
     public float len;  //長さ
 
+    private float searchAngle = 120f;
+
     public bool HIT_TOWER;
     public bool HIT_LEVER;
     public bool HIT_LEVER2;
@@ -320,6 +322,33 @@ public class Player : MonoBehaviour
     public void ClearHIT_LEVER_BACK()
     {
         HIT_LEVER_BACK = false;
+    }
+
+
+
+    bool CheckView(Vector3 pos)
+    {
+        //　 対象の方向
+        Vector3 Direction = pos - transform.position;
+        float sub_y = Direction.y;
+
+        Direction.y = 0;
+
+        Vector3 forward = transform.forward;
+
+        forward.y = 0;
+
+        //　敵の前方からの主人公の方向
+        var angle = Vector3.Angle(forward, Direction);
+
+        Debug.Log(angle);
+        //　サーチする角度内だったら発見
+        if (angle <= searchAngle)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void UseLever()
