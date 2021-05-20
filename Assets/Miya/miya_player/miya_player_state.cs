@@ -33,13 +33,19 @@ public class miya_player_state : MonoBehaviour
 
 	// 変数
 	Rigidbody Rigid;
+	[SerializeField]
 	int		m_AnimationState	= (int)e_PlayerAnimationState.WAITING;
+	[SerializeField]
 	bool	m_CanAction			= true;
 	//bool	m_IsClockwise		= true;
+	[SerializeField]
 	bool	m_CanClimb_forword	= false;
+	[SerializeField]
 	bool	m_CanClimb_check	= false;
 	private bool IsBlock = false;
 	private bool IsStage = false;
+
+	public GameObject m_parent;
 	// デバッグ用
 	int state_past = (int)e_PlayerAnimationState.WAITING;
 
@@ -53,7 +59,6 @@ public class miya_player_state : MonoBehaviour
 	// 更新
 	void Update()
 	{
-		// 別のスクリプトとの差分
 		if
 		(
 			m_AnimationState == (int)e_PlayerAnimationState.LEVER_WAITING	||
@@ -114,7 +119,17 @@ public class miya_player_state : MonoBehaviour
 					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
 					m_CanAction = false;
 
-					if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = this.transform;
+					// ブロックをプレイヤーの子に
+					if (sc_forword.Get_Block())
+					{
+						sc_forword.Get_Block().transform.parent = this.transform;
+						// プレイヤーを中心軸の子に
+						//Vector3 pos = this.transform.position;
+						//pos += this.transform.forward * 1.0f;
+						//pos.y = this.transform.position.y;
+						//m_parent.transform.position = pos;
+						this.transform.parent = m_parent.transform;
+					}
 				}
 			}
 		}//m_CanAction
@@ -162,7 +177,11 @@ public class miya_player_state : MonoBehaviour
 				m_AnimationState = (int)e_PlayerAnimationState.WAITING;
 				m_CanAction = true;
 
-				if (sc_forword.Get_Block()) sc_forword.Get_Block().transform.parent = null;
+				if (sc_forword.Get_Block())
+				{
+					sc_forword.Get_Block().transform.parent = null;
+					this.transform.parent = null;
+				}
 			}
 		}
 	}
@@ -213,5 +232,10 @@ public class miya_player_state : MonoBehaviour
 	public bool Get_IsStage()
 	{
 		return IsStage;
+	}
+
+	public GameObject Get_Parent()
+	{
+		return m_parent;
 	}
 }
