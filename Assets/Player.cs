@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     int NoComand;
     public float len;  //長さ
 
-    private float searchAngle = 120f;
+    private float searchAngle = 80f;
 
     public bool HIT_TOWER;
     public bool HIT_LEVER;
@@ -278,10 +278,17 @@ public class Player : MonoBehaviour
 
     //オブジェクトからの当たり判定操作
 
-    public void SetHIT_TOWER()
+    public void SetHIT_TOWER(Vector3 pos)
     {
-        HIT_TOWER = true;
-        sc_state.Set_IsTower(HIT_TOWER);
+        if (CheckView(pos))
+        {
+            HIT_TOWER = true;
+            sc_state.Set_IsTower(HIT_TOWER);
+        }
+        else
+        {
+            ClearHIT_TOWER();
+        }
     }
 
     public void ClearHIT_TOWER()
@@ -290,16 +297,30 @@ public class Player : MonoBehaviour
         sc_state.Set_IsTower(HIT_TOWER);
     }
 
-    public void SetHIT_LEVER()
+    public void SetHIT_LEVER(Vector3 pos)
     {
-        HIT_LEVER = true;
-        sc_state.Set_IsLever(HIT_LEVER);
+        if(CheckView(pos))
+        {
+            HIT_LEVER = true;
+            sc_state.Set_IsLever(HIT_LEVER);
+        }
+        else
+        {
+            ClearHIT_LEVER();
+        }
     }
 
-    public void SetHIT_LEVER2()
+    public void SetHIT_LEVER2(Vector3 pos)
     {
-        HIT_LEVER2 = true;
-        sc_state.Set_IsLever(HIT_LEVER2);
+        if (CheckView(pos))
+        {
+            HIT_LEVER2 = true;
+            sc_state.Set_IsLever(HIT_LEVER2);
+        }
+        else
+        {
+            ClearHIT_LEVER2();
+        }
     }
 
     public void ClearHIT_LEVER()
