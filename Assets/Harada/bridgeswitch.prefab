@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bridge: {fileID: 2381895663866057545}
+  Gate: {fileID: 546524971188889213}
 --- !u!1 &7216049242673011458
 GameObject:
   m_ObjectHideFlags: 0

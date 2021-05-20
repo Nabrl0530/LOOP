@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bridge_HIT : MonoBehaviour
 {
     public Bridge bridge;
+    public GameObject Gate;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,10 @@ public class Bridge_HIT : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_Bridge(transform.position);
+            if(other.GetComponent<Player>().SetHIT_Bridge(transform.position))
+            {
+                other.GetComponent<Player>().SetGate(Gate.transform.position);
+            }
         }
     }
 
@@ -29,13 +33,15 @@ public class Bridge_HIT : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_Bridge(transform.position);
+            if (other.GetComponent<Player>().SetHIT_Bridge(transform.position))
+            {
+                other.GetComponent<Player>().SetGate(Gate.transform.position);
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        //Debug.Log("ÉåÉoÅ[î≤ÇØ");
         if (other.gameObject.CompareTag("Player"))
         {
             other.GetComponent<Player>().ClearHIT_BRIDGE();

@@ -23,6 +23,11 @@ public class Player_Forword : MonoBehaviour
 
     }
 
+    public void PosReset()
+    {
+        transform.localPosition = new Vector3(0, 0, 0);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         sc_state.Set_CanClimb_Forword(true);

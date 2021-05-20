@@ -127,7 +127,7 @@ public class Player_State : MonoBehaviour
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.BRIDGE_SET;
                     m_CanAction = false;
-
+                    sc_move.Set_Act_spin();
                 }
             }
 
