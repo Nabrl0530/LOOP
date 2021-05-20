@@ -46,45 +46,21 @@ public class PlaceController : MonoBehaviour
     [Tooltip("回転の補正値")]
     private Vector3 m_offset_rotation = default;
 
-    //[SerializeField]
-    //[Range(0.0f, 100.0f)]
-    //[Tooltip("ステージ中心からどれだけ離れるか")]
-    private float m_distance = 0.0f;
-
     [SerializeField]
     [Tooltip("ステージ中心からどれだけ離れるか")]
     private float m_offset_distance = 0.0f;
-
-    //[SerializeField]
-    //[Tooltip("ステージ中心からどれだけ離れるかのパラメーターに、デフォルト値を使用するか")]
-    private bool m_use_default_distance = true;
-
 
     [SerializeField]
     [Tooltip("高さのプリセット")]
     private HEIGHT_PRESET m_height_preset = HEIGHT_PRESET.ONE;
 
-
-    //[Range(0.0f, 100.0f)]
-    //[SerializeField]
-    //[Tooltip("高さを調整できます")]
-    private float m_height = 0.0f;
-
     [SerializeField]
     [Tooltip("高さを調整できます")]
     private float m_offset_height = 0.0f;
 
-    //[SerializeField]
-    //[Tooltip("高さを調整時のスナップ")]
-    //private float m_snap_height = 0.0f;
+    private float m_height = 0.0f;
 
-    //[SerializeField]
-    //[Tooltip("高さの調整にデフォルト値を使用するか")]
-    private bool m_use_default_height = true;
-
-
-
-
+    private float m_distance = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -119,11 +95,6 @@ public class PlaceController : MonoBehaviour
         my_pos.y = result_vec.y * temp_dist;
         my_pos.z = result_vec.z * temp_dist;
 
-        //if (m_use_default_height)
-        //{
-            
-        //}
-
         if (m_height_preset == HEIGHT_PRESET.ONE)
         {
             m_height = 1.23f;
@@ -139,10 +110,7 @@ public class PlaceController : MonoBehaviour
             m_height = 8;
         }
         float temp_height = m_height + m_offset_height;
-        //Adjust_Height(m_snap_height);
         my_pos += my_transform.up * temp_height;
-
-
         this.gameObject.transform.position = my_pos;
 
         if (m_adjust_place_angle_and_rotation)
@@ -189,37 +157,25 @@ public class PlaceController : MonoBehaviour
         if (m_floor_number == FLOOR_NUMBER.ONE)
         {
             parent_pipe = GameObject.FindGameObjectWithTag("ONE");
-            if (m_use_default_distance)
-            {
-                m_distance = 6.8f;
-            }
+            m_distance = 6.8f;
         }
         else
         if (m_floor_number == FLOOR_NUMBER.TWO)
         {
             parent_pipe = GameObject.FindGameObjectWithTag("TWO");
-            if (m_use_default_distance)
-            {
-                m_distance = 10.23f;
-            }
+            m_distance = 10.23f;
         }
         else
         if (m_floor_number == FLOOR_NUMBER.THREE)
         {
             parent_pipe = GameObject.FindGameObjectWithTag("THREE");
-            if (m_use_default_distance)
-            {
-                m_distance = 13.73f;
-            }
+            m_distance = 13.73f;
         }
         else
             if (m_floor_number == FLOOR_NUMBER.NONE)
         {
             parent_pipe = GameObject.FindGameObjectWithTag("FLOOR_NONE");
-            if (m_use_default_distance)
-            {
-                m_distance = 0.0f;
-            }
+            m_distance = 0.0f;
         }
 
         return parent_pipe;

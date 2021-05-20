@@ -10,16 +10,22 @@ public class Player : MonoBehaviour
     TOWER TOWER;
     Leba leba;
     leba_2 leba_2;
+    Bridge bridge;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
-    bool LOCK;  //手動操作禁止状態
-    int NoComand;
+    //int NoComand;
+
+    public int Actcount;    //各アクションの処理時間
+    public float set_spin;  //ギミック操作時の向き補正値
     public float len;  //長さ
+    private float searchAngle = 80f;    //視野角
+
 
     public bool HIT_TOWER;
     public bool HIT_LEVER;
     public bool HIT_LEVER2;
+    public bool HIT_BRIDGE;
     bool HIT_LEVER_BACK;
 
     bool IsUnder_m = false;
@@ -255,6 +261,12 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
+            //橋によるワープ移動（向き変更）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_SET)
+            {
+                
+            }
         }
     }//FixedUpdate
 
@@ -276,10 +288,17 @@ public class Player : MonoBehaviour
 
     //オブジェクトからの当たり判定操作
 
-    public void SetHIT_TOWER()
+    public void SetHIT_TOWER(Vector3 pos)
     {
-        HIT_TOWER = true;
-        sc_state.Set_IsTower(HIT_TOWER);
+        if (CheckView(pos))
+        {
+            HIT_TOWER = true;
+            sc_state.Set_IsTower(HIT_TOWER);
+        }
+        else
+        {
+            ClearHIT_TOWER();
+        }
     }
 
     public void ClearHIT_TOWER()
@@ -288,16 +307,43 @@ public class Player : MonoBehaviour
         sc_state.Set_IsTower(HIT_TOWER);
     }
 
-    public void SetHIT_LEVER()
+    public void SetHIT_LEVER(Vector3 pos)
     {
-        HIT_LEVER = true;
-        sc_state.Set_IsLever(HIT_LEVER);
+        if(CheckView(pos))
+        {
+            HIT_LEVER = true;
+            sc_state.Set_IsLever(HIT_LEVER);
+        }
+        else
+        {
+            ClearHIT_LEVER();
+        }
     }
 
-    public void SetHIT_LEVER2()
+    public void SetHIT_LEVER2(Vector3 pos)
     {
-        HIT_LEVER2 = true;
-        sc_state.Set_IsLever(HIT_LEVER2);
+        if (CheckView(pos))
+        {
+            HIT_LEVER2 = true;
+            sc_state.Set_IsLever(HIT_LEVER2);
+        }
+        else
+        {
+            ClearHIT_LEVER2();
+        }
+    }
+
+    public void SetHIT_Bridge(Vector3 pos)
+    {
+        if (CheckView(pos))
+        {
+            HIT_BRIDGE = true;
+            sc_state.Set_IsBridge(HIT_BRIDGE);
+        }
+        else
+        {
+            ClearHIT_BRIDGE();
+        }
     }
 
     public void ClearHIT_LEVER()
@@ -312,6 +358,12 @@ public class Player : MonoBehaviour
         sc_state.Set_IsLever(HIT_LEVER2);
     }
 
+    public void ClearHIT_BRIDGE()
+    {
+        HIT_BRIDGE = false;
+        sc_state.Set_IsBridge(HIT_BRIDGE);
+    }
+
     public void SetHIT_LEVER_BACK()
     {
         HIT_LEVER_BACK = true;
@@ -320,6 +372,33 @@ public class Player : MonoBehaviour
     public void ClearHIT_LEVER_BACK()
     {
         HIT_LEVER_BACK = false;
+    }
+
+
+
+    bool CheckView(Vector3 pos)
+    {
+        //　 対象の方向
+        Vector3 Direction = pos - transform.position;
+        float sub_y = Direction.y;
+
+        Direction.y = 0;
+
+        Vector3 forward = transform.forward;
+
+        forward.y = 0;
+
+        //　敵の前方からの主人公の方向
+        var angle = Vector3.Angle(forward, Direction);
+
+        Debug.Log(angle);
+        //　サーチする角度内だったら発見
+        if (angle <= searchAngle)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void UseLever()
@@ -365,8 +444,12 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("LEVER_BACK"))
         {
-            //Debug.Log("獲得");
             leba_2 = other.GetComponent<leba_2>();
+        }
+
+        if (other.gameObject.CompareTag("Bridge_HIT"))
+        {
+            bridge = other.GetComponent<Bridge_HIT>().GetBridge();
         }
     }
     
