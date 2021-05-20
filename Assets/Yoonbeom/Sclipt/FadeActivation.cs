@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class temporary : MonoBehaviour
+public class FadeActivation : MonoBehaviour
 {
     [SerializeField]
     private GameObject fadeimg;

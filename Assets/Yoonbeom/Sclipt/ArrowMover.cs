@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class CursorMover : MonoBehaviour
+public class ArrowMover : MonoBehaviour
 {
  [SerializeField]
  private int Velocity;
- private float xMove;
+ private float yMove;
 
  private int WaitTime = 0;
  private int Step = 1;
@@ -67,22 +67,22 @@ public class CursorMover : MonoBehaviour
     }
     private void CursorMove()
     {
-        xMove = 0;
+        yMove = 0;
         WaitTime--;
-        if (Input.GetKey(KeyCode.RightArrow) && WaitTime < 0 && Step < 7)
+        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step > 1)
         {
-            xMove = Velocity * Time.deltaTime;
-            WaitTime = 30;
-            Step++;
-        }
-        if (Input.GetKey(KeyCode.LeftArrow) && WaitTime < 0 && Step > 1)
-        {
-            xMove = -Velocity * Time.deltaTime;
+            yMove = Velocity * Time.deltaTime;
             WaitTime = 30;
             Step--;
         }
+        if (Input.GetKey(KeyCode.DownArrow) && WaitTime < 0 && Step < 3)
+        {
+            yMove = -Velocity * Time.deltaTime;
+            WaitTime = 30;
+            Step++;
+        }
 
-        this.transform.Translate(new Vector3(xMove, 0, 0));
+        this.transform.Translate(new Vector3(0, yMove, 0));
 
     }
     private void ChoiceStage()
@@ -93,8 +93,15 @@ public class CursorMover : MonoBehaviour
             switch (Step)
             {
                 case 1:
-                    SceneManager.LoadScene("Stage 1");
+                    SceneManager.LoadScene("yb_ChoiceScene");
                     break;
+                case 2:
+                    //ƒƒjƒ…[
+                    break;
+                case 3:
+                    UnityEditor.EditorApplication.isPlaying = false;
+                    break;
+             
             }
         }
     }
