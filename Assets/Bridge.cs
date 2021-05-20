@@ -60,4 +60,9 @@ public class Bridge : MonoBehaviour
         Destroy(C_Laser);
         C_Laser = null;
     }
+
+    public Vector3 Getpair_pos()
+    {
+        return pair_Gate.transform.position;
+    }
 }
