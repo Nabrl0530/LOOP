@@ -6,23 +6,33 @@ public class miya_player_move : MonoBehaviour
 {
 	// 参照
 	public miya_player_state sc_state;
+	public miya_player_axis sc_axis;
 
 	// 変数
 	Rigidbody Rigid;
 	[SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
-	[SerializeField] private float Speed_Move = 8.0f;
-	[SerializeField] private float RotateSpeed = 20.0f;
-	[SerializeField] private float Speed_Fall = 4.0f;
+	[SerializeField]
+	private float Speed_Move = 8.0f;
+	[SerializeField]
+	private float RotateSpeed = 20.0f;
+	[SerializeField]
+	private float Speed_Fall = 4.0f;
 	//[SerializeField] private float Speed_Climb = 4.0f;
-	[SerializeField] private float Height_Climb_Block = 2.3f;
+	[SerializeField]
+	private float Height_Climb_Block = 2.3f;
 	//[SerializeField] private float Height_Climb_Stage = 0.75f;//1.8f;
-	[SerializeField] private float GoLength_AfterClimbing = 0.5f;
-	[SerializeField] private float Rotate_Tolerance = 0.1f;
-	[SerializeField] private float Camera_DistanceTolerance = 100;
+	[SerializeField]
+	private float GoLength_AfterClimbing = 0.5f;
+	[SerializeField]
+	private float Rotate_Tolerance = 0.1f;
+	[SerializeField]
+	private float Camera_DistanceTolerance = 100;
 	private Vector3 Position_Latest_m;
 	private Vector3 StartPosition = new Vector3(0, 0, 0);
 
+	[SerializeField]
 	private bool is_block = false;
+	[SerializeField]
 	private bool is_stage = false;
 
 	//private int Frame_Climb_m = 0;
@@ -32,7 +42,6 @@ public class miya_player_move : MonoBehaviour
 	
 	[SerializeField] private float m_Second_Climb = 3.0f;
 	private float m_Count_Second = 0;
-
 
 	// 初期化
 	void Start()
@@ -160,23 +169,8 @@ public class miya_player_move : MonoBehaviour
 					direction_move = direction_move.normalized;// * Time.deltaTime;
 				}
 
-				// 移動//進行方向にオブジェクトがあったら法線方向へ回転
+				// 移動
 				Rigid.velocity = direction_move * Speed_Move * 0.5f;
-
-				// 回転
-				// 制御
-				difference.y = 0;
-				if (difference.magnitude > Rotate_Tolerance * 0.1f)
-				{
-					// 回転計算//オフセット回転
-
-					//Rigid.centerOfMass = new Vector3(0, 0, 1);
-					//Rigid.angularVelocity = new Vector3(0, 1, 0);
-
-					Quaternion rot = Quaternion.LookRotation(direction_move);
-					rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed * 0.5f);
-					this.transform.rotation = rot;
-				}//difference.magnitude > Rotate_Tolerance
 			}//ブロック押す
 
 			// よじ登る
@@ -260,6 +254,20 @@ public class miya_player_move : MonoBehaviour
 				//	}
 				}
 			}
+		}
+
+		if
+			(
+			sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING ||
+			sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.PUSH_WAITING
+			)
+		{
+			Rigid.constraints = RigidbodyConstraints.FreezeAll;
+		}
+		else
+		{
+			Rigid.constraints = RigidbodyConstraints.None;
+			Rigid.constraints = RigidbodyConstraints.FreezeRotation;
 		}
 	}//FixedUpdate
 
