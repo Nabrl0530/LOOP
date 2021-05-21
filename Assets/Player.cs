@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     TOWER TOWER;
     Leba leba;
-    leba_2 leba_2;
+    //leba_2 leba_2;
     Bridge bridge;
     GameObject Pipe1;
     GameObject Pipe2;
@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
 
     public bool HIT_TOWER;
     public bool HIT_LEVER;
-    public bool HIT_LEVER2;
+    //public bool HIT_LEVER2;
     public bool HIT_BRIDGE;
     bool HIT_LEVER_BACK;
 
@@ -484,6 +484,7 @@ public class Player : MonoBehaviour
 
     public void SetHIT_LEVER2(Vector3 pos)
     {
+        /*
         if (CheckView(pos))
         {
             HIT_LEVER2 = true;
@@ -494,6 +495,7 @@ public class Player : MonoBehaviour
         {
             ClearHIT_LEVER2();
         }
+        */
     }
 
     public bool SetHIT_Bridge(Vector3 pos)
@@ -520,8 +522,8 @@ public class Player : MonoBehaviour
 
     public void ClearHIT_LEVER2()
     {
-        HIT_LEVER2 = false;
-        sc_state.Set_IsLever(HIT_LEVER2);
+        //HIT_LEVER2 = false;
+        //sc_state.Set_IsLever(HIT_LEVER2);
     }
 
     public void ClearHIT_BRIDGE()
@@ -581,11 +583,12 @@ public class Player : MonoBehaviour
         {
             leba.SpinL();
         }
-
+        /*
         if (HIT_LEVER2)
         {
             leba_2.SpinL();
         }
+        */
     }
 
     public void UseLever_inv()
@@ -595,10 +598,12 @@ public class Player : MonoBehaviour
             leba.SpinR();
         }
 
+        /*
         if (HIT_LEVER2)
         {
             leba_2.SpinR();
         }
+        */
     }
     
 
@@ -618,7 +623,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("LEVER_BACK"))
         {
-            leba_2 = other.GetComponent<leba_2>();
+            //leba_2 = other.GetComponent<leba_2>();
         }
 
         if (other.gameObject.CompareTag("Bridge_HIT"))
