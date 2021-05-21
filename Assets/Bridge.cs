@@ -7,8 +7,8 @@ public class Bridge : MonoBehaviour
     public GameObject Laser;
     private GameObject C_Laser = null;
     public GameObject pair_Gate;
-    private bool Use = false;
-    private int Hit_Count = 0;
+    public bool Use = false;
+    public int Hit_Count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +18,16 @@ public class Bridge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Use)
+        if (Use && C_Laser != null)
         {
             Hit_Count++;
             C_Laser.GetComponent<beam_other>().Set_End(pair_Gate.gameObject.transform.position);
             C_Laser.GetComponent<beam_other>().Set_Base(transform.position);
         }
 
-        if (Hit_Count == 5)
+        if (Hit_Count == 5 && C_Laser != null)
         {
+            Hit_Count = 0;
             Finish_Bridge();
             Use = false;
             pair_Gate.gameObject.GetComponent<Bridge>().SetUse(Use);
