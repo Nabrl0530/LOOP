@@ -125,9 +125,12 @@ public class Player_State : MonoBehaviour
                 }
                 else if(IsBridge)
                 {
-                    m_AnimationState = (int)e_PlayerAnimationState.BRIDGE_SET;
-                    m_CanAction = false;
-                    sc_move.Set_Act_spin();
+                    if (sc_move.Check_Bridge())
+                    {
+                        m_AnimationState = (int)e_PlayerAnimationState.BRIDGE_SET;
+                        m_CanAction = false;
+                        sc_move.Set_Act_spin();
+                    }
                 }
             }
 

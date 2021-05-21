@@ -29,6 +29,7 @@ public class Bridge : MonoBehaviour
         {
             Finish_Bridge();
             Use = false;
+            pair_Gate.gameObject.GetComponent<Bridge>().SetUse(Use);
         }
     }
 
@@ -37,6 +38,7 @@ public class Bridge : MonoBehaviour
         Make_Pair();
         Hit_Count = 0;
         Use = true;
+        pair_Gate.gameObject.GetComponent<Bridge>().SetUse(Use);
     }
 
     void Make_Pair()
@@ -45,6 +47,7 @@ public class Bridge : MonoBehaviour
         {           
             MakeBridge();
             Use = true;
+            pair_Gate.gameObject.GetComponent<Bridge>().SetUse(Use);
         }
     }
 
@@ -64,5 +67,15 @@ public class Bridge : MonoBehaviour
     public Vector3 Getpair_pos()
     {
         return pair_Gate.transform.position;
+    }
+
+    public bool GetUse()
+    {
+        return Use;
+    }
+
+    public void SetUse(bool _is)
+    {
+        Use = _is;
     }
 }

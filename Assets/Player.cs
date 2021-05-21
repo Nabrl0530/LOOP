@@ -540,6 +540,11 @@ public class Player : MonoBehaviour
         HIT_LEVER_BACK = false;
     }
 
+    public bool Check_Bridge()
+    {
+        return bridge.GetUse();
+    }
+
 
 
     bool CheckView(Vector3 pos)
