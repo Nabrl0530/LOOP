@@ -8,7 +8,8 @@ public class miya_camera_move : MonoBehaviour
 	public miya_player_state sc_state;
 
 	// íËêî
-	const float HEIGHT_MAX = 17.5f;
+	[SerializeField]
+	float HEIGHT_MAX = 17.5f;
 	const float HEIGHT_MIN = 4.0f;
 
 	// ïœêî------------------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ public class miya_camera_move : MonoBehaviour
 		if (Tower_m && sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING_TOWER)
 		{
 			// íçéãì_
-			Vector3 new_pos = new Vector3(0, 5.692f, 0);
+			Vector3 new_pos = new Vector3(0, 3, 0);
 			new_pos.x = Tower_m.transform.position.x;
 			new_pos.z = Tower_m.transform.position.z;
 			GazePoint.transform.position = new_pos;
@@ -67,7 +68,7 @@ public class miya_camera_move : MonoBehaviour
 		else
 		{
 			// íçéãì_
-			Vector3 new_pos = new Vector3(0, 5.692f, 0);
+			Vector3 new_pos = new Vector3(0, 2, 0);//íçà”
 			GazePoint.transform.position = new_pos;
 
 			// à⁄ìÆ
