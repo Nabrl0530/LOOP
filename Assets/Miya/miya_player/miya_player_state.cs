@@ -105,12 +105,14 @@ public class miya_player_state : MonoBehaviour
 			Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
 			)
 			{
+				// 原田君用3変更
 				if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
 				else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
 			}
 			// ゲームパッド// 原田君用2// camera_moveにも同じように変更あるので注意お願いします(´ω`)
 			else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
 			{
+				// 原田君用3変更
 				if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
 				else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
 			}
