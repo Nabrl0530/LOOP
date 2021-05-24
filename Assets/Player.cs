@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     Leba leba;
     //leba_2 leba_2;
     Bridge bridge;
+    Door door;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
@@ -758,6 +759,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Bridge_HIT"))
         {
             bridge = other.GetComponent<Bridge_HIT>().GetBridge();
+        }
+
+        if (other.gameObject.CompareTag("Door_HIT"))
+        {
+            door = other.GetComponent<Door_HIT>().GetDoor();
         }
     } 
 }

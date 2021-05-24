@@ -8,6 +8,7 @@ public class Player_State : MonoBehaviour
     public Player sc_move;
     public Player_Forword sc_forword;
     public Player_Check sc_check;
+    public Animator animator;
 
     // —ñ‹“
     public enum e_PlayerAnimationState
@@ -204,6 +205,8 @@ public class Player_State : MonoBehaviour
                 }
             }
         }
+
+        //animator.SetBool("isRun", true);
     }
 
     // ’èŠúXV
