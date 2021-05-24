@@ -17,14 +17,12 @@ public class CheckChangeMaterial : MonoBehaviour
     void Start()
     {
         m_camera = GameObject.FindGameObjectWithTag("MainCamera");
-        m_tag_list.Add("CRISTAL");
-        m_tag_list.Add("Obstacle");
     }
 
     // Update is called once per frame
     void Update()
     {
-        MeshRenderer mesh = this.GetComponent<MeshRenderer>();
+        SkinnedMeshRenderer mesh = this.GetComponent<SkinnedMeshRenderer>();
         Vector3 direction = this.transform.position - m_camera.transform.position; 
         RaycastHit hit;
         if (Physics.Raycast(m_camera.transform.position, direction, out hit))
