@@ -21,6 +21,7 @@ TagManager:
   - Button
   - Bridge
   - Bridge_HIT
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - 
   - Volume
   - PostProcessing
-  - 
+  - ChangeMaterialObstacle
   - 
   - 
   - 
