@@ -45,7 +45,9 @@ public class miya_player_state : MonoBehaviour
 	private bool IsBlock = false;
 	private bool IsStage = false;
 
+	// 原田君用('ω')
 	public GameObject m_parent;
+
 	// デバッグ用
 	int state_past = (int)e_PlayerAnimationState.WAITING;
 
@@ -103,6 +105,7 @@ public class miya_player_state : MonoBehaviour
 					m_AnimationState	= (int)e_PlayerAnimationState.CLIMBING;
 					m_CanAction			= false;
 
+					// 原田君用('ω')ワープだからいらなくなったね
 					//Rigid.useGravity	= false;
 
 					sc_move.Set_StartPosition(this.transform.position);
@@ -119,6 +122,7 @@ public class miya_player_state : MonoBehaviour
 					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
 					m_CanAction = false;
 
+					// 原田君用('ω')
 					// ブロックをプレイヤーの子に
 					if (sc_forword.Get_Block())
 					{

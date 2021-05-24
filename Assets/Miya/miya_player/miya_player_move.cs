@@ -101,10 +101,20 @@ public class miya_player_move : MonoBehaviour
 			{
 				// 入力
 				Vector3 direction_move = new Vector3(0, 0, 0);
-				if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-				if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-				if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
-				if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+				if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+				{
+					if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+					if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+					if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+					if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+				}
+				// 原田君用('ω')
+				// ゲームパッド//player_stateの方にもあるよ！(ゲームパッドで検索してくれるとありがたい。)※if文で分岐してるところも忘れずに
+				else
+				{
+					direction_move += camera_front * Input.GetAxis("Vertical_p");
+					direction_move += camera_right * Input.GetAxis("Horizontal_p");
+				}
 
 				// 正規化
 				if (direction_move != new Vector3(0, 0, 0))
@@ -171,11 +181,15 @@ public class miya_player_move : MonoBehaviour
 
 				// 移動
 				Rigid.velocity = direction_move * Speed_Move * 0.5f;
+
+				// 原田君用('ω')
+				// ここ回転があったけど消えてる、はず！
 			}//ブロック押す
 
 			// よじ登る
 			if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.CLIMBING)
 			{
+				// 原田君用('ω')
 				// ワープ
 				if (m_Count_Second > m_Second_Climb)
 				{
@@ -197,6 +211,7 @@ public class miya_player_move : MonoBehaviour
 				// 増加
 				m_Count_Second += Time.deltaTime;
 
+				// 原田君用('ω')コメントアウトしたよ。
 				//// ブロック
 				if (is_block)
 				{
@@ -256,6 +271,7 @@ public class miya_player_move : MonoBehaviour
 			}
 		}
 
+		// 原田君用('ω')ここも多分もともとなかったはず
 		if
 			(
 			sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING ||
