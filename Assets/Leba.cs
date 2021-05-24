@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Leba : MonoBehaviour
 {
-    public GameObject FloorOne;
+    public GameObject Floor;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +19,12 @@ public class Leba : MonoBehaviour
 
     public void SpinL()
     {
-        FloorOne.GetComponent<SPIN_FloorOne>().SetSpin(-1);
+        Floor.GetComponent<SPIN_FloorOne>().SetSpin(-1);
     }
 
     public void SpinR()
     {
-        FloorOne.GetComponent<SPIN_FloorOne>().SetSpin(1);
+        Floor.GetComponent<SPIN_FloorOne>().SetSpin(1);
     }
 
     void OnTriggerEnter(Collider other)

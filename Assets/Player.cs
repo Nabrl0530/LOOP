@@ -5,24 +5,42 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // 参照
+    //public GameObject Center;
     public Player_State sc_state;
 
     TOWER TOWER;
     Leba leba;
-    leba_2 leba_2;
+    //leba_2 leba_2;
+    Bridge bridge;
+    Door door;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
-    bool LOCK;  //手動操作禁止状態
-    int NoComand;
+
+    public Player_Forword Player_Forword;
+    public Player_Check Player_Check;
+    public Player_Under Player_Under;
+
+    //int NoComand;
+
+    public int Actcount;    //各アクションの処理時間
+    public float Act_spin;  //ギミック操作時の向き補正値
+    public Vector3 Act_move;  //アクションによる移動量
+    public Vector3 Gimmikpoint; //操作対象の位置
+    public Vector3 Gatepoint;   //吸い込まれる場所
+    public float pop_y;         //放出力
     public float len;  //長さ
+    private float searchAngle = 80f;    //視野角
+    private float Size = 1.0f;
+    private float rot_z;   //回転速度
 
-    private float searchAngle = 80f;
 
-    public bool HIT_TOWER;
-    public bool HIT_LEVER;
-    public bool HIT_LEVER2;
-    bool HIT_LEVER_BACK;
+    bool HIT_TOWER = false;
+    bool HIT_LEVER = false;
+    //public bool HIT_LEVER2;
+    bool HIT_BRIDGE = false;
+    bool HIT_LEVER_BACK = false;
+    bool HIT_DOOR = false;
 
     bool IsUnder_m = false;
 
@@ -63,7 +81,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
-        //Debug.Log(len);
         if (len >= 12.0f)
         {
             transform.SetParent(Pipe3.transform);
@@ -257,6 +274,244 @@ public class Player : MonoBehaviour
                     }
                 }
             }
+
+            //橋によるワープ移動（向き変更）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_SET)
+            {
+                Actcount--;
+
+                transform.Rotate(0, Act_spin, 0);
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BRIDGE_IN);
+                    Actcount = 100;
+                    //物理挙動による移動の無効化
+                    this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    Size = 1.0f;
+                    rot_z = 1.0f;
+
+                    Act_move = (Gatepoint - transform.position) / 50;
+                }
+            }
+
+            //橋によるワープ移動（吸い込み）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_IN)
+            {
+                Actcount--;
+
+                transform.Rotate(0, 0, rot_z);
+
+                rot_z += 1.5f;
+
+                if (Actcount <= 50)
+                {
+                    if (Actcount > 25)
+                    {
+                        Size -= 0.04f;
+                    }
+
+                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.position += Act_move;
+                }
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BRIDGE_MOVE);
+                    transform.position = Gatepoint;
+                    Actcount = 70;
+
+                    Act_move = (bridge.Getpair_pos() - transform.position) / 50;
+
+                    Quaternion angle = Quaternion.identity;
+
+                    angle.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, 0);
+                    transform.rotation = angle;
+
+                    //出現時の向きを合わせる
+                    Vector3 View = bridge.Getpair_pos();
+                    View.y = transform.position.y;
+                    this.transform.LookAt(View);
+                    Player_Forword.PosReset();
+                    Player_Check.PosReset();
+                    Player_Under.PosReset();
+                }
+            }
+
+            //橋によるワープ移動（移動）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_MOVE)
+            {
+                Actcount--;
+
+
+                if (Actcount <= 50)
+                {
+                    transform.position += Act_move;
+                }
+
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BRIDGE_POP);
+                    Act_move = Act_move.normalized;
+
+                    transform.position += Act_move * 0.5f;
+
+                    Actcount = 100;
+                    pop_y = 0.2f;
+                }
+            }
+
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BRIDGE_POP)
+            {
+                Actcount--;
+
+                if(Actcount == 50)
+                {
+                    Size = 0;
+                }
+
+                if (Actcount <= 50)
+                {
+                    transform.position += (Act_move * 0.03f);
+                    Size += 0.02f;
+                    transform.localScale = new Vector3(Size, Size, Size);
+
+                    Vector3 pos = transform.position;
+                    pos.y += pop_y;
+
+                    transform.position = pos;
+
+                    pop_y -= 0.008f;
+
+                }
+
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
+
+                    this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+
+                    Size = 1.0f;
+                    transform.localScale = new Vector3(Size, Size, Size);
+                    sc_state.Set_CanAction(true);
+
+                    Player_Forword.PosReset();
+                    Player_Check.PosReset();
+                    Player_Under.PosReset();
+                }
+            }
+
+            /////////////////////
+            ///
+            //額縁によるワープ移動（向き変更）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.DOOR_SET)
+            {
+                Actcount--;
+
+                transform.Rotate(0, Act_spin, 0);
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.DOOR_IN);
+                    Actcount = 100;
+                    //物理挙動による移動の無効化
+                    this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    Size = 1.0f;
+                    rot_z = 1.0f;
+
+                    Act_move = (Gatepoint - transform.position) / 50;
+                }
+            }
+
+            //額縁によるワープ移動（吸い込み）
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.DOOR_IN)
+            {
+                Actcount--;
+
+                transform.Rotate(0, 0, rot_z);
+
+                rot_z += 1.5f;
+
+                if (Actcount <= 50)
+                {
+                    if (Actcount > 25)
+                    {
+                        Size -= 0.04f;
+                    }
+
+                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.position += Act_move;
+                }
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.DOOR_POP);
+                    transform.position = Gatepoint;
+                    Actcount = 70;
+
+                    Act_move = (bridge.Getpair_pos() - transform.position) / 50;
+
+                    Quaternion angle = Quaternion.identity;
+
+                    angle.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, 0);
+                    transform.rotation = angle;
+
+                    //出現時の向きを合わせる
+                    Vector3 View = bridge.Getpair_pos();
+                    View.y = transform.position.y;
+                    this.transform.LookAt(View);
+                    Player_Forword.PosReset();
+                    Player_Check.PosReset();
+                    Player_Under.PosReset();
+                }
+            }
+
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.DOOR_POP)
+            {
+                Actcount--;
+
+                if (Actcount == 50)
+                {
+                    Size = 0;
+                }
+
+                if (Actcount <= 50)
+                {
+                    transform.position += (Act_move * 0.03f);
+                    Size += 0.02f;
+                    transform.localScale = new Vector3(Size, Size, Size);
+
+                    Vector3 pos = transform.position;
+                    pos.y += pop_y;
+
+                    transform.position = pos;
+
+                    pop_y -= 0.008f;
+
+                }
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
+
+                    this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+
+                    Size = 1.0f;
+                    transform.localScale = new Vector3(Size, Size, Size);
+                    sc_state.Set_CanAction(true);
+
+                    Player_Forword.PosReset();
+                    Player_Check.PosReset();
+                    Player_Under.PosReset();
+                }
+            }
+
         }
     }//FixedUpdate
 
@@ -270,11 +525,34 @@ public class Player : MonoBehaviour
         IsUnder_m = _is;
     }
 
-    ////オブジェクトが触れている間
-    //void OnCollisionStay(Collision collision)
-    //{
-    //	Debug.Log("Hiting");
-    //}
+    public void Set_Act_spin()
+    {
+        //　 対象の方向
+        Vector3 Direction = Gimmikpoint - transform.position;
+        float sub_y = Direction.y;
+
+        Direction.y = 0;
+
+        Vector3 forward = transform.forward;
+
+        forward.y = 0;
+
+        var axis = Vector3.Cross(forward, Direction);   //どっち向き？
+        var angle = Vector3.Angle(forward, Direction);  //角度（大きさだけ）
+
+        if(axis.y > 0)
+        {
+            Act_spin = angle / 50;
+        }
+        else
+        {
+            Act_spin = -angle / 50; 
+        }
+
+        Actcount = 50;
+
+    }
+
 
     //オブジェクトからの当たり判定操作
 
@@ -284,6 +562,7 @@ public class Player : MonoBehaviour
         {
             HIT_TOWER = true;
             sc_state.Set_IsTower(HIT_TOWER);
+            Gimmikpoint = pos;
         }
         else
         {
@@ -303,6 +582,7 @@ public class Player : MonoBehaviour
         {
             HIT_LEVER = true;
             sc_state.Set_IsLever(HIT_LEVER);
+            Gimmikpoint = pos;
         }
         else
         {
@@ -312,15 +592,50 @@ public class Player : MonoBehaviour
 
     public void SetHIT_LEVER2(Vector3 pos)
     {
+        /*
         if (CheckView(pos))
         {
             HIT_LEVER2 = true;
             sc_state.Set_IsLever(HIT_LEVER2);
+            Gimmikpoint = pos;
         }
         else
         {
             ClearHIT_LEVER2();
         }
+        */
+    }
+
+    public bool SetHIT_Bridge(Vector3 pos)
+    {
+        if (CheckView(pos))
+        {
+            HIT_BRIDGE = true;
+            sc_state.Set_IsBridge(HIT_BRIDGE);
+            Gimmikpoint = pos;
+            return true;
+        }
+        else
+        {
+            ClearHIT_BRIDGE();
+        }
+        return false;
+    }
+
+    public bool SetHIT_Door(Vector3 pos)
+    {
+        if (CheckView(pos))
+        {
+            HIT_DOOR = true;
+            sc_state.Set_IsDoor(HIT_DOOR);
+            Gimmikpoint = pos;
+            return true;
+        }
+        else
+        {
+            ClearHIT_DOOR();
+        }
+        return false;
     }
 
     public void ClearHIT_LEVER()
@@ -331,8 +646,20 @@ public class Player : MonoBehaviour
 
     public void ClearHIT_LEVER2()
     {
-        HIT_LEVER2 = false;
-        sc_state.Set_IsLever(HIT_LEVER2);
+        //HIT_LEVER2 = false;
+        //sc_state.Set_IsLever(HIT_LEVER2);
+    }
+
+    public void ClearHIT_BRIDGE()
+    {
+        HIT_BRIDGE = false;
+        sc_state.Set_IsBridge(HIT_BRIDGE);
+    }
+
+    public void ClearHIT_DOOR()
+    {
+        HIT_DOOR = false;
+        sc_state.Set_IsDoor(HIT_DOOR);
     }
 
     public void SetHIT_LEVER_BACK()
@@ -343,6 +670,11 @@ public class Player : MonoBehaviour
     public void ClearHIT_LEVER_BACK()
     {
         HIT_LEVER_BACK = false;
+    }
+
+    public bool Check_Bridge()
+    {
+        return bridge.GetUse();
     }
 
 
@@ -359,11 +691,9 @@ public class Player : MonoBehaviour
 
         forward.y = 0;
 
-        //　敵の前方からの主人公の方向
         var angle = Vector3.Angle(forward, Direction);
 
-        Debug.Log(angle);
-        //　サーチする角度内だったら発見
+        //　サーチする角度内だったら発見している
         if (angle <= searchAngle)
         {
             return true;
@@ -372,17 +702,23 @@ public class Player : MonoBehaviour
         return false;
     }
 
+    public void SetGate(Vector3 pos)
+    {
+        Gatepoint = pos;
+    }
+
     public void UseLever()
     {
         if (HIT_LEVER)
         {
             leba.SpinL();
         }
-
+        /*
         if (HIT_LEVER2)
         {
             leba_2.SpinL();
         }
+        */
     }
 
     public void UseLever_inv()
@@ -392,10 +728,12 @@ public class Player : MonoBehaviour
             leba.SpinR();
         }
 
+        /*
         if (HIT_LEVER2)
         {
             leba_2.SpinR();
         }
+        */
     }
     
 
@@ -415,10 +753,17 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("LEVER_BACK"))
         {
-            //Debug.Log("獲得");
-            leba_2 = other.GetComponent<leba_2>();
+            //leba_2 = other.GetComponent<leba_2>();
         }
-    }
-    
 
+        if (other.gameObject.CompareTag("Bridge_HIT"))
+        {
+            bridge = other.GetComponent<Bridge_HIT>().GetBridge();
+        }
+
+        if (other.gameObject.CompareTag("Door_HIT"))
+        {
+            door = other.GetComponent<Door_HIT>().GetDoor();
+        }
+    } 
 }

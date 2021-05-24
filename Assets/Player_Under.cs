@@ -19,6 +19,11 @@ public class Player_Under : MonoBehaviour
 
     }
 
+    public void PosReset()
+    {
+        transform.localPosition = new Vector3(0, 0, 0);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") return;
