@@ -6184,6 +6184,8 @@ MonoBehaviour:
   is_block: 0
   is_stage: 0
   m_Second_Climb: 0.5
+  Speed_Walk: 8
+  Speed_Run: 12
 --- !u!136 &1703755022
 CapsuleCollider:
   m_ObjectHideFlags: 0

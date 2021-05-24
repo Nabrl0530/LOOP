@@ -51,6 +51,10 @@ public class miya_player_state : MonoBehaviour
 	// デバッグ用
 	int state_past = (int)e_PlayerAnimationState.WAITING;
 
+	// 原田君用3
+	bool IsRunning = false;
+	public void Set_IsRunning(bool _is) { IsRunning = _is; }
+
 	// 初期化
 	void Start()
 	{
@@ -101,12 +105,16 @@ public class miya_player_state : MonoBehaviour
 			Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
 			)
 			{
-				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+				// 原田君用3変更
+				if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+				else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
 			}
 			// ゲームパッド// 原田君用2// camera_moveにも同じように変更あるので注意お願いします(´ω`)
 			else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
 			{
-				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+				// 原田君用3変更
+				if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+				else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
 			}
 
 			// デバッグ
