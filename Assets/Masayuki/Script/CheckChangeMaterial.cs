@@ -17,8 +17,6 @@ public class CheckChangeMaterial : MonoBehaviour
     void Start()
     {
         m_camera = GameObject.FindGameObjectWithTag("MainCamera");
-        m_tag_list.Add("CRISTAL");
-        m_tag_list.Add("Obstacle");
     }
 
     // Update is called once per frame
