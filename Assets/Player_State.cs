@@ -118,17 +118,18 @@ public class Player_State : MonoBehaviour
                     if (sc_forword.Get_Block())
                     {
                         sc_forword.Get_Block().transform.parent = this.transform;
-                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f,1.8f,2.2f);
+                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
                         //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
                         sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        sc_move.Block_Catch();
                     }
 
                 }
-                else if(IsLever)
+                else if (IsLever)
                 {
                     sc_move.UseLever();
                 }
-                else if(IsBridge)
+                else if (IsBridge)
                 {
                     if (sc_move.Check_Bridge())
                     {
@@ -136,6 +137,12 @@ public class Player_State : MonoBehaviour
                         m_CanAction = false;
                         sc_move.Set_Act_spin();
                     }
+                }
+                else if (IsDoor)
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.DOOR_SET;
+                    m_CanAction = false;
+                    sc_move.Set_Act_spin();
                 }
             }
 
@@ -202,6 +209,7 @@ public class Player_State : MonoBehaviour
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
                     //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
                     sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                    sc_move.Block_relase();
                 }
             }
         }

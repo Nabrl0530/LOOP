@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1652194536457630405}
   - component: {fileID: 2654655506536902462}
+  - component: {fileID: 6291161389184882858}
   m_Layer: 0
   m_Name: HIT
   m_TagString: Door_HIT
@@ -42,8 +43,22 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.8, y: 1.75, z: 1}
-  m_Center: {x: 0, y: 0, z: -0.75}
+  m_Size: {x: 5.8, y: 1.75, z: 2.5}
+  m_Center: {x: 0, y: 0, z: -1.5}
+--- !u!114 &6291161389184882858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165010762485336328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 092a4f963e8313443a72e597371c220a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 6568863752523941139}
+  pair_Gate: {fileID: 0}
 --- !u!1 &6334351454511262936
 GameObject:
   m_ObjectHideFlags: 0
