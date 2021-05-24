@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1652194536457630405}
   - component: {fileID: 2654655506536902462}
   - component: {fileID: 6291161389184882858}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HIT
   m_TagString: Door_HIT
   m_Icon: {fileID: 0}

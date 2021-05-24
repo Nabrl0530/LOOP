@@ -214,7 +214,8 @@ public class Player_State : MonoBehaviour
             }
         }
 
-        //animator.SetBool("isRun", true);
+        Debug.Log(m_AnimationState);
+        animator.SetInteger("state", m_AnimationState);
     }
 
     // ’èŠúXV

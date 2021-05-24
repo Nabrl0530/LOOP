@@ -43,6 +43,12 @@ public class miya_player_move : MonoBehaviour
 	[SerializeField] private float m_Second_Climb = 3.0f;
 	private float m_Count_Second = 0;
 
+	// 原田君用3
+	// 走る
+	public float Speed_Walk = 8;
+	public float Speed_Run = 12;
+
+
 	// 初期化
 	void Start()
 	{
@@ -107,13 +113,43 @@ public class miya_player_move : MonoBehaviour
 					if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
 					if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
 					if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+					// 原田君用3
+					// 走る
+					if (Input.GetKey(KeyCode.LeftShift))
+					{
+						Speed_Move = Speed_Run;
+						sc_state.Set_IsRunning(true);
+					}
+					else if (!Input.GetKey(KeyCode.LeftShift))
+					{
+						Speed_Move = Speed_Walk;
+						sc_state.Set_IsRunning(false);
+					}
 				}
 				// 原田君用('ω')
 				// ゲームパッド//player_stateの方にもあるよ！(ゲームパッドで検索してくれるとありがたい。)※if文で分岐してるところも忘れずに
 				else
 				{
-					direction_move += camera_front * Input.GetAxis("Vertical_p");
-					direction_move += camera_right * Input.GetAxis("Horizontal_p");
+					// 原田君用3
+					if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+					{
+						// 元々あったコントローラー操作
+						direction_move += camera_front * Input.GetAxis("Vertical_p");
+						direction_move += camera_right * Input.GetAxis("Horizontal_p");
+
+						// 走る
+						if (Input.GetButton("Run"))
+						{
+							Speed_Move = Speed_Run;
+							sc_state.Set_IsRunning(true);
+						}
+						else if (!Input.GetButton("Run"))
+						{
+							Speed_Move = Speed_Walk;
+							sc_state.Set_IsRunning(false);
+						}
+					}
 				}
 
 				// 正規化
@@ -140,7 +176,7 @@ public class miya_player_move : MonoBehaviour
 				}
 
 				// 回転
-				if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING)
+				if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING || sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.RUNNING)
 				{
 					// 浮かせる
 					if (IsUnder_m) Rigid.AddForce(new Vector3(0, 0.2f, 0));
@@ -170,6 +206,13 @@ public class miya_player_move : MonoBehaviour
 				if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
 				if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
 				if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+				// 原田君用3('ω')
+				// ゲームパッド
+				else
+				{
+					direction_move += camera_front * Input.GetAxis("Vertical_p");
+					direction_move += camera_right * Input.GetAxis("Horizontal_p");
+				}
 
 				// 正規化
 				if (direction_move != new Vector3(0, 0, 0))
