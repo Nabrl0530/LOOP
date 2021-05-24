@@ -75,18 +75,18 @@ public class miya_player_state : MonoBehaviour
 		if (state_past != m_AnimationState)
 		{
 			state_past = m_AnimationState;
-			//Debug.Log("Animation State：" + m_AnimationState);
+			Debug.Log("Animation State：" + m_AnimationState);
 		}
 		// 佐々木デバッグ用
-		Debug.Log("Horizontal_p：" + Input.GetAxis("Horizontal_p"));
-		Debug.Log("Vertical_p：" + Input.GetAxis("Vertical_p"));
-		Debug.Log("Horizontal_c：" + Input.GetAxis("Horizontal_c"));
-		Debug.Log("Change_c：" + Input.GetAxisRaw("Change_c"));
-		Debug.Log("OK：" + Input.GetButton("OK"));
-		Debug.Log("NO：" + Input.GetButton("NO"));
-		Debug.Log("Run：" + Input.GetButton("Run"));
-		Debug.Log("Climb：" + Input.GetButton("Climb"));
-		Debug.Log("Menu：" + Input.GetButton("Menu"));
+		//Debug.Log("Horizontal_p：" + Input.GetAxis("Horizontal_p"));
+		//Debug.Log("Vertical_p：" + Input.GetAxis("Vertical_p"));
+		//Debug.Log("Horizontal_c：" + Input.GetAxis("Horizontal_c"));
+		//Debug.Log("Change_c：" + Input.GetAxisRaw("Change_c"));
+		//Debug.Log("OK：" + Input.GetButton("OK"));
+		//Debug.Log("NO：" + Input.GetButton("NO"));
+		//Debug.Log("Run：" + Input.GetButton("Run"));
+		//Debug.Log("Climb：" + Input.GetButton("Climb"));
+		//Debug.Log("Menu：" + Input.GetButton("Menu"));
 
 		// アクション可能
 		if ( m_CanAction )
@@ -176,16 +176,13 @@ public class miya_player_state : MonoBehaviour
 			}
 			else if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING)
 			{
+				// ゲームパッド// 原田君用2
 				if
 				(
 				!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) &&
-				!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D)
+				!Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) &&
+				Mathf.Abs(Input.GetAxis("Vertical_p")) == 0 && Mathf.Abs(Input.GetAxis("Horizontal_p")) == 0
 				)
-				{
-					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
-				}
-				// ゲームパッド// 原田君用2
-				else if (Mathf.Abs(Input.GetAxis("Vertical_p")) == 0 && Mathf.Abs(Input.GetAxis("Horizontal_p")) == 0)
 				{
 					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
 				}
