@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     //leba_2 leba_2;
     Bridge bridge;
     Door door;
+    Block block;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
@@ -406,7 +407,7 @@ public class Player : MonoBehaviour
             }
 
             /////////////////////
-            ///
+
             //額縁によるワープ移動（向き変更）
             if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.DOOR_SET)
             {
@@ -451,10 +452,8 @@ public class Player : MonoBehaviour
                 if (Actcount == 0)
                 {
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.DOOR_POP);
-                    transform.position = Gatepoint;
+                    transform.position = door.Getpair_pos();
                     Actcount = 70;
-
-                    Act_move = (bridge.Getpair_pos() - transform.position) / 50;
 
                     Quaternion angle = Quaternion.identity;
 
@@ -462,9 +461,10 @@ public class Player : MonoBehaviour
                     transform.rotation = angle;
 
                     //出現時の向きを合わせる
-                    Vector3 View = bridge.Getpair_pos();
+                    Vector3 View = new Vector3(0, 0, 0);
                     View.y = transform.position.y;
                     this.transform.LookAt(View);
+
                     Player_Forword.PosReset();
                     Player_Check.PosReset();
                     Player_Under.PosReset();
@@ -482,16 +482,16 @@ public class Player : MonoBehaviour
 
                 if (Actcount <= 50)
                 {
-                    transform.position += (Act_move * 0.03f);
+                    transform.position += (transform.forward * 0.05f);
                     Size += 0.02f;
                     transform.localScale = new Vector3(Size, Size, Size);
 
                     Vector3 pos = transform.position;
-                    pos.y += pop_y;
+                    //pos.y += pop_y;
 
                     transform.position = pos;
 
-                    pop_y -= 0.008f;
+                    //pop_y -= 0.004f;
 
                 }
 
@@ -677,8 +677,6 @@ public class Player : MonoBehaviour
         return bridge.GetUse();
     }
 
-
-
     bool CheckView(Vector3 pos)
     {
         //　 対象の方向
@@ -735,10 +733,24 @@ public class Player : MonoBehaviour
         }
         */
     }
-    
+
+    public void Set_Block(Block scr)
+    {
+        block = scr;
+    }
+
+    public void Block_Catch()
+    {
+        block.Set_ON();
+    }
+
+    public void Block_relase()
+    {
+        block.Clare_ON();
+    }
 
     //オブジェクトを発見した際にスクリプトを獲得する
-    
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("TOWER"))

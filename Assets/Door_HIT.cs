@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door_HIT : MonoBehaviour
 {
     public Door door;
-    public GameObject Gate;
+    public GameObject pair_Gate;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +24,7 @@ public class Door_HIT : MonoBehaviour
         {
             if (other.GetComponent<Player>().SetHIT_Door(transform.position))
             {
-                other.GetComponent<Player>().SetGate(Gate.transform.position);
+                other.GetComponent<Player>().SetGate(transform.position);
             }
         }
     }
@@ -35,7 +35,7 @@ public class Door_HIT : MonoBehaviour
         {
             if (other.GetComponent<Player>().SetHIT_Door(transform.position))
             {
-                other.GetComponent<Player>().SetGate(Gate.transform.position);
+                other.GetComponent<Player>().SetGate(transform.position);
             }
         }
     }
@@ -52,4 +52,5 @@ public class Door_HIT : MonoBehaviour
     {
         return door;
     }
+
 }
