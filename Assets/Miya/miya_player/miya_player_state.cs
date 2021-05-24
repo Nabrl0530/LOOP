@@ -75,8 +75,18 @@ public class miya_player_state : MonoBehaviour
 		if (state_past != m_AnimationState)
 		{
 			state_past = m_AnimationState;
-			Debug.Log("Animation State：" + m_AnimationState);
+			//Debug.Log("Animation State：" + m_AnimationState);
 		}
+		// 佐々木デバッグ用
+		Debug.Log("Horizontal_p：" + Input.GetAxis("Horizontal_p"));
+		Debug.Log("Vertical_p：" + Input.GetAxis("Vertical_p"));
+		Debug.Log("Horizontal_c：" + Input.GetAxis("Horizontal_c"));
+		Debug.Log("Change_c：" + Input.GetAxisRaw("Change_c"));
+		Debug.Log("OK：" + Input.GetButton("OK"));
+		Debug.Log("NO：" + Input.GetButton("NO"));
+		Debug.Log("Run：" + Input.GetButton("Run"));
+		Debug.Log("Climb：" + Input.GetButton("Climb"));
+		Debug.Log("Menu：" + Input.GetButton("Menu"));
 
 		// アクション可能
 		if ( m_CanAction )
@@ -90,14 +100,22 @@ public class miya_player_state : MonoBehaviour
 			Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
 			Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
 			)
+			{
 				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+			}
+			// ゲームパッド// 原田君用2// camera_moveにも同じように変更あるので注意お願いします(´ω`)
+			else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+			{
+				m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+			}
 
 			// デバッグ
 			//Debug.Log("F : " + m_CanClimb_forword);
 			//Debug.Log("C : " + m_CanClimb_check);
 
 			// よじ登る
-			if (Input.GetKey(KeyCode.Space))
+			// 原田君用2 || で繋げてるのが以下に複数あります！
+			if (Input.GetKey(KeyCode.Space) || Input.GetButton("Climb"))
 			{
 				// 登れるものがあれば
 				if (m_CanClimb_forword && !m_CanClimb_check)
@@ -113,7 +131,7 @@ public class miya_player_state : MonoBehaviour
 			}
 
 			// 作動
-			if (Input.GetKey(KeyCode.J))// Aボダン
+			if (Input.GetKey(KeyCode.J) || Input.GetButton("OK"))
 			{
 				// 対象によってステート変更
 				// ブロック
@@ -150,6 +168,11 @@ public class miya_player_state : MonoBehaviour
 				{
 					m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
 				}
+				// ゲームパッド// 原田君用2
+				else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+				{
+					m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
+				}
 			}
 			else if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING)
 			{
@@ -161,11 +184,16 @@ public class miya_player_state : MonoBehaviour
 				{
 					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
 				}
+				// ゲームパッド// 原田君用2
+				else if (Mathf.Abs(Input.GetAxis("Vertical_p")) == 0 && Mathf.Abs(Input.GetAxis("Horizontal_p")) == 0)
+				{
+					m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+				}
 			}
 		}
 
 		// キャンセル
-		if (Input.GetKey(KeyCode.K))// Bボタン
+		if (Input.GetKey(KeyCode.K) || Input.GetButton("NO"))
 		{
 			// 該当動作チェック
 			if
