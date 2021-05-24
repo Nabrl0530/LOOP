@@ -530,6 +530,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6411888526911387958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462022534342296406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e561e7f53363f545bc5d9678d130456, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_default_mat: {fileID: 2100000, guid: bd0ec070d4d0c9e46aa4a02db01d0227, type: 2}
+  m_silhouette_mat: {fileID: 2100000, guid: 9d647e5633ccd1d4595205d7c9fb0fb5, type: 2}
+  m_tag_list:
+  - Obstacle
+  - CRISTAL
+  - Stage
 --- !u!1001 &1714472199833225363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -623,6 +641,12 @@ Transform:
 --- !u!95 &5089510442327815426 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 4141f106360368e468490cab1bd97648,
+    type: 3}
+  m_PrefabInstance: {fileID: 1714472199833225363}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8462022534342296406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7107845456356789189, guid: 4141f106360368e468490cab1bd97648,
     type: 3}
   m_PrefabInstance: {fileID: 1714472199833225363}
   m_PrefabAsset: {fileID: 0}

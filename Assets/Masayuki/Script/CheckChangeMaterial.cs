@@ -22,7 +22,7 @@ public class CheckChangeMaterial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MeshRenderer mesh = this.GetComponent<MeshRenderer>();
+        SkinnedMeshRenderer mesh = this.GetComponent<SkinnedMeshRenderer>();
         Vector3 direction = this.transform.position - m_camera.transform.position; 
         RaycastHit hit;
         if (Physics.Raycast(m_camera.transform.position, direction, out hit))
