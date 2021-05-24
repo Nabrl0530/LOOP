@@ -111,7 +111,7 @@ public class Block : MonoBehaviour
                 if (warp_count >= 71)
                 {
 
-                    transform.position += (transform.forward * 0.08f);
+                    transform.position += (transform.forward * 0.06f);
                     Size += 0.02f;
                     transform.localScale = new Vector3(Size, Size, Size);
 
