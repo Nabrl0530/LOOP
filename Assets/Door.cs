@@ -65,4 +65,15 @@ public class Door : MonoBehaviour
         Destroy(C_Laser);
         C_Laser = null;
     }
+
+    public Vector3 Getpair_pos()
+    {
+        return pair_door.transform.position;
+    }
+
+    public Quaternion Getpair_rot()
+    {
+        Quaternion Rot = Quaternion.Euler(pair_door.transform.eulerAngles.x, pair_door.transform.eulerAngles.y + 225, pair_door.transform.eulerAngles.z);
+        return Rot;
+    }
 }
