@@ -8,6 +8,7 @@ public class Player_State : MonoBehaviour
     public Player sc_move;
     public Player_Forword sc_forword;
     public Player_Check sc_check;
+    public Animator animator;
 
     // 列挙
     public enum e_PlayerAnimationState
@@ -30,6 +31,9 @@ public class Player_State : MonoBehaviour
         BRIDGE_IN,      // 橋によるワープ吸い込み
         BRIDGE_MOVE,    // 橋によるワープ移動
         BRIDGE_POP,     // 橋によるワープ再出現
+        DOOR_SET,       // 橋によるワープ向き変更
+        DOOR_IN,        // 橋によるワープ吸い込み
+        DOOR_POP,       // 橋によるワープ再出現
     }
 
     // 変数
@@ -46,6 +50,7 @@ public class Player_State : MonoBehaviour
     public bool IsLever = false;
     public bool IsTower = false;
     public bool IsBridge = false;
+    public bool IsDoor = false;
 
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -200,6 +205,8 @@ public class Player_State : MonoBehaviour
                 }
             }
         }
+
+        //animator.SetBool("isRun", true);
     }
 
     // 定期更新
@@ -246,6 +253,11 @@ public class Player_State : MonoBehaviour
     public void Set_IsBridge(bool _is)
     {
         IsBridge = _is;
+    }
+
+    public void Set_IsDoor(bool _is)
+    {
+        IsDoor = _is;
     }
 
     public int Get_AnimationState()

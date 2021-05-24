@@ -21,6 +21,7 @@ TagManager:
   - Button
   - Bridge
   - Bridge_HIT
+  - Door_HIT
   layers:
   - Default
   - TransparentFX
