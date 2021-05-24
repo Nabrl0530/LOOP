@@ -48,9 +48,11 @@ public class miya_camera_move : MonoBehaviour
 		if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
 		if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
 
+		// 原田君用('ω')タワーのためのズーム
 		if (Tower_m && sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING_TOWER)
 		{
 			// 注視点
+			// 原田君用('ω')new Vector3(0, 3, 0)に変更
 			Vector3 new_pos = new Vector3(0, 3, 0);
 			new_pos.x = Tower_m.transform.position.x;
 			new_pos.z = Tower_m.transform.position.z;
@@ -68,6 +70,7 @@ public class miya_camera_move : MonoBehaviour
 		else
 		{
 			// 注視点
+			// 原田君用('ω')new Vector3(0, 2, 0)に変更
 			Vector3 new_pos = new Vector3(0, 2, 0);//注意
 			GazePoint.transform.position = new_pos;
 

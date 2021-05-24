@@ -24,6 +24,7 @@ public class miya_player_axis : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
 	{
+		// Œ´“cŒN—p('ƒÖ')
 		if (sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.PUSH_PUSHING)
 		{
 			// î•ñ
