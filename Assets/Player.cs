@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     // 参照
     public Player_State sc_state;
+    public Player_Axis sc_axis;
 
     TOWER TOWER;
     Leba leba;
@@ -44,6 +45,8 @@ public class Player : MonoBehaviour
 
     bool IsUnder_m = false;
 
+    bool CATCH; //ブロックを持ってる
+
     // 変数
     Rigidbody Rigid;
     [SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
@@ -56,11 +59,20 @@ public class Player : MonoBehaviour
     [SerializeField] private float GoLength_AfterClimbing = 0.5f;
     [SerializeField] private float Rotate_Tolerance = 0.1f;
     [SerializeField] private float Camera_DistanceTolerance = 100;
+
+    [SerializeField] private float m_Second_Climb = 3.0f;
+    private float m_Count_Second = 0;
+
+
     private Vector3 Position_Latest_m;
     private Vector3 StartPosition = new Vector3(0, 0, 0);
 
     public bool is_block = false;
     public bool is_stage = false;
+
+    // 走る
+    public float Speed_Walk = 8;
+    public float Speed_Run = 12;
 
     // 初期化
     void Start()
@@ -76,22 +88,27 @@ public class Player : MonoBehaviour
         Pipe1 = GameObject.Find("FloorOne");
         Pipe2 = GameObject.Find("FloorTwo");
         Pipe3 = GameObject.Find("FloorThree");
+
+        m_Count_Second = 0;
     }
 
     void Update()
     {
-        len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
-        if (len >= 12.0f)
+        if (!CATCH)
         {
-            transform.SetParent(Pipe3.transform);
-        }
-        else if (len >= 8.5f)
-        {
-            transform.SetParent(Pipe2.transform);
-        }
-        else
-        {
-            transform.SetParent(Pipe1.transform);
+            len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
+            if (len >= 12.0f)
+            {
+                transform.SetParent(Pipe3.transform);
+            }
+            else if (len >= 8.5f)
+            {
+                transform.SetParent(Pipe2.transform);
+            }
+            else
+            {
+                transform.SetParent(Pipe1.transform);
+            }
         }
     }
 
@@ -141,10 +158,48 @@ public class Player : MonoBehaviour
             {
                 // 入力
                 Vector3 direction_move = new Vector3(0, 0, 0);
-                if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-                if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
-                if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+                {
+                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+                    if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+                    if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+                    // 走る
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        Speed_Move = Speed_Run;
+                        sc_state.Set_IsRunning(true);
+                    }
+                    else if (!Input.GetKey(KeyCode.LeftShift))
+                    {
+                        Speed_Move = Speed_Walk;
+                        sc_state.Set_IsRunning(false);
+                    }
+                }
+                else
+                {
+                    // 原田君用3
+                    if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+                    {
+                        // 元々あったコントローラー操作
+                        direction_move += camera_front * Input.GetAxis("Vertical_p");
+                        direction_move += camera_right * Input.GetAxis("Horizontal_p");
+
+                        // 走る
+                        if (Input.GetButton("Run"))
+                        {
+                            Speed_Move = Speed_Run;
+                            sc_state.Set_IsRunning(true);
+                        }
+                        else if (!Input.GetButton("Run"))
+                        {
+                            Speed_Move = Speed_Walk;
+                            sc_state.Set_IsRunning(false);
+                        }
+                    }
+                }
 
                 // 正規化
                 if (direction_move != new Vector3(0, 0, 0))
@@ -190,12 +245,22 @@ public class Player : MonoBehaviour
             // ブロック押す
             if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_PUSHING)
             {
+                if (IsUnder_m) Rigid.AddForce(new Vector3(0, 0.2f, 0));
+
                 // 入力
                 Vector3 direction_move = new Vector3(0, 0, 0);
-                if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-                if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
-                if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+                {
+                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+                    if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+                    if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+                }
+                else
+                {
+                    direction_move += camera_front * Input.GetAxis("Vertical_p");
+                    direction_move += camera_right * Input.GetAxis("Horizontal_p");
+                }
 
                 // 正規化
                 if (direction_move != new Vector3(0, 0, 0))
@@ -208,6 +273,7 @@ public class Player : MonoBehaviour
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
                 Rigid.velocity = direction_move * Speed_Move * 1.0f;
 
+                /*
                 // 回転
                 // 制御
                 difference.y = 0;
@@ -219,11 +285,35 @@ public class Player : MonoBehaviour
                     rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed * 0.5f);
                     this.transform.rotation = rot;
                 }//difference.magnitude > Rotate_Tolerance
+                */
             }//ブロック押す
 
             // よじ登る
             if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.CLIMBING)
             {
+                // ワープ
+                if (m_Count_Second > m_Second_Climb)
+                {
+                    // 位置
+                    Vector3 new_vec = new Vector3(0, 0, 0);
+                    new_vec = StartPosition + this.transform.forward * GoLength_AfterClimbing;
+                    new_vec.y += Height_Climb_Block;
+                    this.transform.position = new_vec;
+
+                    // 初期化
+                    sc_state.Set_CanAction(true);
+                    Rigid.useGravity = true;
+                    sc_state.Set_IsBlock(false);
+                    sc_state.Set_IsStage(false);
+
+                    m_Count_Second = 0;
+                }
+
+                // カウンタ増加
+                m_Count_Second += Time.deltaTime;
+
+                //高さが一律になったので分岐が不要に
+                /*
                 // ブロック
                 if (is_block)
                 {
@@ -273,6 +363,7 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
+                */
             }
 
             //橋によるワープ移動（向き変更）
@@ -510,8 +601,20 @@ public class Player : MonoBehaviour
                     Player_Under.PosReset();
                 }
             }
-
         }
+
+        if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WAITING ||
+                sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_WAITING)
+        {
+            Rigid.constraints = RigidbodyConstraints.FreezeAll;
+        }
+        else
+        {
+            Rigid.constraints = RigidbodyConstraints.None;
+            Rigid.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+
+
     }//FixedUpdate
 
     public void Set_StartPosition(Vector3 _start)
@@ -589,22 +692,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetHIT_LEVER2(Vector3 pos)
-    {
-        /*
-        if (CheckView(pos))
-        {
-            HIT_LEVER2 = true;
-            sc_state.Set_IsLever(HIT_LEVER2);
-            Gimmikpoint = pos;
-        }
-        else
-        {
-            ClearHIT_LEVER2();
-        }
-        */
-    }
-
     public bool SetHIT_Bridge(Vector3 pos)
     {
         if (CheckView(pos))
@@ -641,12 +728,6 @@ public class Player : MonoBehaviour
     {
         HIT_LEVER = false;
         sc_state.Set_IsLever(HIT_LEVER);
-    }
-
-    public void ClearHIT_LEVER2()
-    {
-        //HIT_LEVER2 = false;
-        //sc_state.Set_IsLever(HIT_LEVER2);
     }
 
     public void ClearHIT_BRIDGE()
@@ -710,12 +791,6 @@ public class Player : MonoBehaviour
         {
             leba.SpinL();
         }
-        /*
-        if (HIT_LEVER2)
-        {
-            leba_2.SpinL();
-        }
-        */
     }
 
     public void UseLever_inv()
@@ -724,13 +799,6 @@ public class Player : MonoBehaviour
         {
             leba.SpinR();
         }
-
-        /*
-        if (HIT_LEVER2)
-        {
-            leba_2.SpinR();
-        }
-        */
     }
 
     public void Set_Block(Block scr)
@@ -748,6 +816,16 @@ public class Player : MonoBehaviour
         block.Clare_ON();
     }
 
+
+    public void Set_Catch()
+    {
+        CATCH = true;
+    }
+
+    public void Clare_Catch()
+    {
+        CATCH = false;
+    }
     //オブジェクトを発見した際にスクリプトを獲得する
 
     void OnTriggerEnter(Collider other)
