@@ -9,6 +9,9 @@ public class CursorMover : MonoBehaviour
     public Image Stage1Img;
     public Image Stage2Img;
     public Image Stage3Img;
+    public Image Stage4Img;
+    public Image Stage5Img;
+
     public Image UpArrowImg;
     public Image DownArrowImg;
 
@@ -64,17 +67,41 @@ public class CursorMover : MonoBehaviour
                 Stage1Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 Stage2Img.gameObject.transform.localScale = new Vector3(1,1,1);
                 Stage3Img.gameObject.transform.localScale = new Vector3(1,1,1);
+                Stage4Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage5Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
 
                 break;
             case 2:
                 Stage2Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 Stage3Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage4Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage5Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
                 break;
             case 3:
                 Stage3Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                 Stage2Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
                 Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage4Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage5Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
+                break;
+            case 4:
+                Stage3Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage2Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage4Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                Stage5Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
+                break;
+            case 5:
+                Stage3Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage2Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage4Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage5Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
                 break;
         }
     }
@@ -100,7 +127,7 @@ public class CursorMover : MonoBehaviour
     {
         yMove = 0;
         WaitTime--;
-        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step < 3)
+        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step < 5)
         {
             yMove = Velocity * Time.deltaTime;
             WaitTime = 30;
@@ -141,6 +168,18 @@ public class CursorMover : MonoBehaviour
             {
                 case 1:
                     SceneManager.LoadScene("Stage 1");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Stage_0");
+                    break;
+                case 3:
+                    SceneManager.LoadScene("Stage_1_1");
+                    break;
+                case 4:
+                    SceneManager.LoadScene("Stage_1_2");
+                    break;
+                case 5:
+                    SceneManager.LoadScene("Stage_1_3");
                     break;
             }
         }
