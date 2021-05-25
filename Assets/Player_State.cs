@@ -121,6 +121,7 @@ public class Player_State : MonoBehaviour
                         sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
                         //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
                         sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        sc_forword.Get_Block().GetComponent<Rigidbody>().mass =1;
                         sc_move.Block_Catch();
                     }
 
@@ -208,7 +209,8 @@ public class Player_State : MonoBehaviour
                     sc_forword.Get_Block().transform.parent = null;
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
                     //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
-                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().mass = 2000;
                     sc_move.Block_relase();
                 }
             }

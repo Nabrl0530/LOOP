@@ -6,6 +6,11 @@ public class Block : MonoBehaviour
 {
     Door door;
     Door_HIT door_HIT;
+    public Block_Under Block_Under;
+    GameObject Pipe1;
+    GameObject Pipe2;
+    GameObject Pipe3;
+
     bool Warp_STANBY;
     bool ON_Player;
     bool HIT;
@@ -14,10 +19,11 @@ public class Block : MonoBehaviour
     int warp_count = 0;
     Vector3 Base_Size;
 
+    public float len;  //長さ
+
     private float rot_z;   //回転速度
     private float Size = 1.0f;
     public Vector3 Act_move;  //アクションによる移動量
-
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +35,31 @@ public class Block : MonoBehaviour
         rot_z = 1.0f;
 
         Base_Size = transform.localScale;
+
+        Pipe1 = GameObject.Find("FloorOne");
+        Pipe2 = GameObject.Find("FloorTwo");
+        Pipe3 = GameObject.Find("FloorThree");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (!WARP_NOW && !ON_Player &&  Block_Under.Get_HIT())
+        {
+            len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
+            if (len >= 12.0f)
+            {
+                transform.SetParent(Pipe3.transform);
+            }
+            else if (len >= 8.5f)
+            {
+                transform.SetParent(Pipe2.transform);
+            }
+            else
+            {
+                transform.SetParent(Pipe1.transform);
+            }
+        }
     }
 
     void FixedUpdate()
@@ -45,6 +70,7 @@ public class Block : MonoBehaviour
             if(count == 30)
             {
                 WARP_NOW = true;
+                transform.parent = null;
 
                 warp_count = 0;
                 //物理挙動による移動の無効化
@@ -110,30 +136,22 @@ public class Block : MonoBehaviour
 
                 if (warp_count >= 71)
                 {
-
                     transform.position += (transform.forward * 0.06f);
                     Size += 0.02f;
                     transform.localScale = new Vector3(Size, Size, Size);
-
-                    //Vector3 pos = transform.position;
-
-                    //transform.position = pos;
-
                 }
 
                 if (warp_count == 120)
-                {
-                    
+                {                    
                     this.gameObject.GetComponent<BoxCollider>().enabled = true;
 
                     Size = 1.0f;
-                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);
-                    
+                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);                   
                 }
             }
             else if(warp_count ==121)
             {
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                 WARP_NOW = false;
             }
         }
