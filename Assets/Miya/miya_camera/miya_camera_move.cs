@@ -8,7 +8,8 @@ public class miya_camera_move : MonoBehaviour
 	public miya_player_state sc_state;
 
 	// 定数
-	const float HEIGHT_MAX = 17.5f;
+	[SerializeField]
+	float HEIGHT_MAX = 17.5f;
 	const float HEIGHT_MIN = 4.0f;
 
 	// 変数------------------------------------------------------------------------------------------
@@ -44,13 +45,23 @@ public class miya_camera_move : MonoBehaviour
 	void Update()
 	{
 		// 入力
-		if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
-		if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
+		if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+		{
+			if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
+			if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
+		}
+		// ゲームパッド// 原田君用2
+		else if (Mathf.Abs(Input.GetAxis("Horizontal_c")) > 0)
+		{
+			Degree += Input.GetAxis("Horizontal_c") * Speed_Rotate * Time.deltaTime;
+		}
 
+		// 原田君用('ω')タワーのためのズーム
 		if (Tower_m && sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WAITING_TOWER)
 		{
 			// 注視点
-			Vector3 new_pos = new Vector3(0, 5.692f, 0);
+			// 原田君用('ω')new Vector3(0, 3, 0)に変更
+			Vector3 new_pos = new Vector3(0, 3, 0);
 			new_pos.x = Tower_m.transform.position.x;
 			new_pos.z = Tower_m.transform.position.z;
 			GazePoint.transform.position = new_pos;
@@ -67,14 +78,16 @@ public class miya_camera_move : MonoBehaviour
 		else
 		{
 			// 注視点
-			Vector3 new_pos = new Vector3(0, 5.692f, 0);
+			// 原田君用('ω')new Vector3(0, 2, 0)に変更
+			Vector3 new_pos = new Vector3(0, 2, 0);//注意
 			GazePoint.transform.position = new_pos;
 
 			// 移動
 			if (!Looking_FromUp_m)
 			{
 				// 見下ろし視点へ切替
-				if (Input.GetKey(KeyCode.UpArrow)) Looking_FromUp_m = true;
+				// ゲームパッド// 原田君用2
+				if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1) Looking_FromUp_m = true;
 				// 過去可変
 				//if (Input.GetKey(KeyCode.UpArrow	)) Height += Speed_Height * Time.deltaTime;
 				//if (Height > HEIGHT_MAX - 0.1f) Height = HEIGHT_MAX - 0.1f;
@@ -103,7 +116,8 @@ public class miya_camera_move : MonoBehaviour
 				this.transform.position = result;
 
 				// 通常視点へ切替
-				if (Input.GetKey(KeyCode.DownArrow)) Looking_FromUp_m = false;
+				// ゲームパッド// 原田君用2
+				if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Change_c") == -1) Looking_FromUp_m = false;
 				// 過去可変
 				//if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
 			}

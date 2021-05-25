@@ -23,6 +23,11 @@ public class Player_Forword : MonoBehaviour
 
     }
 
+    public void PosReset()
+    {
+        transform.localPosition = new Vector3(0, 0, 0);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         sc_state.Set_CanClimb_Forword(true);
@@ -30,6 +35,7 @@ public class Player_Forword : MonoBehaviour
         {
             sc_state.Set_IsBlock(true);
             m_Block = other.gameObject;
+            sc_move.Set_Block(other.GetComponent<Block>());
         }
         if (other.gameObject.tag == "Stage")
         {

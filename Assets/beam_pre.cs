@@ -66,7 +66,6 @@ public class beam_pre : MonoBehaviour
 
             if(hit.collider.CompareTag("Bridge"))
             {
-                Debug.Log("ブリッジ");
                 hit.collider.gameObject.GetComponent<Bridge>().HitLaser();
             }
 
@@ -85,5 +84,10 @@ public class beam_pre : MonoBehaviour
 
         LineRenderer.SetPositions(positions);
         LineRenderer.SetPosition(1,Pos_End);
+    }
+
+    public void Setrot(Quaternion rot)
+    {
+        transform.rotation = rot;
     }
 }

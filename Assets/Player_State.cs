@@ -8,6 +8,7 @@ public class Player_State : MonoBehaviour
     public Player sc_move;
     public Player_Forword sc_forword;
     public Player_Check sc_check;
+    public Animator animator;
 
     // 列挙
     public enum e_PlayerAnimationState
@@ -26,6 +27,13 @@ public class Player_State : MonoBehaviour
         LEVER_LEFT,     // レバー左
         HOVERING,       // 空中
         LANDING,        // 着地
+        BRIDGE_SET,     // 橋によるワープ向き変更
+        BRIDGE_IN,      // 橋によるワープ吸い込み
+        BRIDGE_MOVE,    // 橋によるワープ移動
+        BRIDGE_POP,     // 橋によるワープ再出現
+        DOOR_SET,       // 橋によるワープ向き変更
+        DOOR_IN,        // 橋によるワープ吸い込み
+        DOOR_POP,       // 橋によるワープ再出現
     }
 
     // 変数
@@ -41,6 +49,8 @@ public class Player_State : MonoBehaviour
     //俺が追加
     public bool IsLever = false;
     public bool IsTower = false;
+    public bool IsBridge = false;
+    public bool IsDoor = false;
 
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
@@ -108,15 +118,31 @@ public class Player_State : MonoBehaviour
                     if (sc_forword.Get_Block())
                     {
                         sc_forword.Get_Block().transform.parent = this.transform;
-                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f,1.8f,2.2f);
+                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
                         //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
                         sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                        sc_move.Block_Catch();
                     }
 
                 }
-                else if(IsLever)
+                else if (IsLever)
                 {
                     sc_move.UseLever();
+                }
+                else if (IsBridge)
+                {
+                    if (sc_move.Check_Bridge())
+                    {
+                        m_AnimationState = (int)e_PlayerAnimationState.BRIDGE_SET;
+                        m_CanAction = false;
+                        sc_move.Set_Act_spin();
+                    }
+                }
+                else if (IsDoor)
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.DOOR_SET;
+                    m_CanAction = false;
+                    sc_move.Set_Act_spin();
                 }
             }
 
@@ -183,9 +209,13 @@ public class Player_State : MonoBehaviour
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
                     //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
                     sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                    sc_move.Block_relase();
                 }
             }
         }
+
+        Debug.Log(m_AnimationState);
+        animator.SetInteger("state", m_AnimationState);
     }
 
     // 定期更新
@@ -227,6 +257,16 @@ public class Player_State : MonoBehaviour
     public void Set_IsTower(bool _is)
     {
         IsTower = _is;
+    }
+
+    public void Set_IsBridge(bool _is)
+    {
+        IsBridge = _is;
+    }
+
+    public void Set_IsDoor(bool _is)
+    {
+        IsDoor = _is;
     }
 
     public int Get_AnimationState()

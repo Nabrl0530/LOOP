@@ -29,11 +29,17 @@ public class leba_2 : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("ÉåÉoÅ[");
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<Player_Move>().SetHIT_LEVER2();
-            other.GetComponent<Player>().SetHIT_LEVER2();
+            other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
         }
     }
 

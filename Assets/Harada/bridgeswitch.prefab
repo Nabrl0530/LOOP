@@ -313,9 +313,11 @@ GameObject:
   - component: {fileID: 5979992302829798254}
   - component: {fileID: 6158542944576670252}
   - component: {fileID: 1268261766195405024}
-  m_Layer: 0
+  - component: {fileID: 2168034483019842157}
+  - component: {fileID: 4125310837418679621}
+  m_Layer: 2
   m_Name: bridgeswitch
-  m_TagString: Untagged
+  m_TagString: Bridge_HIT
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,6 +374,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01c84212e7351c4d9e8371ebef84c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pair_Bridge: {fileID: 0}
+--- !u!136 &2168034483019842157
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464604988538477012}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4125310837418679621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464604988538477012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f6809c4626ab84aa76e2962b2795f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bridge: {fileID: 2381895663866057545}
+  Gate: {fileID: 546524971188889213}
 --- !u!1 &7216049242673011458
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Leba : MonoBehaviour
 {
-    public GameObject FloorOne;
+    public GameObject Floor;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +19,12 @@ public class Leba : MonoBehaviour
 
     public void SpinL()
     {
-        FloorOne.GetComponent<SPIN_FloorOne>().SetSpin(-1);
+        Floor.GetComponent<SPIN_FloorOne>().SetSpin(-1);
     }
 
     public void SpinR()
     {
-        FloorOne.GetComponent<SPIN_FloorOne>().SetSpin(1);
+        Floor.GetComponent<SPIN_FloorOne>().SetSpin(1);
     }
 
     void OnTriggerEnter(Collider other)
@@ -32,8 +32,15 @@ public class Leba : MonoBehaviour
         //Debug.Log("レバー");
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<Player_Move>().SetHIT_LEVER();
-            other.GetComponent<Player>().SetHIT_LEVER();
+            other.GetComponent<Player>().SetHIT_LEVER(transform.position);
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().SetHIT_LEVER(transform.position);
         }
     }
 
@@ -42,7 +49,6 @@ public class Leba : MonoBehaviour
         //Debug.Log("レバー抜け");
         if (other.gameObject.CompareTag("Player"))
         {
-            //.GetComponent<Player_Move>().ClearHIT_LEVER();
             other.GetComponent <Player>().ClearHIT_LEVER();
         }
     }
