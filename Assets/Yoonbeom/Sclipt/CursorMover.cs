@@ -5,9 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class CursorMover : MonoBehaviour
 {
- [SerializeField]
+
+    public Image Stage1Img;
+    public Image Stage2Img;
+    public Image Stage3Img;
+    public Image UpArrowImg;
+    public Image DownArrowImg;
+
+    [SerializeField]
  private int Velocity;
- private float xMove;
+ private float yMove;
 
  private int WaitTime = 0;
  private int Step = 1;
@@ -23,6 +30,11 @@ public class CursorMover : MonoBehaviour
     bool isPlaying = false;
     private bool ClearFade = false;
     private Color fadecolor;
+
+    private float UpArrowScale = 1.0f;
+    private float DownArrowScale = 1.0f;
+
+    private int ArrowDirection = 0;
 
     void Start()
     {
@@ -46,6 +58,25 @@ public class CursorMover : MonoBehaviour
 
         CursorMove();
         ChoiceStage();
+        switch(Step)
+        {
+            case 1:
+                Stage1Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                Stage2Img.gameObject.transform.localScale = new Vector3(1,1,1);
+                Stage3Img.gameObject.transform.localScale = new Vector3(1,1,1);
+
+                break;
+            case 2:
+                Stage2Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage3Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                break;
+            case 3:
+                Stage3Img.gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                Stage2Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                Stage1Img.gameObject.transform.localScale = new Vector3(1, 1, 1);
+                break;
+        }
     }
 
     public void OutStartFadeAnim()
@@ -67,22 +98,38 @@ public class CursorMover : MonoBehaviour
     }
     private void CursorMove()
     {
-        xMove = 0;
+        yMove = 0;
         WaitTime--;
-        if (Input.GetKey(KeyCode.RightArrow) && WaitTime < 0 && Step < 7)
+        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step < 3)
         {
-            xMove = Velocity * Time.deltaTime;
+            yMove = Velocity * Time.deltaTime;
             WaitTime = 30;
             Step++;
+            ArrowDirection = 1;
+            UpArrowScale = 1.5f;
+            DownArrowImg.gameObject.transform.localScale = new Vector3(1, 1, 1);
+
         }
-        if (Input.GetKey(KeyCode.LeftArrow) && WaitTime < 0 && Step > 1)
+        if (Input.GetKey(KeyCode.DownArrow) && WaitTime < 0 && Step > 1)
         {
-            xMove = -Velocity * Time.deltaTime;
+            yMove = -Velocity * Time.deltaTime;
             WaitTime = 30;
             Step--;
+            ArrowDirection = 2;
+            DownArrowScale = 1.5f;
+            UpArrowImg.gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
-
-        this.transform.Translate(new Vector3(xMove, 0, 0));
+        if(WaitTime > -100 && ArrowDirection == 1 && UpArrowScale > 1.0f)
+        {
+            UpArrowScale -= 0.01f;
+        }
+        if (WaitTime > -100 && ArrowDirection == 2 && DownArrowScale > 1.0f)
+        {
+            DownArrowScale -= 0.01f;
+        }
+        this.transform.Translate(new Vector3(0, yMove, 0));
+        UpArrowImg.gameObject.transform.localScale = new Vector3(UpArrowScale, UpArrowScale, UpArrowScale);
+        DownArrowImg.gameObject.transform.localScale = new Vector3(DownArrowScale, DownArrowScale, DownArrowScale);
 
     }
     private void ChoiceStage()
