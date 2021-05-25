@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // éQè∆
-    //public GameObject Center;
     public Player_State sc_state;
 
     TOWER TOWER;
