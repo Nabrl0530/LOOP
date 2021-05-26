@@ -22,6 +22,7 @@ TagManager:
   - Bridge
   - Bridge_HIT
   - Door_HIT
+  - CATCH_POINT
   layers:
   - Default
   - TransparentFX

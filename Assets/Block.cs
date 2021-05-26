@@ -164,12 +164,17 @@ public class Block : MonoBehaviour
 
     public void Set_ON()
     {
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+
         ON_Player = true;
         Warp_STANBY = true;
     }
 
     public void Clare_ON()
     {
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        this.gameObject.GetComponent<BoxCollider>().enabled = true;
         ON_Player = false;
     }
 

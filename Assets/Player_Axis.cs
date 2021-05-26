@@ -14,16 +14,30 @@ public class Player_Axis : MonoBehaviour
     [SerializeField]
     private float Rotate_Tolerance_Block = 0.1f;
 
+    private Vector3 View_Direction; //向かなきゃいけない方向
+    float Speed_Move = 40;
+
+    Rigidbody Rigid;
+    bool Use;
+    BoxCollider col;
+
     // Start is called before the first frame update
     void Start()
     {
         // 過去の位置
         Position_Latest_m = this.transform.position;
+
+        Rigid = this.GetComponent<Rigidbody>();
+        col = this.GetComponent<BoxCollider>();
+
+        View_Direction = new Vector3(0, 0, -1);
+        Use = false;       
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*
         // 原田君用('ω')
         if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_PUSHING)
         {
@@ -51,5 +65,56 @@ public class Player_Axis : MonoBehaviour
                 this.transform.rotation = rot;
             }//difference.magnitude > Rotate_Tolerance
         }
+        */
+
+        if(Use)
+        {
+            Quaternion rot = Quaternion.LookRotation(View_Direction);
+
+            rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+            this.transform.rotation = rot;
+
+            Rigid.velocity *= 0.95f;
+            
+        }       
+    }
+
+    public void Addspeed()
+    {
+        if (Rigid.velocity.magnitude < 4)
+        {
+            Vector3 vec_m = transform.forward;
+            //vec_m.y += 0.35f;
+            Rigid.AddForce(vec_m * Speed_Move);
+            //Debug.Log(Rigid.velocity.magnitude);
+        }
+    }
+
+    public void Set_View(Vector3 view)
+    {
+        View_Direction = view;
+    }
+
+    public void SetUse(bool _is)
+    {
+        Use = _is;
+
+        col.enabled = true;
+
+        if(!Use)
+        {
+            col.enabled = false;
+            Rigid.velocity = new Vector3(0, 0, 0);
+        }
+    }
+
+    public void LookConect(Vector3 view)
+    {
+        this.transform.forward = view;
+    }
+
+    public void SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
     }
 }

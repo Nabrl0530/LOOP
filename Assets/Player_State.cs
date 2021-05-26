@@ -34,6 +34,8 @@ public class Player_State : MonoBehaviour
         DOOR_SET,       // 橋によるワープ向き変更
         DOOR_IN,        // 橋によるワープ吸い込み
         DOOR_POP,       // 橋によるワープ再出現
+        BLOCK_MOVE,     // ブロックの規定位置への移動
+        BLOCK_LOOK,     // ブロック側を向く
     }
 
     // 変数
@@ -124,26 +126,37 @@ public class Player_State : MonoBehaviour
                 // ブロック
                 if (IsBlock)
                 {
-                    m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+                    //m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+                    m_AnimationState = (int)e_PlayerAnimationState.BLOCK_MOVE;
+                    sc_move.Set_ActMove_Block();
                     m_CanAction = false;
-                    sc_move.Block_Catch();
-                    sc_move.Set_Catch();
+                    //sc_move.Block_Catch();
+                    //sc_move.Set_Catch();
 
                     // ブロックをプレイヤーの子に
-                    if (sc_forword.Get_Block())
-                    {
-                        /*
-                        sc_forword.Get_Block().transform.parent = this.transform;
-                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
-                        //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
-                        sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                        sc_forword.Get_Block().GetComponent<Rigidbody>().mass =1;
-                        sc_move.Block_Catch();
-                        */
-                        sc_forword.Get_Block().transform.parent = this.transform;
-                        // プレイヤーを中心軸の子に
-                        this.transform.parent = m_parent.transform;
-                    }
+                    //if (sc_forword.Get_Block())
+                    //{
+                    /*
+                    sc_forword.Get_Block().transform.parent = this.transform;
+                    sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
+                    //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().mass =1;
+                    sc_move.Block_Catch();
+                    */
+
+                    sc_move.MOVE_STOP();    //速度完全キャンセル
+                    /*
+                    m_parent.GetComponent<Player_Axis>().LookConect(sc_move.GetForward());  //向きをプレイヤーと同期
+                    m_parent.GetComponent<Player_Axis>().SetPosition(this.transform.position + sc_move.GetForward());   //位置をプレイヤーの前方に
+                    m_parent.GetComponent<Player_Axis>().Set_View(sc_move.GetLastDirection());
+                    m_parent.GetComponent<Player_Axis>().SetUse(true);
+
+                    sc_forword.Get_Block().transform.parent = this.transform;
+                    // プレイヤーを中心軸の子に
+                    this.transform.parent = m_parent.transform;
+                    */
+                    //}
 
                 }
                 else if (IsLever)
@@ -224,7 +237,7 @@ public class Player_State : MonoBehaviour
                 m_AnimationState = (int)e_PlayerAnimationState.WAITING;
                 m_CanAction = true;
 
-                if (sc_forword.Get_Block())
+                if (sc_move.Get_Catch())
                 {
                     sc_forword.Get_Block().transform.parent = null;
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
@@ -233,6 +246,7 @@ public class Player_State : MonoBehaviour
                     sc_forword.Get_Block().GetComponent<Rigidbody>().mass = 2000;
                     sc_move.Block_relase();
                     sc_move.Clare_Catch();
+                    m_parent.GetComponent<Player_Axis>().SetUse(false);
                 }
             }
         }
@@ -311,5 +325,17 @@ public class Player_State : MonoBehaviour
     public void Set_IsRunning(bool _is)
     {
         IsRunning = _is;
+    }
+
+    public void BlockUse()
+    {
+        m_parent.GetComponent<Player_Axis>().LookConect(sc_move.GetForward());  //向きをプレイヤーと同期
+        m_parent.GetComponent<Player_Axis>().SetPosition(this.transform.position + sc_move.GetForward());   //位置をプレイヤーの前方に
+        m_parent.GetComponent<Player_Axis>().Set_View(sc_move.GetLastDirection());
+        m_parent.GetComponent<Player_Axis>().SetUse(true);
+
+        sc_forword.Get_Block().transform.parent = this.transform;
+        // プレイヤーを中心軸の子に
+        this.transform.parent = m_parent.transform;
     }
 }

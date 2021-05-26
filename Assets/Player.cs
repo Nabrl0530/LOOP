@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     Bridge bridge;
     Door door;
     Block block;
+    CATCH_POINT catch_point;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
@@ -48,6 +49,7 @@ public class Player : MonoBehaviour
 
     bool IsUnder_m = false;
 
+    bool Forced;    //強制処理実行中
     bool CATCH; //ブロックを持ってる
 
     // 変数
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour
 
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
+        Forced = false;
     }
 
     void Update()
@@ -294,17 +297,23 @@ public class Player : MonoBehaviour
 
                 // 入力
                 Vector3 direction_move = new Vector3(0, 0, 0);
+                _isMove = false;
+
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
                 {
                     if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
                     if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
                     if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
                     if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+                    _isMove = true;
                 }
                 else
                 {
                     direction_move += camera_front * Input.GetAxis("Vertical_p");
                     direction_move += camera_right * Input.GetAxis("Horizontal_p");
+
+                    _isMove = true;
                 }
 
                 // 正規化
@@ -313,10 +322,34 @@ public class Player : MonoBehaviour
                     // Y方向を削除
                     direction_move.y = 0;
                     direction_move = direction_move.normalized;// * Time.deltaTime;
+
+                    //Last_Direction = direction_move;
+
+                    sc_axis.Set_View(direction_move);
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move * 1.0f;
+                //Rigid.velocity = direction_move * Speed_Move * 1.0f;
+
+                
+
+                if (_isMove)
+                {
+                    sc_axis.Addspeed();
+                    /*
+                    Vector3 Vel = Rigid.velocity;
+                    Vel.y = 0;
+                    Rigid.velocity = Vel;
+
+                    if (Rigid.velocity.magnitude < 4)
+                    {
+                        Vector3 vec_m = transform.forward;
+                        //vec_m.y += 0.35f;
+                        Rigid.AddForce(vec_m * Speed_Move);
+                        //Debug.Log(Rigid.velocity.magnitude);
+                    }
+                    */
+                }
 
                 /*
                 // 回転
@@ -424,7 +457,7 @@ public class Player : MonoBehaviour
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
                     Size = 1.0f;
                     rot_z = 1.0f;
 
@@ -529,7 +562,7 @@ public class Player : MonoBehaviour
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
 
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
                     Size = 1.0f;
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -556,7 +589,7 @@ public class Player : MonoBehaviour
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
                     Size = 1.0f;
                     rot_z = 1.0f;
 
@@ -635,7 +668,7 @@ public class Player : MonoBehaviour
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
 
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
                     Size = 1.0f;
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -644,9 +677,69 @@ public class Player : MonoBehaviour
                     Player_Forword.PosReset();
                     Player_Check.PosReset();
                     Player_Under.PosReset();
+
+                    Forced = false;
+                }
+            }
+
+            /////////////////////
+
+            //ブロックをつかむ為の移動
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BLOCK_MOVE)
+            {
+                Actcount--;
+
+                transform.position += Act_move;
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BLOCK_LOOK);
+                    Actcount = 20;
+
+                    //　 対象の方向
+                    Vector3 Direction = catch_point.GetBlockPoint() - transform.position;
+                    float sub_y = Direction.y;
+
+                    Direction.y = 0;
+
+                    Vector3 forward = transform.forward;
+
+                    forward.y = 0;
+
+                    var axis = Vector3.Cross(forward, Direction);   //どっち向き？
+                    var angle = Vector3.Angle(forward, Direction);  //角度（大きさだけ）
+
+                    if (axis.y > 0)
+                    {
+                        Act_spin = angle / 20;
+                    }
+                    else
+                    {
+                        Act_spin = -angle / 20;
+                    }
+                }
+            }
+
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BLOCK_LOOK)
+            {
+                Actcount--;
+
+                transform.Rotate(0, Act_spin, 0);
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.PUSH_WAITING);
+                    Block_Catch();
+                    Set_Catch();
+                    sc_state.BlockUse();
+
+                    Forced = false;
+
                 }
             }
         }
+
+
 
         /*
         if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WAITING ||
@@ -678,19 +771,21 @@ public class Player : MonoBehaviour
 
         Rigid.velocity *= 0.95f;
         //Rigid.velocity *= 0.00f;
-        Debug.Log(Rigid.velocity);
+        //Debug.Log(Rigid.velocity);
 
         Last_State = sc_state.Get_AnimationState();
-        
+
 
         //向きの切り替え
+        if (!CATCH && !Forced)
+        {
+            Vector3 axis = Vector3.Cross(transform.forward, Last_Direction);    //どっち向き？
 
-        Vector3 axis = Vector3.Cross(transform.forward, Last_Direction);    //どっち向き？
+            Quaternion rot = Quaternion.LookRotation(Last_Direction);
 
-        Quaternion rot = Quaternion.LookRotation(Last_Direction);
-
-        rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
-        this.transform.rotation = rot;
+            rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+            this.transform.rotation = rot;
+        }
 
     }//FixedUpdate
 
@@ -728,8 +823,25 @@ public class Player : MonoBehaviour
             Act_spin = -angle / 50; 
         }
 
+        Forced = true;
         Actcount = 50;
 
+    }
+
+    public void Set_ActMove_Block()
+    {
+        //物理挙動による移動の無効化
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        Vector3 target = catch_point.GetPoint();
+        target.y = transform.position.y;
+
+        transform.LookAt(target);
+        Act_move = (target- transform.position) / 50;
+
+        Forced = true;
+        Actcount = 50;
     }
 
 
@@ -901,7 +1013,29 @@ public class Player : MonoBehaviour
 
     public void Clare_Catch()
     {
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
         CATCH = false;
+    }
+
+    public bool Get_Catch()
+    {
+        return CATCH;
+    }
+
+    public void MOVE_STOP()
+    {
+        Rigid.velocity = new Vector3(0, 0, 0);
+    }
+
+    public Vector3 GetForward()
+    {
+        return this.transform.forward;
+    }
+
+    public Vector3 GetLastDirection()
+    {
+        return Last_Direction;
     }
     //オブジェクトを発見した際にスクリプトを獲得する
 
@@ -930,6 +1064,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Door_HIT"))
         {
             door = other.GetComponent<Door_HIT>().GetDoor();
+        }
+
+        if (other.gameObject.CompareTag("CATCH_POINT"))
+        {
+            catch_point = other.GetComponent<CATCH_POINT>();
         }
     } 
 }

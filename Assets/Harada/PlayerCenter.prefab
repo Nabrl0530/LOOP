@@ -68,7 +68,7 @@ MonoBehaviour:
   Speed_Climb: 4
   Height_Climb_Block: 2.7
   Height_Climb_Stage: 1.5
-  GoLength_AfterClimbing: 0.5
+  GoLength_AfterClimbing: 1
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
   m_Second_Climb: 3
