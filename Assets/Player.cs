@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     private float searchAngle = 80f;    //視野角
     private float Size = 1.0f;
     private float rot_z;   //回転速度
+    private Vector3 Last_Direction; //最後の入力向き
+    private int Last_State; //直前のステート
+    public float mag;
 
 
     bool HIT_TOWER = false;
@@ -69,10 +72,11 @@ public class Player : MonoBehaviour
 
     public bool is_block = false;
     public bool is_stage = false;
+    bool _isMove;
 
     // 走る
-    public float Speed_Walk = 8;
-    public float Speed_Run = 12;
+    float Speed_Walk = 25;
+    float Speed_Run = 40;
 
     // 初期化
     void Start()
@@ -90,6 +94,7 @@ public class Player : MonoBehaviour
         Pipe3 = GameObject.Find("FloorThree");
 
         m_Count_Second = 0;
+        Last_Direction = new Vector3(0, 0, -1);
     }
 
     void Update()
@@ -115,10 +120,12 @@ public class Player : MonoBehaviour
     // 定期更新
     void FixedUpdate()
     {
+        /*
         if (IsUnder_m)
         {
             Rigid.AddForce(new Vector3(0, 0.15f, 0));
         }
+        */
 
         // 情報
         Vector3 difference = this.transform.position - Position_Latest_m;
@@ -156,8 +163,9 @@ public class Player : MonoBehaviour
         {
             // 移動
             {
-                // 入力
+                // 入力 進行方向の確定
                 Vector3 direction_move = new Vector3(0, 0, 0);
+                _isMove = false;
 
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
                 {
@@ -177,6 +185,8 @@ public class Player : MonoBehaviour
                         Speed_Move = Speed_Walk;
                         sc_state.Set_IsRunning(false);
                     }
+
+                    _isMove = true;
                 }
                 else
                 {
@@ -198,8 +208,12 @@ public class Player : MonoBehaviour
                             Speed_Move = Speed_Walk;
                             sc_state.Set_IsRunning(false);
                         }
+
+                        _isMove = true;
                     }
                 }
+
+                //ここまでで進行方向を決める
 
                 // 正規化
                 if (direction_move != new Vector3(0, 0, 0))
@@ -207,10 +221,38 @@ public class Player : MonoBehaviour
                     // Y方向を削除
                     direction_move.y = 0;
                     direction_move = direction_move.normalized;// * Time.deltaTime;
+
+                    Last_Direction = direction_move;
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move;
+                //Rigid.velocity = direction_move * Speed_Move;
+
+                if (_isMove)
+                {
+                    Vector3 Vel = Rigid.velocity;
+                    Vel.y = 0;
+                    Rigid.velocity = Vel;
+
+                    if (Speed_Move == Speed_Walk)
+                    {
+                        if (Rigid.velocity.magnitude < 4)
+                        {
+                            Vector3 vec_m = transform.forward;
+                            //vec_m.y += 0.35f;
+                            Rigid.AddForce(vec_m * Speed_Move);
+                            //Debug.Log(Rigid.velocity.magnitude);
+                        }
+                    }
+                    else
+                    {
+                        if (Rigid.velocity.magnitude < 7)
+                        {
+                            Rigid.AddForce(transform.forward * Speed_Move);
+                            //Debug.Log(Rigid.velocity.magnitude);
+                        }
+                    }
+                }
 
                 // 落下
                 if (difference.y < -0.003f)
@@ -228,6 +270,7 @@ public class Player : MonoBehaviour
                 if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WALKING)
                 {
                     // 制御
+                    /*
                     difference.y = 0;
 
                     if (difference.magnitude > Rotate_Tolerance)
@@ -237,8 +280,10 @@ public class Player : MonoBehaviour
                         rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
                         this.transform.rotation = rot;
                     }//difference.magnitude > Rotate_Tolerance
+                    */
                 }//sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING
             }//移動
+
         }//sc_state.Get_CanAction()
         else
         {
@@ -579,7 +624,7 @@ public class Player : MonoBehaviour
                     Vector3 pos = transform.position;
                     //pos.y += pop_y;
 
-                    transform.position = pos;
+                    //transform.position = pos;
 
                     //pop_y -= 0.004f;
 
@@ -603,6 +648,7 @@ public class Player : MonoBehaviour
             }
         }
 
+        /*
         if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WAITING ||
                 sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_WAITING)
         {
@@ -613,7 +659,38 @@ public class Player : MonoBehaviour
             Rigid.constraints = RigidbodyConstraints.None;
             Rigid.constraints = RigidbodyConstraints.FreezeRotation;
         }
+        */
 
+        /*
+        //落下が完了したら
+        if(Last_State == (int)Player_State.e_PlayerAnimationState.HOVERING)
+        {
+            if(sc_state.Get_AnimationState() != (int)Player_State.e_PlayerAnimationState.HOVERING)
+            {
+                Vector3 Vel = Rigid.velocity;
+                Vel.y = 0;
+                Rigid.velocity = Vel;   //縦方向の速度をキャンセル
+            }
+        }
+        */
+
+        //Debug.Log(Rigid.velocity);
+
+        Rigid.velocity *= 0.95f;
+        //Rigid.velocity *= 0.00f;
+        Debug.Log(Rigid.velocity);
+
+        Last_State = sc_state.Get_AnimationState();
+        
+
+        //向きの切り替え
+
+        Vector3 axis = Vector3.Cross(transform.forward, Last_Direction);    //どっち向き？
+
+        Quaternion rot = Quaternion.LookRotation(Last_Direction);
+
+        rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+        this.transform.rotation = rot;
 
     }//FixedUpdate
 

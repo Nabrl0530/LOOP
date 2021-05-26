@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5367641860322307548}
   - component: {fileID: 7046689920967098655}
   - component: {fileID: 5914186261382901046}
-  m_Layer: 0
+  - component: {fileID: 5466121160590720683}
+  m_Layer: 9
   m_Name: PlayerCenter
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc_state: {fileID: 5367641860322307548}
+  sc_axis: {fileID: 0}
   Player_Forword: {fileID: 3813967359517155624}
   Player_Check: {fileID: 3813967360705824822}
   Player_Under: {fileID: 3813967360232296326}
@@ -58,6 +60,7 @@ MonoBehaviour:
   Gatepoint: {x: 0, y: 0, z: 0}
   pop_y: 0
   len: 0
+  mag: 0
   Camera: {fileID: 0}
   Speed_Move: 8
   RotateSpeed: 10
@@ -68,6 +71,7 @@ MonoBehaviour:
   GoLength_AfterClimbing: 0.5
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
+  m_Second_Climb: 3
   is_block: 0
   is_stage: 0
 --- !u!114 &5367641860322307548
@@ -90,6 +94,7 @@ MonoBehaviour:
   m_CanAction: 1
   IsBlock: 0
   IsStage: 0
+  m_parent: {fileID: 0}
   IsLever: 0
   IsTower: 0
   IsBridge: 0
@@ -103,7 +108,7 @@ BoxCollider:
   m_GameObject: {fileID: 573165217529949452}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 2.5, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
@@ -123,6 +128,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!136 &5466121160590720683
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573165217529949452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &6644048724272316894
 Animator:
   serializedVersion: 3
