@@ -5,6 +5,8 @@ using UnityEngine;
 public class beam_pre : MonoBehaviour
 {
     LineRenderer LineRenderer;
+
+    int layerMask = ~(1 << 2 | 1 << 10);    //イグノアとダミーを回避
     void Start()
     {
         LineRenderer = this.GetComponent<LineRenderer>();
@@ -36,7 +38,7 @@ public class beam_pre : MonoBehaviour
         Vector3 Ditector = transform.forward;   //new Vector3(0, 0, -1);
 
         RaycastHit hit;
-        if (Physics.Raycast(Pos_base, Ditector, out hit, 30.0f))
+        if (Physics.Raycast(Pos_base, Ditector, out hit, 30.0f, layerMask))
         {
             //Debug.Log(hit.collider.gameObject.transform.position);
             //Pos_End = hit.collider.gameObject.transform.position;

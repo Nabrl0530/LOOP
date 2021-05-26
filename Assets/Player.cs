@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     // 参照
     public Player_State sc_state;
     public Player_Axis sc_axis;
+    public Dummy_Field Dummy_Field;
 
     TOWER TOWER;
     Leba leba;
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour
     bool HIT_LEVER_BACK = false;
     bool HIT_DOOR = false;
 
-    bool IsUnder_m = false;
+    public bool IsUnder_m = false;
 
     bool Forced;    //強制処理実行中
     bool CATCH; //ブロックを持ってる
@@ -80,6 +81,9 @@ public class Player : MonoBehaviour
     float Speed_Walk = 25;
     float Speed_Run = 40;
 
+    int Under_count;
+    int No_Under;
+
     // 初期化
     void Start()
     {
@@ -98,6 +102,9 @@ public class Player : MonoBehaviour
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
         Forced = false;
+
+        Under_count = 0;
+        No_Under = 0;
     }
 
     void Update()
@@ -787,6 +794,32 @@ public class Player : MonoBehaviour
             this.transform.rotation = rot;
         }
 
+        if(IsUnder_m)
+        {
+            Under_count++;
+
+            if(Under_count == 15)
+            {
+                if(transform.position.y > 5.6f)
+                {
+                    Dummy_Field.Setlevel(2);
+                }
+                else
+                {
+                    Dummy_Field.Setlevel(1);
+                }
+            }
+        }
+        else
+        {
+            No_Under++;
+
+            if(No_Under == 5)
+            {
+                Dummy_Field.Setlevel(1);
+            }
+        }
+
     }//FixedUpdate
 
     public void Set_StartPosition(Vector3 _start)
@@ -797,6 +830,15 @@ public class Player : MonoBehaviour
     public void Set_IsUnder(bool _is)
     {
         IsUnder_m = _is;
+
+        if(!IsUnder_m)
+        {
+            Under_count = 0;
+        }
+        else
+        {
+            No_Under = 0;
+        }
     }
 
     public void Set_Act_spin()

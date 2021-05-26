@@ -23,6 +23,8 @@ TagManager:
   - Bridge_HIT
   - Door_HIT
   - CATCH_POINT
+  - Dummy
+  - View
   layers:
   - Default
   - TransparentFX
