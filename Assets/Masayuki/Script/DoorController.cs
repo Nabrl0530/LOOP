@@ -16,18 +16,20 @@ public class DoorController : MonoBehaviour
     [Tooltip("レイが当たった時にドアを開くか")]
     private bool m_open_door_when_ray_hit = true;
     [SerializeField]
-    [Tooltip("ドアを何秒で限界まで開くようにするか")]
+    [Tooltip("ドアを何秒で開くようにするか")]
     private float m_move_time = 3.0f;
+    [SerializeField]
+    [Tooltip("ドアの動く距離。Y軸方向に動きます")]
+    private float m_moving_distance = -2.05f;
     [SerializeField]
     [Tooltip("このリストにボタンを入れた場合は、リスト内にあるどのボタンを押してもドアが開きます。")]
     private List<GameObject> m_or_buttons = default;
     [SerializeField]
     [Tooltip("このリストにボタンを入れた場合は、リスト内にある全てのボタンを押さなければドアが開きません。")]
     private List<GameObject> m_and_buttons = default;
-    
 
-    //ドアの開く限界位置(相対位置)
-    private static readonly float m_open_limit = -2.05f;
+
+   
 
     private MoveController m_move_controller = default;
 
@@ -103,7 +105,7 @@ public class DoorController : MonoBehaviour
     private Vector3 CalcFinshPos()
     {
         Vector3 pos = m_ray_collider_door.transform.position;
-        pos.y += m_open_limit;
+        pos  += m_ray_collider_door.transform.up * m_moving_distance;
         return pos;
     }
 
