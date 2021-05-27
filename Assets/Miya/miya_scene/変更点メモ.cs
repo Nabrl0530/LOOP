@@ -5,6 +5,9 @@ using UnityEngine;
 public class 変更点メモ : MonoBehaviour
 {
     // 変更点
+
     // PlayerのScaleを0.8に変更
-    // 
+
+    // Yojinoboriアニメーションのループを外してAply
+    // InspectorのSecondClimbの時間を伸ばす
 }
