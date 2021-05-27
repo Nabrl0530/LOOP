@@ -40,7 +40,8 @@ public class Player_State : MonoBehaviour
 
     // 変数
     Rigidbody Rigid;
-    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;  //状態ステート
+    public int m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;   //実アニメーションステート
     public bool m_CanAction = true;
     //bool	m_IsClockwise		= true;
     bool m_CanClimb_forword = false;
@@ -82,6 +83,7 @@ public class Player_State : MonoBehaviour
         {
             // 何もしていない
             m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+            m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;
 
             // 歩行
             if

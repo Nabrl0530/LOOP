@@ -1513,6 +1513,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 0
   no: 0
+  USE_LINE_NUM: 2
+  Clare: 000000
 --- !u!136 &237714317
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1915,6 +1917,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   count: 0
   no: 0
+  USE_LINE_NUM: 0
+  Clare: 000000
 --- !u!1 &360874580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 649c62e161233344fa94f4e182fce31d,
@@ -6114,12 +6118,12 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000000018839614
+      value: 0.000000018839618
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000038914267
+      value: -0.0000000038914276
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -7548,7 +7552,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.20228533, y: -0.000000018839614, z: 0.0000000038914267, w: 0.97932667}
+  m_LocalRotation: {x: 0.20228533, y: 0.000000018839618, z: -0.0000000038914276, w: 0.97932667}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -6,6 +6,9 @@ public class beam_pre : MonoBehaviour
 {
     LineRenderer LineRenderer;
 
+    CRISTAL cristal;
+    bool HIT_CRISTAL;
+
     int layerMask = ~(1 << 2 | 1 << 10);    //イグノアとダミーを回避
     void Start()
     {
@@ -21,6 +24,8 @@ public class beam_pre : MonoBehaviour
 
         // 線を引く場所を指定する
         LineRenderer.SetPositions(positions);
+
+        HIT_CRISTAL = false;
     }
 
 
@@ -63,7 +68,9 @@ public class beam_pre : MonoBehaviour
 
             if (hit.collider.CompareTag("CRISTAL"))
             {
-                hit.collider.gameObject.GetComponent<CRISTAL>().HitCristal();
+                //hit.collider.gameObject.GetComponent<CRISTAL>().HitCristal();
+                cristal = hit.collider.gameObject.GetComponent<CRISTAL>();
+                HIT_CRISTAL = true;
             }
 
             if(hit.collider.CompareTag("Bridge"))
@@ -86,6 +93,16 @@ public class beam_pre : MonoBehaviour
 
         LineRenderer.SetPositions(positions);
         LineRenderer.SetPosition(1,Pos_End);
+    }
+
+    void FixedUpdate()
+    {
+        if (HIT_CRISTAL)
+        {
+            cristal.SetHit();
+        }
+
+        HIT_CRISTAL = false;
     }
 
     public void Setrot(Quaternion rot)
