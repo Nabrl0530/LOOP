@@ -1243,7 +1243,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1100, y: 550}
+  m_SizeDelta: {x: 2000, y: 1500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &220425618
 MonoBehaviour:
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f1cfbb6dd5a134cac2282e0a578972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FloorOne: {fileID: 1573025635}
+  Floor: {fileID: 0}
 --- !u!136 &227585814
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1374,6 +1374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac484c68e7e2edd45a615fd2e008eeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 0
+  no: 0
 --- !u!136 &237714317
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1433,6 +1435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  BasePos: {x: 0, y: 0, z: 0}
 --- !u!65 &239372193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1941,6 +1944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac484c68e7e2edd45a615fd2e008eeb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  count: 0
+  no: 0
 --- !u!1 &360874580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 649c62e161233344fa94f4e182fce31d,
@@ -4029,7 +4034,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 246.58}
+  m_AnchoredPosition: {x: 0, y: 421}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &906654227
@@ -6762,6 +6767,11 @@ MonoBehaviour:
   sc_move: {fileID: 1703755021}
   sc_forword: {fileID: 241867649}
   sc_check: {fileID: 1412635880}
+  m_AnimationState: 0
+  m_CanAction: 1
+  m_CanClimb_forword: 0
+  m_CanClimb_check: 0
+  m_parent: {fileID: 0}
 --- !u!114 &1703755021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6775,6 +6785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc_state: {fileID: 1703755020}
+  sc_axis: {fileID: 0}
   Camera: {fileID: 973384606}
   Speed_Move: 8
   RotateSpeed: 10
@@ -6783,7 +6794,11 @@ MonoBehaviour:
   GoLength_AfterClimbing: 0.5
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
+  is_block: 0
+  is_stage: 0
   m_Second_Climb: 3
+  Speed_Walk: 8
+  Speed_Run: 12
 --- !u!136 &1703755022
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6906,10 +6921,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sc_state: {fileID: 1703755029}
+  sc_axis: {fileID: 0}
+  Dummy_Field: {fileID: 0}
+  Player_Forword: {fileID: 0}
+  Player_Check: {fileID: 0}
+  Player_Under: {fileID: 0}
+  Actcount: 0
+  Act_spin: 0
+  Act_move: {x: 0, y: 0, z: 0}
+  Gimmikpoint: {x: 0, y: 0, z: 0}
+  Gatepoint: {x: 0, y: 0, z: 0}
+  pop_y: 0
   len: 0
-  HIT_TOWER: 0
-  HIT_LEVER: 0
-  HIT_LEVER2: 0
+  mag: 0
+  IsUnder_m: 0
   Camera: {fileID: 973384606}
   Speed_Move: 8
   RotateSpeed: 10
@@ -6920,6 +6945,7 @@ MonoBehaviour:
   GoLength_AfterClimbing: 0.5
   Rotate_Tolerance: 0.1
   Camera_DistanceTolerance: 100
+  m_Second_Climb: 3
   is_block: 0
   is_stage: 0
 --- !u!114 &1703755029
@@ -6937,12 +6963,16 @@ MonoBehaviour:
   sc_move: {fileID: 1703755028}
   sc_forword: {fileID: 241867653}
   sc_check: {fileID: 1412635884}
+  animator: {fileID: 0}
   m_AnimationState: 0
   m_CanAction: 1
   IsBlock: 0
   IsStage: 0
+  m_parent: {fileID: 0}
   IsLever: 0
   IsTower: 0
+  IsBridge: 0
+  IsDoor: 0
 --- !u!1 &1728752856 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3664009379688627245, guid: dc133927efb32c34fbdf3cdcacebda24,
