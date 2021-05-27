@@ -117,7 +117,8 @@ public class ArrowMover : MonoBehaviour
 
                     break;
                 case 3:
-                    UnityEditor.EditorApplication.isPlaying = false;
+                    //UnityEditor.EditorApplication.isPlaying = false;
+                    Application.Quit();
                     break;
              
             }
