@@ -43,12 +43,30 @@ public class Player_Forword : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerSTAY(Collider other)
+    {
+        if (other.gameObject.tag == "Block")
+        {
+            sc_state.Set_IsBlock(true);
+        }
+        if (other.gameObject.tag == "Stage")
+        {
+            sc_state.Set_IsStage(true);
+        }
+    }
+
+        void OnTriggerExit(Collider other)
     {
         sc_state.Set_CanClimb_Forword(false);
+        if (other.gameObject.tag == "Block")
+        {
+            sc_state.Set_IsBlock(false);
+        }
 
-        sc_state.Set_IsBlock(false);
-        sc_state.Set_IsStage(false);
+        if (other.gameObject.tag == "Stage")
+        {
+            sc_state.Set_IsStage(false);
+        }
     }
 
     public GameObject Get_Block()

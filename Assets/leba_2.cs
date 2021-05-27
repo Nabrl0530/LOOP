@@ -31,7 +31,7 @@ public class leba_2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
+            //other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
         }
     }
 
@@ -39,7 +39,7 @@ public class leba_2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
+            //other.GetComponent<Player>().SetHIT_LEVER2(transform.position);
         }
     }
 
@@ -49,7 +49,7 @@ public class leba_2 : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             //other.GetComponent<Player_Move>().ClearHIT_LEVER2();
-            other.GetComponent<Player>().ClearHIT_LEVER2();
+            //other.GetComponent<Player>().ClearHIT_LEVER2();
         }
     }
 }

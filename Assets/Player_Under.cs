@@ -27,12 +27,16 @@ public class Player_Under : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player") return;
+
         sc_move.Set_IsUnder(true);
     }
 
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player") return;
+
+        if (other.gameObject.tag == "View") return;
+
         sc_move.Set_IsUnder(true);
     }
 

@@ -28,6 +28,11 @@ public class MenuCursor : MonoBehaviour
     bool isPlaying = false;
     private bool ClearFade = false;
     private Color fadecolor;
+
+    public bool GetUsemenu()
+    {
+        return Usemenu;
+    }
     void Start()
     {
         start = 0f;

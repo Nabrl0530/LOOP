@@ -5,8 +5,9 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // 参照
-    //public GameObject Center;
     public Player_State sc_state;
+    public Player_Axis sc_axis;
+    public Dummy_Field Dummy_Field;
 
     TOWER TOWER;
     Leba leba;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     Bridge bridge;
     Door door;
     Block block;
+    CATCH_POINT catch_point;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
@@ -34,6 +36,9 @@ public class Player : MonoBehaviour
     private float searchAngle = 80f;    //視野角
     private float Size = 1.0f;
     private float rot_z;   //回転速度
+    private Vector3 Last_Direction; //最後の入力向き
+    private int Last_State; //直前のステート
+    public float mag;
 
 
     bool HIT_TOWER = false;
@@ -43,7 +48,10 @@ public class Player : MonoBehaviour
     bool HIT_LEVER_BACK = false;
     bool HIT_DOOR = false;
 
-    bool IsUnder_m = false;
+    public bool IsUnder_m = false;
+
+    bool Forced;    //強制処理実行中
+    bool CATCH; //ブロックを持ってる
 
     // 変数
     Rigidbody Rigid;
@@ -57,11 +65,24 @@ public class Player : MonoBehaviour
     [SerializeField] private float GoLength_AfterClimbing = 0.5f;
     [SerializeField] private float Rotate_Tolerance = 0.1f;
     [SerializeField] private float Camera_DistanceTolerance = 100;
+
+    [SerializeField] private float m_Second_Climb = 3.0f;
+    private float m_Count_Second = 0;
+
+
     private Vector3 Position_Latest_m;
     private Vector3 StartPosition = new Vector3(0, 0, 0);
 
     public bool is_block = false;
     public bool is_stage = false;
+    bool _isMove;
+
+    // 走る
+    float Speed_Walk = 25;
+    float Speed_Run = 40;
+
+    int Under_count;
+    int No_Under;
 
     // 初期化
     void Start()
@@ -77,32 +98,44 @@ public class Player : MonoBehaviour
         Pipe1 = GameObject.Find("FloorOne");
         Pipe2 = GameObject.Find("FloorTwo");
         Pipe3 = GameObject.Find("FloorThree");
+
+        m_Count_Second = 0;
+        Last_Direction = new Vector3(0, 0, -1);
+        Forced = false;
+
+        Under_count = 0;
+        No_Under = 0;
     }
 
     void Update()
     {
-        len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
-        if (len >= 12.0f)
+        if (!CATCH)
         {
-            transform.SetParent(Pipe3.transform);
-        }
-        else if (len >= 8.5f)
-        {
-            transform.SetParent(Pipe2.transform);
-        }
-        else
-        {
-            transform.SetParent(Pipe1.transform);
+            len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
+            if (len >= 12.0f)
+            {
+                transform.SetParent(Pipe3.transform);
+            }
+            else if (len >= 8.5f)
+            {
+                transform.SetParent(Pipe2.transform);
+            }
+            else
+            {
+                transform.SetParent(Pipe1.transform);
+            }
         }
     }
 
     // 定期更新
     void FixedUpdate()
     {
+        /*
         if (IsUnder_m)
         {
             Rigid.AddForce(new Vector3(0, 0.15f, 0));
         }
+        */
 
         // 情報
         Vector3 difference = this.transform.position - Position_Latest_m;
@@ -140,12 +173,57 @@ public class Player : MonoBehaviour
         {
             // 移動
             {
-                // 入力
+                // 入力 進行方向の確定
                 Vector3 direction_move = new Vector3(0, 0, 0);
-                if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-                if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
-                if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+                _isMove = false;
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+                {
+                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+                    if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+                    if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+                    // 走る
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        Speed_Move = Speed_Run;
+                        sc_state.Set_IsRunning(true);
+                    }
+                    else if (!Input.GetKey(KeyCode.LeftShift))
+                    {
+                        Speed_Move = Speed_Walk;
+                        sc_state.Set_IsRunning(false);
+                    }
+
+                    _isMove = true;
+                }
+                else
+                {
+                    // 原田君用3
+                    if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+                    {
+                        // 元々あったコントローラー操作
+                        direction_move += camera_front * Input.GetAxis("Vertical_p");
+                        direction_move += camera_right * Input.GetAxis("Horizontal_p");
+
+                        // 走る
+                        if (Input.GetButton("Run"))
+                        {
+                            Speed_Move = Speed_Run;
+                            sc_state.Set_IsRunning(true);
+                        }
+                        else if (!Input.GetButton("Run"))
+                        {
+                            Speed_Move = Speed_Walk;
+                            sc_state.Set_IsRunning(false);
+                        }
+
+                        _isMove = true;
+                    }
+                }
+
+                //ここまでで進行方向を決める
 
                 // 正規化
                 if (direction_move != new Vector3(0, 0, 0))
@@ -153,10 +231,38 @@ public class Player : MonoBehaviour
                     // Y方向を削除
                     direction_move.y = 0;
                     direction_move = direction_move.normalized;// * Time.deltaTime;
+
+                    Last_Direction = direction_move;
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move;
+                //Rigid.velocity = direction_move * Speed_Move;
+
+                if (_isMove)
+                {
+                    Vector3 Vel = Rigid.velocity;
+                    Vel.y = 0;
+                    Rigid.velocity = Vel;
+
+                    if (Speed_Move == Speed_Walk)
+                    {
+                        if (Rigid.velocity.magnitude < 4)
+                        {
+                            Vector3 vec_m = transform.forward;
+                            //vec_m.y += 0.35f;
+                            Rigid.AddForce(vec_m * Speed_Move);
+                            //Debug.Log(Rigid.velocity.magnitude);
+                        }
+                    }
+                    else
+                    {
+                        if (Rigid.velocity.magnitude < 7)
+                        {
+                            Rigid.AddForce(transform.forward * Speed_Move);
+                            //Debug.Log(Rigid.velocity.magnitude);
+                        }
+                    }
+                }
 
                 // 落下
                 if (difference.y < -0.003f)
@@ -174,6 +280,7 @@ public class Player : MonoBehaviour
                 if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WALKING)
                 {
                     // 制御
+                    /*
                     difference.y = 0;
 
                     if (difference.magnitude > Rotate_Tolerance)
@@ -183,20 +290,38 @@ public class Player : MonoBehaviour
                         rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
                         this.transform.rotation = rot;
                     }//difference.magnitude > Rotate_Tolerance
+                    */
                 }//sc_state.Get_AnimationState() == (int)miya_player_state.e_PlayerAnimationState.WALKING
             }//移動
+
         }//sc_state.Get_CanAction()
         else
         {
             // ブロック押す
             if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_PUSHING)
             {
+                if (IsUnder_m) Rigid.AddForce(new Vector3(0, 0.2f, 0));
+
                 // 入力
                 Vector3 direction_move = new Vector3(0, 0, 0);
-                if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-                if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
-                if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+                _isMove = false;
+
+                if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+                {
+                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+                    if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+                    if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
+
+                    _isMove = true;
+                }
+                else
+                {
+                    direction_move += camera_front * Input.GetAxis("Vertical_p");
+                    direction_move += camera_right * Input.GetAxis("Horizontal_p");
+
+                    _isMove = true;
+                }
 
                 // 正規化
                 if (direction_move != new Vector3(0, 0, 0))
@@ -204,11 +329,36 @@ public class Player : MonoBehaviour
                     // Y方向を削除
                     direction_move.y = 0;
                     direction_move = direction_move.normalized;// * Time.deltaTime;
+
+                    //Last_Direction = direction_move;
+
+                    sc_axis.Set_View(direction_move);
                 }
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
-                Rigid.velocity = direction_move * Speed_Move * 1.0f;
+                //Rigid.velocity = direction_move * Speed_Move * 1.0f;
 
+                
+
+                if (_isMove)
+                {
+                    sc_axis.Addspeed();
+                    /*
+                    Vector3 Vel = Rigid.velocity;
+                    Vel.y = 0;
+                    Rigid.velocity = Vel;
+
+                    if (Rigid.velocity.magnitude < 4)
+                    {
+                        Vector3 vec_m = transform.forward;
+                        //vec_m.y += 0.35f;
+                        Rigid.AddForce(vec_m * Speed_Move);
+                        //Debug.Log(Rigid.velocity.magnitude);
+                    }
+                    */
+                }
+
+                /*
                 // 回転
                 // 制御
                 difference.y = 0;
@@ -220,11 +370,35 @@ public class Player : MonoBehaviour
                     rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed * 0.5f);
                     this.transform.rotation = rot;
                 }//difference.magnitude > Rotate_Tolerance
+                */
             }//ブロック押す
 
             // よじ登る
             if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.CLIMBING)
             {
+                // ワープ
+                if (m_Count_Second > m_Second_Climb)
+                {
+                    // 位置
+                    Vector3 new_vec = new Vector3(0, 0, 0);
+                    new_vec = StartPosition + this.transform.forward * GoLength_AfterClimbing;
+                    new_vec.y += Height_Climb_Block;
+                    this.transform.position = new_vec;
+
+                    // 初期化
+                    sc_state.Set_CanAction(true);
+                    Rigid.useGravity = true;
+                    sc_state.Set_IsBlock(false);
+                    sc_state.Set_IsStage(false);
+
+                    m_Count_Second = 0;
+                }
+
+                // カウンタ増加
+                m_Count_Second += Time.deltaTime;
+
+                //高さが一律になったので分岐が不要に
+                /*
                 // ブロック
                 if (is_block)
                 {
@@ -274,6 +448,7 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
+                */
             }
 
             //橋によるワープ移動（向き変更）
@@ -289,7 +464,7 @@ public class Player : MonoBehaviour
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
                     Size = 1.0f;
                     rot_z = 1.0f;
 
@@ -394,7 +569,7 @@ public class Player : MonoBehaviour
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
 
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
                     Size = 1.0f;
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -421,7 +596,7 @@ public class Player : MonoBehaviour
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = false;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
                     Size = 1.0f;
                     rot_z = 1.0f;
 
@@ -489,7 +664,7 @@ public class Player : MonoBehaviour
                     Vector3 pos = transform.position;
                     //pos.y += pop_y;
 
-                    transform.position = pos;
+                    //transform.position = pos;
 
                     //pop_y -= 0.004f;
 
@@ -500,7 +675,7 @@ public class Player : MonoBehaviour
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
 
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-                    this.gameObject.GetComponent<BoxCollider>().enabled = true;
+                    this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
                     Size = 1.0f;
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -509,10 +684,142 @@ public class Player : MonoBehaviour
                     Player_Forword.PosReset();
                     Player_Check.PosReset();
                     Player_Under.PosReset();
+
+                    Forced = false;
                 }
             }
 
+            /////////////////////
+
+            //ブロックをつかむ為の移動
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BLOCK_MOVE)
+            {
+                Actcount--;
+
+                transform.position += Act_move;
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BLOCK_LOOK);
+                    Actcount = 20;
+
+                    //　 対象の方向
+                    Vector3 Direction = catch_point.GetBlockPoint() - transform.position;
+                    float sub_y = Direction.y;
+
+                    Direction.y = 0;
+
+                    Vector3 forward = transform.forward;
+
+                    forward.y = 0;
+
+                    var axis = Vector3.Cross(forward, Direction);   //どっち向き？
+                    var angle = Vector3.Angle(forward, Direction);  //角度（大きさだけ）
+
+                    if (axis.y > 0)
+                    {
+                        Act_spin = angle / 20;
+                    }
+                    else
+                    {
+                        Act_spin = -angle / 20;
+                    }
+                }
+            }
+
+            if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.BLOCK_LOOK)
+            {
+                Actcount--;
+
+                transform.Rotate(0, Act_spin, 0);
+
+                if (Actcount == 0)
+                {
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.PUSH_WAITING);
+                    Block_Catch();
+                    Set_Catch();
+                    sc_state.BlockUse();
+
+                    Forced = false;
+
+                }
+            }
         }
+
+
+
+        /*
+        if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.WAITING ||
+                sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.PUSH_WAITING)
+        {
+            Rigid.constraints = RigidbodyConstraints.FreezeAll;
+        }
+        else
+        {
+            Rigid.constraints = RigidbodyConstraints.None;
+            Rigid.constraints = RigidbodyConstraints.FreezeRotation;
+        }
+        */
+
+        /*
+        //落下が完了したら
+        if(Last_State == (int)Player_State.e_PlayerAnimationState.HOVERING)
+        {
+            if(sc_state.Get_AnimationState() != (int)Player_State.e_PlayerAnimationState.HOVERING)
+            {
+                Vector3 Vel = Rigid.velocity;
+                Vel.y = 0;
+                Rigid.velocity = Vel;   //縦方向の速度をキャンセル
+            }
+        }
+        */
+
+        //Debug.Log(Rigid.velocity);
+
+        Rigid.velocity *= 0.95f;
+        //Rigid.velocity *= 0.00f;
+        //Debug.Log(Rigid.velocity);
+
+        Last_State = sc_state.Get_AnimationState();
+
+
+        //向きの切り替え
+        if (!CATCH && !Forced)
+        {
+            Vector3 axis = Vector3.Cross(transform.forward, Last_Direction);    //どっち向き？
+
+            Quaternion rot = Quaternion.LookRotation(Last_Direction);
+
+            rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
+            this.transform.rotation = rot;
+        }
+
+        if(IsUnder_m)
+        {
+            Under_count++;
+
+            if(Under_count == 15)
+            {
+                if(transform.position.y > 5.6f)
+                {
+                    Dummy_Field.Setlevel(2);
+                }
+                else
+                {
+                    Dummy_Field.Setlevel(1);
+                }
+            }
+        }
+        else
+        {
+            No_Under++;
+
+            if(No_Under == 5)
+            {
+                Dummy_Field.Setlevel(1);
+            }
+        }
+
     }//FixedUpdate
 
     public void Set_StartPosition(Vector3 _start)
@@ -523,6 +830,15 @@ public class Player : MonoBehaviour
     public void Set_IsUnder(bool _is)
     {
         IsUnder_m = _is;
+
+        if(!IsUnder_m)
+        {
+            Under_count = 0;
+        }
+        else
+        {
+            No_Under = 0;
+        }
     }
 
     public void Set_Act_spin()
@@ -549,8 +865,25 @@ public class Player : MonoBehaviour
             Act_spin = -angle / 50; 
         }
 
+        Forced = true;
         Actcount = 50;
 
+    }
+
+    public void Set_ActMove_Block()
+    {
+        //物理挙動による移動の無効化
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+
+        Vector3 target = catch_point.GetPoint();
+        target.y = transform.position.y;
+
+        transform.LookAt(target);
+        Act_move = (target- transform.position) / 50;
+
+        Forced = true;
+        Actcount = 50;
     }
 
 
@@ -590,22 +923,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetHIT_LEVER2(Vector3 pos)
-    {
-        /*
-        if (CheckView(pos))
-        {
-            HIT_LEVER2 = true;
-            sc_state.Set_IsLever(HIT_LEVER2);
-            Gimmikpoint = pos;
-        }
-        else
-        {
-            ClearHIT_LEVER2();
-        }
-        */
-    }
-
     public bool SetHIT_Bridge(Vector3 pos)
     {
         if (CheckView(pos))
@@ -642,12 +959,6 @@ public class Player : MonoBehaviour
     {
         HIT_LEVER = false;
         sc_state.Set_IsLever(HIT_LEVER);
-    }
-
-    public void ClearHIT_LEVER2()
-    {
-        //HIT_LEVER2 = false;
-        //sc_state.Set_IsLever(HIT_LEVER2);
     }
 
     public void ClearHIT_BRIDGE()
@@ -711,12 +1022,6 @@ public class Player : MonoBehaviour
         {
             leba.SpinL();
         }
-        /*
-        if (HIT_LEVER2)
-        {
-            leba_2.SpinL();
-        }
-        */
     }
 
     public void UseLever_inv()
@@ -725,13 +1030,6 @@ public class Player : MonoBehaviour
         {
             leba.SpinR();
         }
-
-        /*
-        if (HIT_LEVER2)
-        {
-            leba_2.SpinR();
-        }
-        */
     }
 
     public void Set_Block(Block scr)
@@ -749,6 +1047,38 @@ public class Player : MonoBehaviour
         block.Clare_ON();
     }
 
+
+    public void Set_Catch()
+    {
+        CATCH = true;
+    }
+
+    public void Clare_Catch()
+    {
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
+        CATCH = false;
+    }
+
+    public bool Get_Catch()
+    {
+        return CATCH;
+    }
+
+    public void MOVE_STOP()
+    {
+        Rigid.velocity = new Vector3(0, 0, 0);
+    }
+
+    public Vector3 GetForward()
+    {
+        return this.transform.forward;
+    }
+
+    public Vector3 GetLastDirection()
+    {
+        return Last_Direction;
+    }
     //オブジェクトを発見した際にスクリプトを獲得する
 
     void OnTriggerEnter(Collider other)
@@ -776,6 +1106,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Door_HIT"))
         {
             door = other.GetComponent<Door_HIT>().GetDoor();
+        }
+
+        if (other.gameObject.CompareTag("CATCH_POINT"))
+        {
+            catch_point = other.GetComponent<CATCH_POINT>();
         }
     } 
 }

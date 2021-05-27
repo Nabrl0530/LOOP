@@ -34,17 +34,23 @@ public class Player_State : MonoBehaviour
         DOOR_SET,       // 橋によるワープ向き変更
         DOOR_IN,        // 橋によるワープ吸い込み
         DOOR_POP,       // 橋によるワープ再出現
+        BLOCK_MOVE,     // ブロックの規定位置への移動
+        BLOCK_LOOK,     // ブロック側を向く
     }
 
     // 変数
     Rigidbody Rigid;
-    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+    public int m_AnimationState = (int)e_PlayerAnimationState.WAITING;  //状態ステート
+    public int m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;   //実アニメーションステート
     public bool m_CanAction = true;
     //bool	m_IsClockwise		= true;
     bool m_CanClimb_forword = false;
     bool m_CanClimb_check = false;
     public bool IsBlock = false;
     public bool IsStage = false;
+    bool IsRunning = false;
+
+    public GameObject m_parent;
 
     //俺が追加
     public bool IsLever = false;
@@ -69,7 +75,7 @@ public class Player_State : MonoBehaviour
         if (state_past != m_AnimationState)
         {
             state_past = m_AnimationState;
-            Debug.Log("Animation State：" + m_AnimationState);
+            //Debug.Log("Animation State：" + m_AnimationState);
         }
 
         // アクション可能
@@ -77,21 +83,30 @@ public class Player_State : MonoBehaviour
         {
             // 何もしていない
             m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+            m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;
 
             // 歩行
             if
-            (
-            Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
-            )
-                m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+            (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                // 原田君用3変更
+                if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+                else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+            }
+            else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
+            {
+                // 原田君用3変更
+                if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+                else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+            }
 
             // デバッグ
             //Debug.Log("F : " + m_CanClimb_forword);
             //Debug.Log("C : " + m_CanClimb_check);
 
             // よじ登る
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) || Input.GetButton("Climb"))
             {
                 // 登れるものがあれば
                 if (m_CanClimb_forword && !m_CanClimb_check)
@@ -99,30 +114,51 @@ public class Player_State : MonoBehaviour
                     m_AnimationState = (int)e_PlayerAnimationState.CLIMBING;
                     m_CanAction = false;
 
-                    Rigid.useGravity = false;
+                    //ワープなので不要
+                    //Rigid.useGravity = false;
 
                     sc_move.Set_StartPosition(this.transform.position);
                 }
             }
 
             // 作動
-            if (Input.GetKey(KeyCode.J))// Aボタン
+            if (Input.GetKey(KeyCode.J) || Input.GetButton("OK"))// Aボタン
             {
                 // 対象によってステート変更
                 // ブロック
                 if (IsBlock)
                 {
-                    m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+                    //m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+                    m_AnimationState = (int)e_PlayerAnimationState.BLOCK_MOVE;
+                    sc_move.Set_ActMove_Block();
                     m_CanAction = false;
+                    //sc_move.Block_Catch();
+                    //sc_move.Set_Catch();
 
-                    if (sc_forword.Get_Block())
-                    {
-                        sc_forword.Get_Block().transform.parent = this.transform;
-                        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
-                        //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
-                        sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                        sc_move.Block_Catch();
-                    }
+                    // ブロックをプレイヤーの子に
+                    //if (sc_forword.Get_Block())
+                    //{
+                    /*
+                    sc_forword.Get_Block().transform.parent = this.transform;
+                    sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 1.8f, 2.2f);
+                    //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = false;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().mass =1;
+                    sc_move.Block_Catch();
+                    */
+
+                    sc_move.MOVE_STOP();    //速度完全キャンセル
+                    /*
+                    m_parent.GetComponent<Player_Axis>().LookConect(sc_move.GetForward());  //向きをプレイヤーと同期
+                    m_parent.GetComponent<Player_Axis>().SetPosition(this.transform.position + sc_move.GetForward());   //位置をプレイヤーの前方に
+                    m_parent.GetComponent<Player_Axis>().Set_View(sc_move.GetLastDirection());
+                    m_parent.GetComponent<Player_Axis>().SetUse(true);
+
+                    sc_forword.Get_Block().transform.parent = this.transform;
+                    // プレイヤーを中心軸の子に
+                    this.transform.parent = m_parent.transform;
+                    */
+                    //}
 
                 }
                 else if (IsLever)
@@ -163,22 +199,22 @@ public class Player_State : MonoBehaviour
             // 押す
             if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_WAITING)
             {
-                if
-                (
-                Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-                Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)
-                )
+                if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+                    Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
+                }
+                else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
                 }
             }
             else if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING)
             {
-                if
-                (
-                !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) &&
-                !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D)
-                )
+                if(!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) &&
+                    !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) &&
+                    Mathf.Abs(Input.GetAxis("Vertical_p")) == 0 && 
+                    Mathf.Abs(Input.GetAxis("Horizontal_p")) == 0)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
                 }
@@ -186,7 +222,7 @@ public class Player_State : MonoBehaviour
         }
 
         // キャンセル
-        if (Input.GetKey(KeyCode.K))// Bボタン
+        if (Input.GetKey(KeyCode.K) || Input.GetButton("NO"))// Bボタン
         {
             // 該当動作チェック
             if
@@ -203,17 +239,19 @@ public class Player_State : MonoBehaviour
                 m_AnimationState = (int)e_PlayerAnimationState.WAITING;
                 m_CanAction = true;
 
-                if (sc_forword.Get_Block())
+                if (sc_move.Get_Catch())
                 {
                     sc_forword.Get_Block().transform.parent = null;
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
                     //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
-                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+                    sc_forword.Get_Block().GetComponent<Rigidbody>().mass = 2000;
                     sc_move.Block_relase();
+                    sc_move.Clare_Catch();
+                    m_parent.GetComponent<Player_Axis>().SetUse(false);
                 }
             }
         }
-
         Debug.Log(m_AnimationState);
         animator.SetInteger("state", m_AnimationState);
     }
@@ -284,5 +322,22 @@ public class Player_State : MonoBehaviour
     public bool Get_IsStage()
     {
         return IsStage;
+    }
+
+    public void Set_IsRunning(bool _is)
+    {
+        IsRunning = _is;
+    }
+
+    public void BlockUse()
+    {
+        m_parent.GetComponent<Player_Axis>().LookConect(sc_move.GetForward());  //向きをプレイヤーと同期
+        m_parent.GetComponent<Player_Axis>().SetPosition(this.transform.position + sc_move.GetForward());   //位置をプレイヤーの前方に
+        m_parent.GetComponent<Player_Axis>().Set_View(sc_move.GetLastDirection());
+        m_parent.GetComponent<Player_Axis>().SetUse(true);
+
+        sc_forword.Get_Block().transform.parent = this.transform;
+        // プレイヤーを中心軸の子に
+        this.transform.parent = m_parent.transform;
     }
 }

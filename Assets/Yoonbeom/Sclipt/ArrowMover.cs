@@ -7,19 +7,20 @@ public class ArrowMover : MonoBehaviour
 {
  [SerializeField]
  private int Velocity;
- private float yMove;
+ private float xMove;
 
  private int WaitTime = 0;
- private int Step = 1;
+ private int Step = 2;
 
     public float FadeTime = 2f;
 
     public Image fadeImg;
+    public Image MenuImg;
     private float start;
     private float end;
 
     float time = 0f;
-
+    private bool UseMenu = false;
     bool isPlaying = false;
     private bool ClearFade = false;
     private Color fadecolor;
@@ -38,9 +39,24 @@ public class ArrowMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Return) && Step != 1)
         {
             OutStartFadeAnim();
+
+        }
+        if (Input.GetKey(KeyCode.Return) && Step == 1 && WaitTime < 0)
+        {
+            if (!UseMenu)
+            {
+                UseMenu = true;
+                MenuImg.gameObject.SetActive(true);
+            }
+            else
+            {
+                UseMenu = false;
+                MenuImg.gameObject.SetActive(false);
+            }
+            WaitTime = 30;
 
         }
 
@@ -67,22 +83,22 @@ public class ArrowMover : MonoBehaviour
     }
     private void CursorMove()
     {
-        yMove = 0;
+        xMove = 0;
         WaitTime--;
-        if (Input.GetKey(KeyCode.UpArrow) && WaitTime < 0 && Step > 1)
+        if (Input.GetKey(KeyCode.LeftArrow) && WaitTime < 0 && Step > 1 && !UseMenu)
         {
-            yMove = Velocity * Time.deltaTime;
+            xMove = -Velocity * Time.deltaTime;
             WaitTime = 30;
             Step--;
         }
-        if (Input.GetKey(KeyCode.DownArrow) && WaitTime < 0 && Step < 3)
+        if (Input.GetKey(KeyCode.RightArrow) && WaitTime < 0 && Step < 3 && !UseMenu)
         {
-            yMove = -Velocity * Time.deltaTime;
+            xMove = Velocity * Time.deltaTime;
             WaitTime = 30;
             Step++;
         }
 
-        this.transform.Translate(new Vector3(0, yMove, 0));
+        this.transform.Translate(new Vector3(xMove, 0, 0));
 
     }
     private void ChoiceStage()
@@ -93,10 +109,12 @@ public class ArrowMover : MonoBehaviour
             switch (Step)
             {
                 case 1:
-                    SceneManager.LoadScene("yb_ChoiceScene");
+                    //メニュー
+
                     break;
                 case 2:
-                    //メニュー
+                    SceneManager.LoadScene("yb_ChoiceScene");
+
                     break;
                 case 3:
                     UnityEditor.EditorApplication.isPlaying = false;
