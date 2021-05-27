@@ -42,7 +42,7 @@ public class CRISTAL : MonoBehaviour
             if (count == 180)
             {
                 Debug.Log("clear");
-                //GoToClear.Go();
+                GoToClear.Go();
             }
 
             /*
@@ -102,6 +102,10 @@ public class CRISTAL : MonoBehaviour
         */
 
         Line_count++;
+        if(Line_count > MAX_LINE)
+        {
+            Line_count = MAX_LINE;
+        }
 
         no = 0;
     }
