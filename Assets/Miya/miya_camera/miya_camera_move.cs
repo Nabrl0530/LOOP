@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// クリアカメラ
+using Cinemachine;
+
+
+
 public class miya_camera_move : MonoBehaviour
 {
 	// 参照
@@ -30,6 +36,14 @@ public class miya_camera_move : MonoBehaviour
 	public GameObject GazePoint = null;
 	public GameObject Tower_m = null;
 
+
+
+	// クリアカメラ
+	CinemachineVirtualCamera clear_camera;
+
+
+
+
 	// 初期化--------------------------------------------------------------------------------------------
 	void Start()
     {
@@ -39,7 +53,47 @@ public class miya_camera_move : MonoBehaviour
 		Height_Default = this.transform.position.y;
 		Height = Height_Default;
 		Length_FromCenter_Zoom = 7;
+
+
+
+		// クリアカメラ
+		clear_camera = this.GetComponent<CinemachineVirtualCamera>();
+
+
+
 	}
+
+
+
+
+
+	// クリアカメラ
+	public void Set_ClearCamera()
+	{
+		clear_camera.Priority = 10;
+	}
+	public void Set_DefaultCamera()
+	{
+		clear_camera.Priority = 50;
+	}
+	// デバッグ
+	void FixedUpdate()
+	{
+		if (Input.GetKey(KeyCode.O))
+		{
+			Set_ClearCamera();
+		}
+		if (Input.GetKey(KeyCode.P))
+		{
+			Set_DefaultCamera();
+		}
+	}
+
+
+
+
+
+
 
 	// 更新
 	void Update()
@@ -122,12 +176,6 @@ public class miya_camera_move : MonoBehaviour
 				//if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
 			}
 		}
-	}
-
-    // 定期更新
-    void FixedUpdate()
-    {
-		
 	}
 
 	public void Set_Tower(GameObject _Tower)
