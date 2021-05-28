@@ -685,6 +685,8 @@ public class Player : MonoBehaviour
                     Player_Check.PosReset();
                     Player_Under.PosReset();
 
+                    ClearHIT_DOOR();
+
                     Forced = false;
                 }
             }
