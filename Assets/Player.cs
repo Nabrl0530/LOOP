@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private int Last_State; //直前のステート
     public float mag;
 
+    Vector3 Base_Size;
 
     bool HIT_TOWER = false;
     bool HIT_LEVER = false;
@@ -102,6 +103,8 @@ public class Player : MonoBehaviour
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
         Forced = false;
+
+        Base_Size = transform.localScale;
 
         Under_count = 0;
         No_Under = 0;
@@ -465,7 +468,7 @@ public class Player : MonoBehaviour
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                    Size = 1.0f;
+                    Size = 0.8f;
                     rot_z = 1.0f;
 
                     Act_move = (Gatepoint - transform.position) / 50;
@@ -485,7 +488,7 @@ public class Player : MonoBehaviour
                 {
                     if (Actcount > 25)
                     {
-                        Size -= 0.04f;
+                        Size -= 0.032f;
                     }
 
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -551,7 +554,7 @@ public class Player : MonoBehaviour
                 if (Actcount <= 50)
                 {
                     transform.position += (Act_move * 0.03f);
-                    Size += 0.02f;
+                    Size += 0.016f;
                     transform.localScale = new Vector3(Size, Size, Size);
 
                     Vector3 pos = transform.position;
@@ -571,13 +574,15 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
-                    Size = 1.0f;
+                    Size = 0.8f;
                     transform.localScale = new Vector3(Size, Size, Size);
                     sc_state.Set_CanAction(true);
 
                     Player_Forword.PosReset();
                     Player_Check.PosReset();
                     Player_Under.PosReset();
+
+                    Forced = false;
                 }
             }
 
@@ -597,7 +602,7 @@ public class Player : MonoBehaviour
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                    Size = 1.0f;
+                    Size = 0.8f;
                     rot_z = 1.0f;
 
                     Act_move = (Gatepoint - transform.position) / 50;
@@ -617,7 +622,7 @@ public class Player : MonoBehaviour
                 {
                     if (Actcount > 25)
                     {
-                        Size -= 0.04f;
+                        Size -= 0.032f;
                     }
 
                     transform.localScale = new Vector3(Size, Size, Size);
@@ -658,7 +663,7 @@ public class Player : MonoBehaviour
                 if (Actcount <= 50)
                 {
                     transform.position += (transform.forward * 0.05f);
-                    Size += 0.02f;
+                    Size += 0.016f;
                     transform.localScale = new Vector3(Size, Size, Size);
 
                     Vector3 pos = transform.position;
@@ -677,7 +682,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
-                    Size = 1.0f;
+                    Size = 0.8f;
                     transform.localScale = new Vector3(Size, Size, Size);
                     sc_state.Set_CanAction(true);
 
