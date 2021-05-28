@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sc_state: {fileID: 5367641860322307548}
   sc_axis: {fileID: 0}
+  Dummy_Field: {fileID: 0}
   Player_Forword: {fileID: 3813967359517155624}
   Player_Check: {fileID: 3813967360705824822}
   Player_Under: {fileID: 3813967360232296326}
@@ -61,10 +62,11 @@ MonoBehaviour:
   pop_y: 0
   len: 0
   mag: 0
+  IsUnder_m: 0
   Camera: {fileID: 0}
   Speed_Move: 8
-  RotateSpeed: 10
-  Speed_Fall: 4
+  RotateSpeed: 20
+  Speed_Fall: 12
   Speed_Climb: 4
   Height_Climb_Block: 2.7
   Height_Climb_Stage: 1.5
@@ -91,6 +93,7 @@ MonoBehaviour:
   sc_check: {fileID: 3813967360705824822}
   animator: {fileID: 5089510442327815426}
   m_AnimationState: 0
+  m_AnimationState_Motion: 0
   m_CanAction: 1
   IsBlock: 0
   IsStage: 0
@@ -249,7 +252,7 @@ GameObject:
   - component: {fileID: 3813967359693105221}
   m_Layer: 0
   m_Name: View
-  m_TagString: Untagged
+  m_TagString: View
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -32,7 +32,11 @@ public class CRISTAL : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if(USE_LINE_NUM ==0)
+        {
+            USE_LINE_NUM = 1;
+        }
+
         Line_count = 0;
 
         if (Clare[USE_LINE_NUM -1] == true)
