@@ -271,12 +271,14 @@ public class Player : MonoBehaviour
                 if (difference.y < -0.003f)
                 {
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.HOVERING);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.HOVERING);
                     Rigid.velocity = new Vector3(direction_move.x, -Speed_Fall, direction_move.z);
                 }
                 else if (sc_state.Get_AnimationState() == (int)Player_State.e_PlayerAnimationState.HOVERING)
                 {
                     // 着地
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
                 }
 
                 // 回転
@@ -388,11 +390,12 @@ public class Player : MonoBehaviour
                     //new_vec.y += Height_Climb_Block;
                     new_vec.y += 1.75f; //ちょうどいい数字
                     this.transform.position = new_vec;
-                    Debug.Log("ワープ先"+ transform.position);
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
 
                     // 初期化
-                    sc_state.Set_CanAction(true);
+                    //sc_state.Set_CanAction(true);
+                    sc_state.Set_End_Act(5);    //若干の入力規制をセット
                     Rigid.useGravity = true;
                     sc_state.Set_IsBlock(false);
                     sc_state.Set_IsStage(false);
@@ -467,6 +470,7 @@ public class Player : MonoBehaviour
                 if (Actcount == 0)
                 {
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.BRIDGE_IN);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -600,6 +604,7 @@ public class Player : MonoBehaviour
                 if (Actcount == 0)
                 {
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.DOOR_IN);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
                     Actcount = 100;
                     //物理挙動による移動の無効化
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -744,6 +749,8 @@ public class Player : MonoBehaviour
                 if (Actcount == 0)
                 {
                     sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.PUSH_WAITING);
+                    sc_state.Set_Motion(Player_State.e_PlayerAnimationState.PUSH_WAITING);
+                    sc_state.Set_Wait_key(2);    //若干の入力規制をセット
                     Block_Catch();
                     Set_Catch();
                     sc_state.BlockUse();

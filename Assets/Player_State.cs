@@ -36,6 +36,7 @@ public class Player_State : MonoBehaviour
         DOOR_POP,       // 橋によるワープ再出現
         BLOCK_MOVE,     // ブロックの規定位置への移動
         BLOCK_LOOK,     // ブロック側を向く
+        PUSH_PUSHING_INV,   // 押す逆再生
     }
 
     // 変数
@@ -58,6 +59,9 @@ public class Player_State : MonoBehaviour
     public bool IsBridge = false;
     public bool IsDoor = false;
 
+    int wait_Act;
+    int wait_key;
+
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
 
@@ -66,6 +70,8 @@ public class Player_State : MonoBehaviour
     {
         // Rigidbody取得
         Rigid = this.GetComponent<Rigidbody>();
+        wait_Act = 0;
+        wait_key = 0;
     }
 
     // 更新
@@ -76,6 +82,14 @@ public class Player_State : MonoBehaviour
         {
             state_past = m_AnimationState;
             //Debug.Log("Animation State：" + m_AnimationState);
+        }
+
+        //行動規制中は入力禁止
+        if(wait_Act > 0 || wait_key > 0)
+        {
+            Debug.Log(m_AnimationState);
+            animator.SetInteger("state", m_AnimationState_Motion);
+            return;
         }
 
         // アクション可能
@@ -91,14 +105,30 @@ public class Player_State : MonoBehaviour
             Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
                 // 原田君用3変更
-                if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
-                else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+                if (!IsRunning)
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
+                }
+                else
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.RUNNING;
+                }
             }
             else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
             {
                 // 原田君用3変更
-                if (!IsRunning) m_AnimationState = (int)e_PlayerAnimationState.WALKING;
-                else m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+                if (!IsRunning)
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.WALKING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
+                }
+                else
+                {
+                    m_AnimationState = (int)e_PlayerAnimationState.RUNNING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.RUNNING;
+                }
             }
 
             // デバッグ
@@ -112,6 +142,7 @@ public class Player_State : MonoBehaviour
                 if (m_CanClimb_forword && !m_CanClimb_check)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.CLIMBING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.CLIMBING;
                     m_CanAction = false;
 
                     //ワープなので不要
@@ -130,6 +161,7 @@ public class Player_State : MonoBehaviour
                 {
                     //m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
                     m_AnimationState = (int)e_PlayerAnimationState.BLOCK_MOVE;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                     sc_move.Set_ActMove_Block();
                     m_CanAction = false;
                     //sc_move.Block_Catch();
@@ -170,6 +202,7 @@ public class Player_State : MonoBehaviour
                     if (sc_move.Check_Bridge())
                     {
                         m_AnimationState = (int)e_PlayerAnimationState.BRIDGE_SET;
+                        m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                         m_CanAction = false;
                         sc_move.Set_Act_spin();
                     }
@@ -177,6 +210,7 @@ public class Player_State : MonoBehaviour
                 else if (IsDoor)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.DOOR_SET;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                     m_CanAction = false;
                     sc_move.Set_Act_spin();
                 }
@@ -203,10 +237,12 @@ public class Player_State : MonoBehaviour
                     Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.PUSH_PUSHING;
                 }
                 else if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_PUSHING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.PUSH_PUSHING;
                 }
             }
             else if (m_AnimationState == (int)e_PlayerAnimationState.PUSH_PUSHING)
@@ -217,6 +253,7 @@ public class Player_State : MonoBehaviour
                     Mathf.Abs(Input.GetAxis("Horizontal_p")) == 0)
                 {
                     m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
+                    m_AnimationState_Motion = (int)e_PlayerAnimationState.PUSH_WAITING;
                 }
             }
         }
@@ -237,6 +274,7 @@ public class Player_State : MonoBehaviour
             )
             {
                 m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+                m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;
                 m_CanAction = true;
 
                 if (sc_move.Get_Catch())
@@ -253,22 +291,50 @@ public class Player_State : MonoBehaviour
             }
         }
         Debug.Log(m_AnimationState);
-        animator.SetInteger("state", m_AnimationState);
+        animator.SetInteger("state", m_AnimationState_Motion);
     }
 
     // 定期更新
     void FixedUpdate()
     {
+        if(wait_Act > 0)
+        {
+            wait_Act--;
+            if(wait_Act == 0)
+            {
+                m_CanAction = true;
+            }
+        }
 
+        if(wait_key > 0)
+        {
+            wait_key--;
+        }
     }
 
     public void Set_CanAction(bool _can)
     {
         m_CanAction = _can;
     }
+
+    public void Set_End_Act(int C)
+    {
+        wait_Act = C;
+    }
+
+    public void Set_Wait_key(int C)
+    {
+        wait_key = C;
+    }
+
     public void Set_AnimationState(e_PlayerAnimationState _state)
     {
         m_AnimationState = (int)_state;
+    }
+
+    public void Set_Motion(e_PlayerAnimationState _state)
+    {
+        m_AnimationState_Motion = (int)_state;
     }
     public void Set_CanClimb_Forword(bool _can)
     {
