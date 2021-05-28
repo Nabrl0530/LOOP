@@ -29,6 +29,11 @@ public class Player_Check : MonoBehaviour
         sc_state.Set_CanClimb_Check(true);
     }
 
+    void OnTriggerStay(Collider other)
+    {
+        sc_state.Set_CanClimb_Check(true);
+    }
+
     void OnTriggerExit(Collider other)
     {
         sc_state.Set_CanClimb_Check(false);

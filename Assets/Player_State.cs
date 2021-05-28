@@ -44,8 +44,8 @@ public class Player_State : MonoBehaviour
     public int m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;   //実アニメーションステート
     public bool m_CanAction = true;
     //bool	m_IsClockwise		= true;
-    bool m_CanClimb_forword = false;
-    bool m_CanClimb_check = false;
+    public bool m_CanClimb_forword = false;
+    public bool m_CanClimb_check = false;
     public bool IsBlock = false;
     public bool IsStage = false;
     bool IsRunning = false;

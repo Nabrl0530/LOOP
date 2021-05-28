@@ -385,8 +385,11 @@ public class Player : MonoBehaviour
                     // à íu
                     Vector3 new_vec = new Vector3(0, 0, 0);
                     new_vec = StartPosition + this.transform.forward * GoLength_AfterClimbing;
-                    new_vec.y += Height_Climb_Block;
+                    //new_vec.y += Height_Climb_Block;
+                    new_vec.y += 1.75f; //ÇøÇÂÇ§Ç«Ç¢Ç¢êîéö
                     this.transform.position = new_vec;
+                    Debug.Log("ÉèÅ[ÉvêÊ"+ transform.position);
+                    sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
 
                     // èâä˙âª
                     sc_state.Set_CanAction(true);
@@ -468,7 +471,7 @@ public class Player : MonoBehaviour
                     //ï®óùãììÆÇ…ÇÊÇÈà⁄ìÆÇÃñ≥å¯âª
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                    Size = 0.8f;
+                    Size = 1.0f;
                     rot_z = 1.0f;
 
                     Act_move = (Gatepoint - transform.position) / 50;
@@ -488,10 +491,10 @@ public class Player : MonoBehaviour
                 {
                     if (Actcount > 25)
                     {
-                        Size -= 0.032f;
+                        Size -= 0.04f;
                     }
 
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);
                     transform.position += Act_move;
                 }
 
@@ -554,8 +557,8 @@ public class Player : MonoBehaviour
                 if (Actcount <= 50)
                 {
                     transform.position += (Act_move * 0.03f);
-                    Size += 0.016f;
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    Size += 0.02f;
+                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);
 
                     Vector3 pos = transform.position;
                     pos.y += pop_y;
@@ -574,8 +577,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
-                    Size = 0.8f;
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.localScale = new Vector3(Base_Size.x, Base_Size.y, Base_Size.z);
                     sc_state.Set_CanAction(true);
 
                     Player_Forword.PosReset();
@@ -602,7 +604,7 @@ public class Player : MonoBehaviour
                     //ï®óùãììÆÇ…ÇÊÇÈà⁄ìÆÇÃñ≥å¯âª
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-                    Size = 0.8f;
+                    Size = 1.0f;
                     rot_z = 1.0f;
 
                     Act_move = (Gatepoint - transform.position) / 50;
@@ -622,10 +624,10 @@ public class Player : MonoBehaviour
                 {
                     if (Actcount > 25)
                     {
-                        Size -= 0.032f;
+                        Size -= 0.04f;
                     }
 
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);
                     transform.position += Act_move;
                 }
 
@@ -663,8 +665,8 @@ public class Player : MonoBehaviour
                 if (Actcount <= 50)
                 {
                     transform.position += (transform.forward * 0.05f);
-                    Size += 0.016f;
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    Size += 0.02f;
+                    transform.localScale = new Vector3(Base_Size.x * Size, Base_Size.y * Size, Base_Size.z * Size);
 
                     Vector3 pos = transform.position;
                     //pos.y += pop_y;
@@ -682,8 +684,7 @@ public class Player : MonoBehaviour
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                     this.gameObject.GetComponent<CapsuleCollider>().enabled = true;
 
-                    Size = 0.8f;
-                    transform.localScale = new Vector3(Size, Size, Size);
+                    transform.localScale = new Vector3(Base_Size.x, Base_Size.y, Base_Size.z);
                     sc_state.Set_CanAction(true);
 
                     Player_Forword.PosReset();

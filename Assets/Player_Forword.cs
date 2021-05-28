@@ -43,10 +43,11 @@ public class Player_Forword : MonoBehaviour
         }
     }
 
-    void OnTriggerSTAY(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Block")
         {
+            sc_state.Set_CanClimb_Forword(true);
             sc_state.Set_IsBlock(true);
         }
         if (other.gameObject.tag == "Stage")
