@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class beam_pre : MonoBehaviour
 {
+    public Beam_ef beam_Ef;
     LineRenderer LineRenderer;
 
     CRISTAL cristal;
@@ -90,6 +91,10 @@ public class beam_pre : MonoBehaviour
         transform.position,               // 開始点
         transform.position + Ditector * 5,               // 終了点
         };
+
+        Vector3 len = Pos_End - transform.position;
+
+        beam_Ef.setlen(len.magnitude * 15);
 
         LineRenderer.SetPositions(positions);
         LineRenderer.SetPosition(1,Pos_End);
