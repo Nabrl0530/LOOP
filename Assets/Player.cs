@@ -82,8 +82,8 @@ public class Player : MonoBehaviour
     float Speed_Walk = 25;
     float Speed_Run = 40;
 
-    int Under_count;
-    int No_Under;
+    public int Under_count;
+    public int No_Under;
 
     // ‰Šú‰»
     void Start()
@@ -815,7 +815,15 @@ public class Player : MonoBehaviour
 
             if(Under_count == 15)
             {
-                if(transform.position.y > 5.6f)
+                if(transform.position.y > 12.4f)
+                {
+                    Dummy_Field.Setlevel(4);
+                }
+                else if (transform.position.y > 8.9f)
+                {
+                    Dummy_Field.Setlevel(3);
+                }
+                else if(transform.position.y > 5.45f)
                 {
                     Dummy_Field.Setlevel(2);
                 }

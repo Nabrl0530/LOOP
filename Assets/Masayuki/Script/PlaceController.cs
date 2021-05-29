@@ -97,17 +97,20 @@ public class PlaceController : MonoBehaviour
 
         if (m_height_preset == HEIGHT_PRESET.ONE)
         {
-            m_height = 1.23f;
+            //m_height = 1.23f;
+            m_height = 1.62f;
         }
         else
             if (m_height_preset == HEIGHT_PRESET.TWO)
         {
-            m_height = 4;
+            //m_height = 4;
+            m_height = 4.6f;
         }
         else
             if (m_height_preset == HEIGHT_PRESET.THREE)
         {
-            m_height = 8;
+            //m_height = 8;
+            m_height = 8.6f;
         }
         float temp_height = m_height + m_offset_height;
         my_pos += my_transform.up * temp_height;
