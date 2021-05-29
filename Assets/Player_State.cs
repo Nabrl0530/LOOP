@@ -58,6 +58,7 @@ public class Player_State : MonoBehaviour
     public bool IsTower = false;
     public bool IsBridge = false;
     public bool IsDoor = false;
+    bool Clear;
 
     int wait_Act;
     int wait_key;
@@ -72,11 +73,17 @@ public class Player_State : MonoBehaviour
         Rigid = this.GetComponent<Rigidbody>();
         wait_Act = 0;
         wait_key = 0;
+        Clear = false;
     }
 
     // 更新
     void Update()
     {
+        if(Clear)
+        {
+            return;
+        }
+
         // デバッグ
         if (state_past != m_AnimationState)
         {
@@ -393,6 +400,11 @@ public class Player_State : MonoBehaviour
     public void Set_IsRunning(bool _is)
     {
         IsRunning = _is;
+    }
+
+    public void Set_Clear()
+    {
+        Clear = true;
     }
 
     public void BlockUse()
