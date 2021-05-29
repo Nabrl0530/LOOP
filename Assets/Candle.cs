@@ -22,7 +22,7 @@ public class Candle : MonoBehaviour
 
         len = Mathf.Sqrt(Mathf.Pow(Ditection.x, 2) + Mathf.Pow(Ditection.z, 2));
 
-        if (len < 3)
+        if (len < 8)
         {
             for(int i=0; i<7;i++)
             {
