@@ -20,6 +20,12 @@ public class Player : MonoBehaviour
     GameObject Pipe2;
     GameObject Pipe3;
 
+    GameObject UI_bridge;
+    GameObject UI_block;
+    GameObject UI_block2;
+    GameObject UI_frame;
+    GameObject UI_leba;
+
     public Player_Forword Player_Forword;
     public Player_Check Player_Check;
     public Player_Under Player_Under;
@@ -54,6 +60,8 @@ public class Player : MonoBehaviour
     bool Forced;    //強制処理実行中
     bool CATCH; //ブロックを持ってる
 
+    bool Clear;
+
     // 変数
     Rigidbody Rigid;
     [SerializeField] private GameObject Camera;                                                                       // 将来的に複数のカメラの中からアクティブなもの一つを選ぶことになる
@@ -82,8 +90,8 @@ public class Player : MonoBehaviour
     float Speed_Walk = 25;
     float Speed_Run = 40;
 
-    int Under_count;
-    int No_Under;
+    public int Under_count;
+    public int No_Under;
 
     // 初期化
     void Start()
@@ -100,6 +108,12 @@ public class Player : MonoBehaviour
         Pipe2 = GameObject.Find("FloorTwo");
         Pipe3 = GameObject.Find("FloorThree");
 
+        UI_bridge = GameObject.Find("UI_Bridge");
+        UI_block = GameObject.Find("UI_Block");
+        UI_block2 = GameObject.Find("UI_Block2");
+        UI_frame = GameObject.Find("UI_Frame");
+        UI_leba = GameObject.Find("UI_leba");
+
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
         Forced = false;
@@ -108,6 +122,7 @@ public class Player : MonoBehaviour
 
         Under_count = 0;
         No_Under = 0;
+        Clear = false;
     }
 
     void Update()
@@ -128,6 +143,41 @@ public class Player : MonoBehaviour
                 transform.SetParent(Pipe1.transform);
             }
         }
+
+        if(is_block)
+        {
+            if(!CATCH)
+            {
+                UIset_Block();
+            }
+            else
+            {
+                UIset_Block2();
+            }
+        }
+        else if(HIT_LEVER)
+        {
+            UIset_Leba();
+        }
+        else if(HIT_BRIDGE && bridge != null)
+        {
+            if (Check_Bridge())
+            {
+                UIset_Bridge();
+            }
+            else
+            {
+                UIset_Non();
+            }
+        }
+        else if(HIT_DOOR)
+        {
+            UIset_Frame();
+        }
+        else
+        {
+            UIset_Non();
+        }
     }
 
     // 定期更新
@@ -140,6 +190,11 @@ public class Player : MonoBehaviour
         }
         */
 
+        if(Clear)
+        {
+            return;
+        }
+
         // 情報
         Vector3 difference = this.transform.position - Position_Latest_m;
         Position_Latest_m = this.transform.position;
@@ -150,6 +205,11 @@ public class Player : MonoBehaviour
             is_block = true;
             is_stage = false;
         }
+        else
+        {
+            is_block = false;
+        }
+
         if (sc_state.Get_IsStage())
         {
             is_block = false;
@@ -815,7 +875,15 @@ public class Player : MonoBehaviour
 
             if(Under_count == 15)
             {
-                if(transform.position.y > 5.6f)
+                if(transform.position.y > 12.4f)
+                {
+                    Dummy_Field.Setlevel(4);
+                }
+                else if (transform.position.y > 8.9f)
+                {
+                    Dummy_Field.Setlevel(3);
+                }
+                else if(transform.position.y > 5.45f)
                 {
                     Dummy_Field.Setlevel(2);
                 }
@@ -1094,6 +1162,67 @@ public class Player : MonoBehaviour
     {
         return Last_Direction;
     }
+
+    public void Set_Clear()
+    {
+        Clear = true;
+        sc_state.Set_Clear();
+    }
+
+    private void UIset_Bridge()
+    {
+        UI_bridge.SetActive(true);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(false);
+    }
+
+    private void UIset_Block()
+    { 
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(true);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(false);
+    }
+
+    private void UIset_Block2()
+    {
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(true);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(false);
+    }
+
+    private void UIset_Frame()
+    {
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(true);
+        UI_leba.SetActive(false);
+    }
+
+    private void UIset_Leba()
+    {
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(true);
+    }
+
+    private void UIset_Non()
+    {
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(false);
+    }
+
     //オブジェクトを発見した際にスクリプトを獲得する
 
     void OnTriggerEnter(Collider other)
