@@ -223,7 +223,7 @@ public class Player_State : MonoBehaviour
                 }
             }
 
-            if (Input.GetKey(KeyCode.I))// Xボタン
+            if (Input.GetKey(KeyCode.I) || Input.GetButton("NO"))// Bボタン
             {
                 // 対象によってステート変更
 
