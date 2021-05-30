@@ -17,7 +17,7 @@ public class ButtonController : MonoBehaviour
     private GameObject m_init_pos_remember = default;
     private MoveController m_move_controller = default;
     private bool m_release = false;
-
+    private bool m_go_finish_pos = false;
     //ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
     //true‰Ÿ‚³‚ê‚Ä‚¢‚é
     public bool PressingButton()
@@ -32,6 +32,7 @@ public class ButtonController : MonoBehaviour
     public void PressButton()
     {
         m_move_controller.MoveFinishPos();
+        m_go_finish_pos = true;
     }
     public void ReleaseButton()
     {
@@ -71,7 +72,11 @@ public class ButtonController : MonoBehaviour
                 m_release = false;
             }
         }
-
+        if(m_go_finish_pos)
+        {
+            m_release = false;
+        }
+        m_go_finish_pos = false;
     }
 
     private void LateUpdate()
