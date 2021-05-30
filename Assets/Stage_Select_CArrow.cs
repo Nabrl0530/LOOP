@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Stage_Select_CArrow : MonoBehaviour
 {
     RectTransform rt;
-    Image image;
     Vector2 Base_Size;
     float size;
 
@@ -14,7 +13,6 @@ public class Stage_Select_CArrow : MonoBehaviour
     void Start()
     {
         rt = this.GetComponent<RectTransform>();
-        image = this.GetComponent<Image>();
         Base_Size = rt.sizeDelta;
         size = 1.0f;
     }

@@ -45,12 +45,12 @@ public class Title_Icon_Move : MonoBehaviour
     {
         Check_Cont();
 
-        if (Input.GetKeyDown(KeyCode.Return) && Select != 1 && wait == 0)
+        if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
         {
             OutStartFadeAnim();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) && Select == 1 && wait == 0)
+        if ((Input.GetKeyDown(KeyCode.J)|| Input.GetButton("OK")) && Select == 1 && wait == 0)
         {
             if (!UseMenu)
             {

@@ -11,22 +11,34 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Yoonbeom/Scene/yb_ChoiceScene.unity
     guid: 1d48dc1180560304a9e4d057cde1fe2c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Yoonbeom/Scene/Stage 1.unity
     guid: 5f38387d23b16db46aedde4c109c4b6b
   - enabled: 1
     path: Assets/Masayuki/GameClear.unity
     guid: 842d4f76d9f6a844cacc1f3b24c69fdf
   - enabled: 1
-    path: Assets/Ouji/Stage_0.unity
+    path: Assets/Ouji/Ouji/Ouji/Stage_0.unity
     guid: 4fb382121b015174aa7f77519b929da3
   - enabled: 1
-    path: Assets/Ouji/Stage_1_1.unity
+    path: Assets/Ouji/Ouji/Ouji/Stage_1_1.unity
     guid: 1ea57c189d7241044abfb072bb1aab64
   - enabled: 1
-    path: Assets/Ouji/Stage_1_2.unity
+    path: Assets/Ouji/Ouji/Ouji/Stage_1_2.unity
     guid: 6d7361d101ba57a49a707b619e81deed
   - enabled: 1
-    path: Assets/Ouji/Stage_1_3.unity
+    path: Assets/Ouji/Ouji/Ouji/Stage_1_3.unity
     guid: 574c474b6b812434d82b0de92f0b51b3
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_2_1.unity
+    guid: dec10b3863f7fd044b0e9557ae185024
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_2_2.unity
+    guid: c952d84168195ae429a198fb43ad4e5c
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_2_3.unity
+    guid: 734587f73ef58d5458e4ac354423ced2
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_3_3.unity
+    guid: 86dfbf393323dda4680e200492efbe82
   m_configObjects: {}

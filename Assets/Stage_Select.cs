@@ -14,10 +14,8 @@ public class Stage_Select : MonoBehaviour
 
     public float FadeTime = 1.0f;
     float time = 0f;
-    //private bool UseMenu = false;
     public bool isPlaying = false;
     public Image fadeImg;
-    public Image MenuImg;
     private float start;
     private float end;
 
@@ -26,11 +24,14 @@ public class Stage_Select : MonoBehaviour
 
     const int MAX_OBJ = 3;
 
+    bool WorldEND;
+
     int wait;
 
-    int Select;
+    public int Select;
 
     public GameObject[] Obj = new GameObject[MAX_OBJ];
+    public Canvas[] can = new Canvas[MAX_OBJ];
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class Stage_Select : MonoBehaviour
         end = 1f;
         wait = 0;
         Select = 1;
+        WorldEND = false;
     }
 
     // Update is called once per frame
@@ -46,34 +48,61 @@ public class Stage_Select : MonoBehaviour
     {
         Check_Cont();
 
-        if (Input.GetKeyDown(KeyCode.Return) && wait == 0)
+        if (!WorldEND)
         {
-            OutStartFadeAnim();
-        }
+            if (Input.GetKeyDown(KeyCode.J) && wait == 0)
+            {
+                //OutStartFadeAnim();
+                Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetPick();
+                WorldEND = true;
 
-        if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < 3)
+                if(Select == 1)
+                {
+                    can[0].GetComponent<Stage_Select_Easy>().SET_USE();
+                }
+                else if (Select == 2)
+                {
+                    can[1].GetComponent<Stage_Select_Normal>().SET_USE();
+                }
+                else if (Select == 3)
+                {
+                    can[2].GetComponent<Stage_Select_Hard>().SET_USE();
+                }
+            }
+
+            //タイトルに戻る
+            if (Input.GetKeyDown(KeyCode.I) && wait == 0)
+            {
+                OutStartFadeAnim();
+                WorldEND = true;
+            }
+
+            if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < 3)
+            {
+                Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetDown_IN(false);
+                Obj[Select].GetComponent<Stage_Select_Slide>().SetDown_IN(true);
+                Stage_Select_CArrow.SetBig();
+
+                wait = 50;
+
+                Select++;
+            }
+
+            if ((Input.GetKey(KeyCode.DownArrow) || con_D) && wait == 0 && Select > 1)
+            {
+                Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetUp_IN(false);
+                Obj[Select - 2].GetComponent<Stage_Select_Slide>().SetUp_IN(true);
+                Stage_Select_CArrow2.SetBig();
+
+                wait = 50;
+
+                Select--;
+            }
+        }
+        else if(WorldEND)
         {
-            Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetDown_IN(false);
-            Obj[Select].GetComponent<Stage_Select_Slide>().SetDown_IN(true);
-            Stage_Select_CArrow.SetBig();
-
-            wait = 50;
-
-            Select++;
-        }
-
-        if ((Input.GetKey(KeyCode.DownArrow) || con_D) && wait == 0 && Select > 1)
-        {
-            Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetUp_IN(false);
-            Obj[Select - 2].GetComponent<Stage_Select_Slide>().SetUp_IN(true);
-            Stage_Select_CArrow2.SetBig();
-
-            wait = 50;
-
-            Select--;
-        }
-
-        ChoiceStage();
+            ChoiceStage();
+        }        
     }
 
     void FixedUpdate()
@@ -144,25 +173,19 @@ public class Stage_Select : MonoBehaviour
 
     private void ChoiceStage()
     {
-
         if (ClearFade)
         {
-            switch (Select)
-            {
-                case 1:
-                    //メニュー
-
-                    break;
-                case 2:
-                    SceneManager.LoadScene("yb_ChoiceScene");
-
-                    break;
-                case 3:
-                    //UnityEditor.EditorApplication.isPlaying = false;
-                    Application.Quit();
-                    break;
-
-            }
+            SceneManager.LoadScene("yb_MainScene");
         }
+    }
+
+    public void Back()
+    {
+        Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetBack();
+    }
+
+    public void clear_END()
+    {
+        WorldEND = false;
     }
 }
