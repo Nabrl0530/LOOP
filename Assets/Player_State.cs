@@ -9,6 +9,7 @@ public class Player_State : MonoBehaviour
     public Player_Forword sc_forword;
     public Player_Check sc_check;
     public Animator animator;
+    public UI_Menu UI_menu;
 
     // —ñ‹“
     public enum e_PlayerAnimationState
@@ -59,6 +60,7 @@ public class Player_State : MonoBehaviour
     public bool IsBridge = false;
     public bool IsDoor = false;
     bool Clear;
+    bool Menu_ON;
 
     int wait_Act;
     int wait_key;
@@ -74,6 +76,7 @@ public class Player_State : MonoBehaviour
         wait_Act = 0;
         wait_key = 0;
         Clear = false;
+        Menu_ON = false;
     }
 
     // XV
@@ -91,8 +94,17 @@ public class Player_State : MonoBehaviour
             //Debug.Log("Animation StateF" + m_AnimationState);
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButton("OK"))
+        {
+            UI_menu.SetShow();
+            sc_move.Set_Menu_On();
+            Menu_ON = !Menu_ON;
+        }
+
+
+
         //s“®‹K§’†‚Í“ü—Í‹ÖŽ~
-        if(wait_Act > 0 || wait_key > 0)
+        if (wait_Act > 0 || wait_key > 0 || Menu_ON)
         {
             Debug.Log(m_AnimationState);
             animator.SetInteger("state", m_AnimationState_Motion);

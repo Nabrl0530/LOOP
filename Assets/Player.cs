@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     bool CATCH; //ƒuƒƒbƒN‚ğ‚Á‚Ä‚é
 
     bool Clear;
+    bool Menu_ON;
 
     // •Ï”
     Rigidbody Rigid;
@@ -137,6 +138,7 @@ public class Player : MonoBehaviour
         Under_count = 0;
         No_Under = 0;
         Clear = false;
+        Menu_ON = false;
     }
 
     void Update()
@@ -208,7 +210,7 @@ public class Player : MonoBehaviour
         }
         */
 
-        if(Clear)
+        if(Clear || Menu_ON)
         {
             return;
         }
@@ -1199,6 +1201,11 @@ public class Player : MonoBehaviour
     public bool GET_WARP_OK()
     {
         return door.GET_WARP_OK_pair();
+    }
+
+    public void Set_Menu_On()
+    {
+        Menu_ON = !Menu_ON;
     }
 
     private void UIset_Bridge()

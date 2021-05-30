@@ -26,7 +26,8 @@ public class UI_Menu : MonoBehaviour
     
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))    // メニューキー（適宜変更してください。）
+        /*
+        if(Input.GetKeyDown(KeyCode.Escape) || Input.GetButton("MENU"))    // メニューキー（適宜変更してください。）
         {
             if(Show)
             {
@@ -37,6 +38,7 @@ public class UI_Menu : MonoBehaviour
                 Show = true;    // 見える
             }
         }
+        */
 
         if(Show)    // 見えるとき、全体統括オブジェクトの子オブジェクトをすべてアクティブにする
         {
@@ -57,6 +59,18 @@ public class UI_Menu : MonoBehaviour
                     t.gameObject.SetActive(false);
                 }
             }
+        }
+    }
+
+    public void SetShow()
+    {
+        if (Show)
+        {
+            Show = false;   // 見えない
+        }
+        else
+        {
+            Show = true;    // 見える
         }
     }
 }
