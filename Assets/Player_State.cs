@@ -418,4 +418,9 @@ public class Player_State : MonoBehaviour
         // プレイヤーを中心軸の子に
         this.transform.parent = m_parent.transform;
     }
+
+    private void release_block()
+    {
+
+    }
 }

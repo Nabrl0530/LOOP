@@ -7,6 +7,7 @@ public class Block : MonoBehaviour
     Door door;
     Door_HIT door_HIT;
     public Block_Under Block_Under;
+    Player player;
     GameObject Pipe1;
     GameObject Pipe2;
     GameObject Pipe3;
@@ -24,6 +25,7 @@ public class Block : MonoBehaviour
     private float rot_z;   //回転速度
     private float Size = 1.0f;
     public Vector3 Act_move;  //アクションによる移動量
+    int undercount;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,7 @@ public class Block : MonoBehaviour
         HIT = false;
 
         rot_z = 1.0f;
+        undercount = 0;
 
         Base_Size = transform.localScale;
 
@@ -153,6 +156,18 @@ public class Block : MonoBehaviour
             {
                 this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
                 WARP_NOW = false;
+            }
+        }
+
+        if(ON_Player)
+        {
+            if(!Block_Under.Get_HIT())
+            {
+                undercount++;
+                if(undercount == 5)
+                {
+
+                }
             }
         }
     }
