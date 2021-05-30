@@ -27,6 +27,16 @@ public class Dummy_Field : MonoBehaviour
             {
                 transform.position = new Vector3(0, 3.51f, 0);
             }
+
+            if (Level == 3)
+            {
+                transform.position = new Vector3(0, 7.0f, 0);
+            }
+
+            if (Level == 4)
+            {
+                transform.position = new Vector3(0, 10.5f, 0);
+            }
         }
 
         Last_Level = Level;

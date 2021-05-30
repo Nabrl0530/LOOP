@@ -13,6 +13,9 @@ public class CRISTAL : MonoBehaviour
     const int MAX_LINE = 3;
     int Line_count;
 
+    public UI_Clear Ui_Clear;
+    public Player player;
+
     public bool[] Clare = new bool[MAX_LINE];
 
     // Start is called before the first frame update
@@ -45,8 +48,10 @@ public class CRISTAL : MonoBehaviour
 
             if (count == 180)
             {
-                Debug.Log("clear");
-                GoToClear.Go();
+                //Debug.Log("clear");
+                //GoToClear.Go();
+                Ui_Clear.Set_Clear();
+                player.Set_Clear();
             }
 
             /*
