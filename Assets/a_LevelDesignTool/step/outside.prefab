@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8523705396957970178}
   - component: {fileID: 5885852508639890376}
   - component: {fileID: 9027120268284285115}
+  - component: {fileID: -6674494377739067149}
   m_Layer: 0
-  m_Name: step03
+  m_Name: outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,3 +104,17 @@ MonoBehaviour:
   m_offset_distance: 0
   m_height_preset: 0
   m_offset_height: 1.75
+--- !u!64 &-6674494377739067149
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381313217991354909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3099183463934272234, guid: cd4669a4ebb278c4eb015b282292ff88, type: 3}

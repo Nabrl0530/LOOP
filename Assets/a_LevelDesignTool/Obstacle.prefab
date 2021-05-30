@@ -116,8 +116,7 @@ MonoBehaviour:
   m_open_door_when_ray_hit: 1
   m_move_time: 3
   m_moving_distance: -6
-  m_or_buttons:
-  - {fileID: 0}
+  m_or_buttons: []
   m_and_buttons: []
 --- !u!1001 &5906609104522056116
 PrefabInstance:
