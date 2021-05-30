@@ -7,7 +7,7 @@ using Cinemachine;
 public class Camera_Move : MonoBehaviour
 {
     // QÆ
-    public miya_player_state sc_state;
+    public Player_State sc_state;
 
     // ’è”
     [SerializeField]

@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 3099816323204661761}
   - component: {fileID: 3099816323204661760}
   - component: {fileID: 3099816323204661774}
+  - component: {fileID: 611335872344610847}
   m_Layer: 0
   m_Name: miya_camera_default
   m_TagString: Untagged
@@ -187,9 +188,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3099816323204661763}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de1c4af9c713e304bae4262a589a5907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sc_state: {fileID: 0}
+  HEIGHT_MAX: 16
+  Speed_Rotate: 60
+  GazePoint: {fileID: 0}
+  Tower_m: {fileID: 0}
+--- !u!114 &611335872344610847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3099816323204661763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 755fa30b6e1273040916f0eb53cc9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sc_state: {fileID: 0}
