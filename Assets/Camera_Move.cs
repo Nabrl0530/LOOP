@@ -7,6 +7,7 @@ using Cinemachine;
 public class Camera_Move : MonoBehaviour
 {
     // 参照
+    public Player sc_player;
     public Player_State sc_state;
 
     // 定数
@@ -39,8 +40,7 @@ public class Camera_Move : MonoBehaviour
     CinemachineVirtualCamera normal_camera;
     public CinemachineVirtualCamera clear_camera;
     public CinemachineVirtualCamera follow_camera;
-
-
+    public GameObject object_FollowCamera;
 
 
     // 初期化--------------------------------------------------------------------------------------------
@@ -63,31 +63,54 @@ public class Camera_Move : MonoBehaviour
     }
 
 
+    // フォローカメラ
+    public void Set_FollowCamera()
+    {
+        clear_camera.Priority = 10;
+        follow_camera.Priority = 100;
+        normal_camera.Priority = 50;
 
-
-
+        sc_player.Set_Camera(object_FollowCamera);
+    }
     // クリアカメラ
     public void Set_ClearCamera()
     {
+        clear_camera.Priority = 100;
+        follow_camera.Priority = 50;
         normal_camera.Priority = 10;
+
+        sc_player.Set_Camera(this.gameObject);
     }
+    // デフォルトへ戻す
     public void Set_DefaultCamera()
     {
-        normal_camera.Priority = 50;
+        clear_camera.Priority = 10;
+        follow_camera.Priority = 50;
+        normal_camera.Priority = 100;
+
+        sc_player.Set_Camera(this.gameObject);
     }
-    // デバッグ
+
+
+
+
     void FixedUpdate()
     {
-        //if (Input.GetKey(KeyCode.O))
-        //{
-        //    Set_ClearCamera();
-        //}
-        //if (Input.GetKey(KeyCode.P))
-        //{
-        //    Set_DefaultCamera();
-        //}
+		//// デバッグ
+		//if (Input.GetKey(KeyCode.O))
+		//{
+		//	Set_ClearCamera();
+		//}
+		//if (Input.GetKey(KeyCode.P))
+		//{
+		//	Set_DefaultCamera();
+  //      }
+  //      if (Input.GetKey(KeyCode.L))
+  //      {
+  //          Set_FollowCamera();
+  //      }
 
-        if(diray>0)
+        if (diray>0)
         {
             diray--;
             if (diray == 0)
@@ -147,14 +170,8 @@ public class Camera_Move : MonoBehaviour
             // 移動
             if (!Looking_FromUp_m)
             {
-                // 見下ろし視点へ切替
-                // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
-                {
-                    Looking_FromUp_m = true;
-                    Light_L.SetActive(false);
-                    diray = -1;
-                }
+
+
 
                 // 過去可変
                 //if (Input.GetKey(KeyCode.UpArrow	)) Height += Speed_Height * Time.deltaTime;
@@ -183,16 +200,40 @@ public class Camera_Move : MonoBehaviour
                 result.y = Height;
                 this.transform.position = result;
 
-                // 通常視点へ切替
-                // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Change_c") == -1)
-                {
-                    Looking_FromUp_m = false;
-                    diray = 2;
-                }
+
+
+                
                 // 過去可変
                 //if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
             }
+
+            // 見下ろし視点へ切替
+            // ゲームパッド// 原田君用2
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
+            {
+                Set_DefaultCamera();
+                Looking_FromUp_m = true;
+                Light_L.SetActive(false);
+                diray = -1;
+            }
+
+            // 通常視点へ切替//十字ボタン左
+            // ゲームパッド// 原田君用2
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1)
+            {
+                Set_DefaultCamera();
+                Looking_FromUp_m = false;
+                diray = 2;
+            }
+
+            // フォローカメラ//十字ボタン右
+            if (Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1)
+            {
+                Set_FollowCamera();
+                Looking_FromUp_m = false;
+                diray = 2;
+            }
+
         }
     }
 
