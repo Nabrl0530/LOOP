@@ -984,6 +984,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: inside
       objectReference: {fileID: 0}
+    - target: {fileID: 3449673957501505369, guid: 1d966d6c2015b82479ee842388a936f4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Stage
+      objectReference: {fileID: 0}
     - target: {fileID: 9109729069935288884, guid: 1d966d6c2015b82479ee842388a936f4,
         type: 3}
       propertyPath: m_RootOrder
@@ -1463,12 +1468,12 @@ PrefabInstance:
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0005545537
+      value: -0.0005545705
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00011902644
+      value: -0.00011903005
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
@@ -3791,6 +3796,50 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3717902838043348306, guid: 545933d19a599fa48b2576e11fb672c8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 545933d19a599fa48b2576e11fb672c8, type: 3}
+--- !u!1 &923325711
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923325712}
+  - component: {fileID: 923325713}
+  m_Layer: 0
+  m_Name: Collision_left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &923325712
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923325711}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2742470718756483501}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &923325713
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923325711}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.482272, y: 1.2662439, z: 1}
+  m_Center: {x: -2.241136, y: 1.6658647, z: -5.3384285e-15}
 --- !u!1001 &938385415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5764,7 +5813,7 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000025393067
+      value: 0.000000025393065
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -6723,6 +6772,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: outside
       objectReference: {fileID: 0}
+    - target: {fileID: 5381313217991354909, guid: e8ed8d13bef4c3545a313f1d009fce5a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Stage
+      objectReference: {fileID: 0}
     - target: {fileID: 9027120268284285115, guid: e8ed8d13bef4c3545a313f1d009fce5a,
         type: 3}
       propertyPath: m_Enabled
@@ -7065,7 +7119,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.1037552, y: 0.000000025393067, z: -0.0000000026489593, w: 0.99460286}
+  m_LocalRotation: {x: 0.1037552, y: 0.000000025393065, z: -0.0000000026489593, w: 0.99460286}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -8550,6 +8604,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: middle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919240400889977250, guid: b11537bf3c25119438c72b498f0e79b9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Stage
       objectReference: {fileID: 0}
     - target: {fileID: 5566903048300994158, guid: b11537bf3c25119438c72b498f0e79b9,
         type: 3}
