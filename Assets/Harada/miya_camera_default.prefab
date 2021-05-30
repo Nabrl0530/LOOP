@@ -161,14 +161,14 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 50
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 67.38003
+    FieldOfView: 95
     OrthographicSize: 5.06
-    NearClipPlane: 5
+    NearClipPlane: 1
     FarClipPlane: 1000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -192,4 +192,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1c4af9c713e304bae4262a589a5907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sc_state: {fileID: 0}
+  HEIGHT_MAX: 16
   Speed_Rotate: 60
+  GazePoint: {fileID: 0}
+  Tower_m: {fileID: 0}
