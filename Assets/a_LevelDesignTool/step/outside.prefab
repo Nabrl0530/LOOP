@@ -103,7 +103,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 180, z: 0}
   m_offset_distance: 0
   m_height_preset: 0
-  m_offset_height: 1.75
+  m_offset_height: 1.38
 --- !u!64 &-6674494377739067149
 MeshCollider:
   m_ObjectHideFlags: 0
