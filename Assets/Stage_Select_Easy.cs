@@ -80,7 +80,7 @@ public class Stage_Select_Easy : MonoBehaviour
 
             if (OK && !END)
             {
-                if (Input.GetKeyDown(KeyCode.I) && wait == 0)
+                if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0)
                 {
                     END = true;
                 }
@@ -106,7 +106,7 @@ public class Stage_Select_Easy : MonoBehaviour
 
             if (!SELECT_END)
             {
-                if (Input.GetKeyDown(KeyCode.J) && wait == 0 && OK)
+                if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && wait == 0 && OK)
                 {
                     OutStartFadeAnim();
                 }

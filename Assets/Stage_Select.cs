@@ -50,7 +50,7 @@ public class Stage_Select : MonoBehaviour
 
         if (!WorldEND)
         {
-            if (Input.GetKeyDown(KeyCode.J) && wait == 0)
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && wait == 0)
             {
                 //OutStartFadeAnim();
                 Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetPick();
@@ -71,7 +71,7 @@ public class Stage_Select : MonoBehaviour
             }
 
             //ƒ^ƒCƒgƒ‹‚É–ß‚é
-            if (Input.GetKeyDown(KeyCode.I) && wait == 0)
+            if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0)
             {
                 OutStartFadeAnim();
                 WorldEND = true;
