@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class ArrowMover : MonoBehaviour
 {
- [SerializeField]
- private int Velocity;
- private float xMove;
+    [SerializeField]
+    private int Velocity;
+    private float xMove;
 
- private int WaitTime = 0;
- private int Step = 2;
+    private int WaitTime = 0;
+    private int Step = 2;
 
     public float FadeTime = 2f;
 
@@ -25,19 +25,19 @@ public class ArrowMover : MonoBehaviour
     private bool ClearFade = false;
     private Color fadecolor;
 
+    bool con_L; //コントローラー入力左
+    bool con_R; //コントローラー入力右
+    bool con_D; //コントローラー入力下
+    bool con_U; //コントローラー入力上
+
     void Start()
     {
-            start = 0f;
-            end = 1f;
-        
-    }
+        start = 0f;
+        end = 1f;
+        WaitTime = 0;
+    }    
+    
     void Update()
-    {
-        
-
-    }
-    // Update is called once per frame
-    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Return) && Step != 1)
         {
@@ -60,8 +60,19 @@ public class ArrowMover : MonoBehaviour
 
         }
 
+        Check_Cont();
+
         CursorMove();
         ChoiceStage();
+
+    }
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if(WaitTime > 0)
+        {
+            WaitTime--;
+        }       
     }
 
     public void OutStartFadeAnim()
@@ -84,18 +95,25 @@ public class ArrowMover : MonoBehaviour
     private void CursorMove()
     {
         xMove = 0;
-        WaitTime--;
-        if (Input.GetKey(KeyCode.LeftArrow) && WaitTime < 0 && Step > 1 && !UseMenu)
+        //WaitTime--;
+        if ((Input.GetKey(KeyCode.LeftArrow) || con_L) && WaitTime == 0 && Step > 1 && !UseMenu)
         {
             xMove = -Velocity * Time.deltaTime;
-            WaitTime = 30;
+            xMove = -370;
+            WaitTime = 15;
             Step--;
         }
-        if (Input.GetKey(KeyCode.RightArrow) && WaitTime < 0 && Step < 3 && !UseMenu)
+        if ((Input.GetKey(KeyCode.RightArrow) || con_R) && WaitTime == 0 && Step < 3 && !UseMenu)
         {
             xMove = Velocity * Time.deltaTime;
-            WaitTime = 30;
+            xMove = 370;
+            WaitTime = 15;
             Step++;
+        }
+
+        if(!Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) && !con_L && !con_R)
+        {
+            //WaitTime = 0;
         }
 
         this.transform.Translate(new Vector3(xMove, 0, 0));
@@ -122,6 +140,39 @@ public class ArrowMover : MonoBehaviour
                     break;
              
             }
+        }
+    }
+
+    private void Check_Cont()
+    {
+        float LR;
+        float UD;
+        UD = Input.GetAxis("Vertical_p");   //上ぷら
+        LR = Input.GetAxis("Horizontal_p"); //右ぷら
+
+        con_L = false;
+        con_R = false;
+        con_U = false;
+        con_D = false;
+
+        if(LR > 0.5f)
+        {
+            con_R = true;
+        }
+
+        if (LR < -0.5f)
+        {
+            con_L = true;
+        }
+
+        if (UD > 0.5f)
+        {
+            con_U = true;
+        }
+
+        if (UD < -0.5f)
+        {
+            con_D = true;
         }
     }
 
