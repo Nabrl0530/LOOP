@@ -3067,6 +3067,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 847015371699469049, guid: 4975ae56ff25e394fae9b5c730ebfed1,
+        type: 3}
+      propertyPath: m_XAxis.m_InputAxisName
+      value: Horizontal_c
+      objectReference: {fileID: 0}
     - target: {fileID: 847015372240991768, guid: 4975ae56ff25e394fae9b5c730ebfed1,
         type: 3}
       propertyPath: m_Follow
