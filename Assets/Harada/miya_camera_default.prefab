@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 95
     OrthographicSize: 5.06
-    NearClipPlane: 1
+    NearClipPlane: 2
     FarClipPlane: 1000
     Dutch: 0
     LensShift: {x: 0, y: 0}
@@ -215,3 +215,4 @@ MonoBehaviour:
   Speed_Rotate: 60
   GazePoint: {fileID: 0}
   Tower_m: {fileID: 0}
+  Light_L: {fileID: 0}
