@@ -127,13 +127,10 @@ public class Title_Icon_Move : MonoBehaviour
         
         if (isPlaying == true)
         {
-            Debug.Log("‰Ÿ‚µ‚½");
             return;
-
         }
 
         StartCoroutine(fadeinplay());
-
     }
 
     IEnumerator fadeinplay()
