@@ -15,6 +15,8 @@ public class CRISTAL : MonoBehaviour
 
     public UI_Clear Ui_Clear;
     public Player player;
+    public Camera_Move Camera_Move;
+    public Fade fade;
 
     public bool[] Clare = new bool[MAX_LINE];
 
@@ -46,12 +48,23 @@ public class CRISTAL : MonoBehaviour
         {
             count++;
 
-            if (count == 180)
+            if (count == 150)
             {
                 //Debug.Log("clear");
                 //GoToClear.Go();
-                Ui_Clear.Set_Clear();
+                //Ui_Clear.Set_Clear();
+                Camera_Move.Set_ClearCamera();
                 player.Set_Clear();
+            }
+
+            if(count == 280)
+            {
+                Ui_Clear.Set_Clear();
+            }
+
+            if(count == 370)
+            {
+                fade.SetOut();
             }
 
             /*
@@ -66,13 +79,13 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            //no++;
-            //if (no == 5)
-            //{
-                //no = 0;
+            no++;
+            if (no == 5)
+            {
+                no = 0;
                 count = 0;
                 //HIT = false;
-            //}
+            }
         }
         
         for(int i=0;i<MAX_LINE;i++)
