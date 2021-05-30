@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5566903048300994158}
   - component: {fileID: 469066149396243164}
   m_Layer: 0
-  m_Name: middle 1
+  m_Name: middle_obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 180, z: 0}
   m_offset_distance: 0
   m_height_preset: 0
-  m_offset_height: 1.75
+  m_offset_height: 1.38
 --- !u!64 &469066149396243164
 MeshCollider:
   m_ObjectHideFlags: 0

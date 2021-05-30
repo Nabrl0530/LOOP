@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1699907859339166467}
   - component: {fileID: 2172136919430862429}
   m_Layer: 0
-  m_Name: step01
+  m_Name: inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 180, z: 0}
   m_offset_distance: 0
   m_height_preset: 0
-  m_offset_height: 1.75
+  m_offset_height: 1.38
 --- !u!64 &2172136919430862429
 MeshCollider:
   m_ObjectHideFlags: 0
