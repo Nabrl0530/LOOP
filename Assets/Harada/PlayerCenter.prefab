@@ -76,6 +76,8 @@ MonoBehaviour:
   m_Second_Climb: 3.43
   is_block: 0
   is_stage: 0
+  Under_count: 0
+  No_Under: 0
 --- !u!114 &5367641860322307548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +97,8 @@ MonoBehaviour:
   m_AnimationState: 0
   m_AnimationState_Motion: 0
   m_CanAction: 1
+  m_CanClimb_forword: 0
+  m_CanClimb_check: 0
   IsBlock: 0
   IsStage: 0
   m_parent: {fileID: 0}
@@ -400,7 +404,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.26
   m_Center: {x: 0, y: 3, z: 1}
 --- !u!114 &3813967360705824822
 MonoBehaviour:

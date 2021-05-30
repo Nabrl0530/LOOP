@@ -400,6 +400,11 @@ public class Player_State : MonoBehaviour
         return IsStage;
     }
 
+    public bool Getcan_Clime()
+    {
+        return m_CanClimb_forword  && !m_CanClimb_check;
+    }
+
     public void Set_IsRunning(bool _is)
     {
         IsRunning = _is;
