@@ -286,6 +286,7 @@ public class Player_State : MonoBehaviour
 
                 if (sc_move.Get_Catch())
                 {
+                    /*
                     sc_forword.Get_Block().transform.parent = null;
                     sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
                     //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
@@ -294,6 +295,8 @@ public class Player_State : MonoBehaviour
                     sc_move.Block_relase();
                     sc_move.Clare_Catch();
                     m_parent.GetComponent<Player_Axis>().SetUse(false);
+                    */
+                    release_block();
                 }
             }
         }
@@ -421,6 +424,21 @@ public class Player_State : MonoBehaviour
 
     private void release_block()
     {
+        m_CanAction = true;
+        sc_forword.Get_Block().transform.parent = null;
+        sc_forword.Get_Block().GetComponent<BoxCollider>().size = new Vector3(2.2f, 2.2f, 2.2f);
+        //sc_forword.Get_Block().GetComponent<Rigidbody>().useGravity = true;
+        sc_forword.Get_Block().GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        sc_forword.Get_Block().GetComponent<Rigidbody>().mass = 2000;
+        sc_move.Block_relase();
+        sc_move.Clare_Catch();
+        m_parent.GetComponent<Player_Axis>().SetUse(false);
+        m_AnimationState = (int)e_PlayerAnimationState.WAITING;
+        m_AnimationState_Motion = (int)e_PlayerAnimationState.WAITING;
+    }
 
+    public void release_block2()
+    {
+        release_block();
     }
 }

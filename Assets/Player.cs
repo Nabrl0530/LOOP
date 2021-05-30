@@ -1118,6 +1118,7 @@ public class Player : MonoBehaviour
     public void Set_Block(Block scr)
     {
         block = scr;
+        block.SetPlayer(this);
     }
 
     public void Block_Catch()
@@ -1167,6 +1168,11 @@ public class Player : MonoBehaviour
     {
         Clear = true;
         sc_state.Set_Clear();
+    }
+
+    public void block_out()
+    {
+        sc_state.release_block2();
     }
 
     private void UIset_Bridge()

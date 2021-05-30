@@ -166,8 +166,12 @@ public class Block : MonoBehaviour
                 undercount++;
                 if(undercount == 5)
                 {
-
+                    player.block_out();
                 }
+            }
+            else
+            {
+                undercount = 0;
             }
         }
     }
@@ -191,6 +195,11 @@ public class Block : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         this.gameObject.GetComponent<BoxCollider>().enabled = true;
         ON_Player = false;
+    }
+
+    public void SetPlayer(Player scr)
+    {
+        player = scr;
     }
 
     void OnTriggerStay(Collider other)
