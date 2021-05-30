@@ -32,7 +32,8 @@ public class Camera_Move : MonoBehaviour
     public GameObject GazePoint = null;
     public GameObject Tower_m = null;
 
-
+    public GameObject Light_L;
+    int diray = 0;
 
     // クリアカメラ
     CinemachineVirtualCamera clear_camera;
@@ -55,7 +56,7 @@ public class Camera_Move : MonoBehaviour
         // クリアカメラ
         clear_camera = this.GetComponent<CinemachineVirtualCamera>();
 
-
+        diray = 0;
 
     }
 
@@ -82,6 +83,15 @@ public class Camera_Move : MonoBehaviour
         if (Input.GetKey(KeyCode.P))
         {
             Set_DefaultCamera();
+        }
+
+        if(diray>0)
+        {
+            diray--;
+            if (diray == 0)
+            {
+                Light_L.SetActive(true);
+            }
         }
     }
 
@@ -137,7 +147,13 @@ public class Camera_Move : MonoBehaviour
             {
                 // 見下ろし視点へ切替
                 // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1) Looking_FromUp_m = true;
+                if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
+                {
+                    Looking_FromUp_m = true;
+                    Light_L.SetActive(false);
+                    diray = -1;
+                }
+
                 // 過去可変
                 //if (Input.GetKey(KeyCode.UpArrow	)) Height += Speed_Height * Time.deltaTime;
                 //if (Height > HEIGHT_MAX - 0.1f) Height = HEIGHT_MAX - 0.1f;
@@ -167,7 +183,11 @@ public class Camera_Move : MonoBehaviour
 
                 // 通常視点へ切替
                 // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Change_c") == -1) Looking_FromUp_m = false;
+                if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Change_c") == -1)
+                {
+                    Looking_FromUp_m = false;
+                    diray = 2;
+                }
                 // 過去可変
                 //if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
             }
