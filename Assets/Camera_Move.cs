@@ -36,7 +36,9 @@ public class Camera_Move : MonoBehaviour
     int diray = 0;
 
     // クリアカメラ
-    CinemachineVirtualCamera clear_camera;
+    CinemachineVirtualCamera normal_camera;
+    public CinemachineVirtualCamera clear_camera;
+    public CinemachineVirtualCamera follow_camera;
 
 
 
@@ -54,7 +56,7 @@ public class Camera_Move : MonoBehaviour
 
 
         // クリアカメラ
-        clear_camera = this.GetComponent<CinemachineVirtualCamera>();
+        normal_camera = this.GetComponent<CinemachineVirtualCamera>();
 
         diray = 0;
 
@@ -67,23 +69,23 @@ public class Camera_Move : MonoBehaviour
     // クリアカメラ
     public void Set_ClearCamera()
     {
-        clear_camera.Priority = 10;
+        normal_camera.Priority = 10;
     }
     public void Set_DefaultCamera()
     {
-        clear_camera.Priority = 50;
+        normal_camera.Priority = 50;
     }
     // デバッグ
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.O))
-        {
-            Set_ClearCamera();
-        }
-        if (Input.GetKey(KeyCode.P))
-        {
-            Set_DefaultCamera();
-        }
+        //if (Input.GetKey(KeyCode.O))
+        //{
+        //    Set_ClearCamera();
+        //}
+        //if (Input.GetKey(KeyCode.P))
+        //{
+        //    Set_DefaultCamera();
+        //}
 
         if(diray>0)
         {
