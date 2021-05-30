@@ -26,7 +26,7 @@ public class Camera_Move : MonoBehaviour
     float Height_Default = 0;
     float Height = 0;
     // 角度
-    float Degree = -180;
+    public float Degree = -180;
     // タワー操作時
     float Length_FromCenter_Zoom = 7;
     // オブジェクト参照

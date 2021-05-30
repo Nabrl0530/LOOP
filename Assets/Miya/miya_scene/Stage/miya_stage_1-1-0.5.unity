@@ -7163,7 +7163,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.52
+      value: 2.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
@@ -7249,7 +7249,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 180, z: 0}
   m_offset_distance: 0
   m_height_preset: 0
-  m_offset_height: 0.9
+  m_offset_height: 0.5
 --- !u!4 &1901488176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7051027654460601998, guid: ce45e27fac6b1694fa570df6b16ce4a0,
@@ -8499,7 +8499,7 @@ PrefabInstance:
     - target: {fileID: 7754538207576671246, guid: 76bd5a9710b302c43b4fdb49f42f26da,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.62
+      value: 1.3199999
       objectReference: {fileID: 0}
     - target: {fileID: 7754538207576671246, guid: 76bd5a9710b302c43b4fdb49f42f26da,
         type: 3}
@@ -8549,7 +8549,12 @@ PrefabInstance:
     - target: {fileID: 7788727165909537781, guid: 76bd5a9710b302c43b4fdb49f42f26da,
         type: 3}
       propertyPath: m_place_angle
-      value: 258
+      value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788727165909537781, guid: 76bd5a9710b302c43b4fdb49f42f26da,
+        type: 3}
+      propertyPath: m_offset_height
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7788727165909537781, guid: 76bd5a9710b302c43b4fdb49f42f26da,
         type: 3}
