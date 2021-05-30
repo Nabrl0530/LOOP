@@ -56,7 +56,7 @@ public class ArrowMover : MonoBehaviour
                 UseMenu = false;
                 MenuImg.gameObject.SetActive(false);
             }
-            WaitTime = 30;
+            WaitTime = 15;
 
         }
 
