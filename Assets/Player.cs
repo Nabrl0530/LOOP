@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     GameObject UI_block2;
     GameObject UI_frame;
     GameObject UI_leba;
+    GameObject UI_stage;
 
     public Player_Forword Player_Forword;
     public Player_Check Player_Check;
@@ -113,6 +114,7 @@ public class Player : MonoBehaviour
         UI_block2 = GameObject.Find("UI_Block2");
         UI_frame = GameObject.Find("UI_Frame");
         UI_leba = GameObject.Find("UI_leba");
+        UI_stage = GameObject.Find("UI_Stage");
 
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
@@ -173,6 +175,10 @@ public class Player : MonoBehaviour
         else if(HIT_DOOR)
         {
             UIset_Frame();
+        }
+        else if(sc_state.Getcan_Clime())
+        {
+            UIset_Stage();
         }
         else
         {
@@ -1182,6 +1188,7 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(false);
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
+        UI_stage.SetActive(false);
     }
 
     private void UIset_Block()
@@ -1191,6 +1198,7 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(false);
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
+        UI_stage.SetActive(false);
     }
 
     private void UIset_Block2()
@@ -1200,6 +1208,7 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(true);
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
+        UI_stage.SetActive(false);
     }
 
     private void UIset_Frame()
@@ -1209,6 +1218,7 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(false);
         UI_frame.SetActive(true);
         UI_leba.SetActive(false);
+        UI_stage.SetActive(false);
     }
 
     private void UIset_Leba()
@@ -1218,6 +1228,17 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(false);
         UI_frame.SetActive(false);
         UI_leba.SetActive(true);
+        UI_stage.SetActive(false);
+    }
+
+    private void UIset_Stage()
+    {
+        UI_bridge.SetActive(false);
+        UI_block.SetActive(false);
+        UI_block2.SetActive(false);
+        UI_frame.SetActive(false);
+        UI_leba.SetActive(false);
+        UI_stage.SetActive(true);
     }
 
     private void UIset_Non()
@@ -1227,6 +1248,7 @@ public class Player : MonoBehaviour
         UI_block2.SetActive(false);
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
+        UI_stage.SetActive(false);
     }
 
     //オブジェクトを発見した際にスクリプトを獲得する

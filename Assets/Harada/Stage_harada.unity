@@ -4346,7 +4346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755fa30b6e1273040916f0eb53cc9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sc_state: {fileID: 0}
+  sc_state: {fileID: 373241065}
   HEIGHT_MAX: 16
   Speed_Rotate: 60
   GazePoint: {fileID: 58269599}
@@ -6234,6 +6234,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 611335872344610847, guid: 8fdb477176ff6f24d8987575bb61ad58,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3099816322173302426, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_SoftZoneWidth
