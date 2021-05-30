@@ -4358,6 +4358,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82eef1a7cf5d1da4781f70c14667512d, type: 3}
+--- !u!1 &1153701016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5558137447065381444, guid: 82eef1a7cf5d1da4781f70c14667512d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1153701015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1156783524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7051027654460601998, guid: ce45e27fac6b1694fa570df6b16ce4a0,
@@ -5247,12 +5253,12 @@ PrefabInstance:
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 3.6e-44
+      value: -1e-45
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.1e-44
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
@@ -5657,6 +5663,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 611335872344610847, guid: 8fdb477176ff6f24d8987575bb61ad58,
+        type: 3}
+      propertyPath: Light_L
+      value: 
+      objectReference: {fileID: 1153701016}
     - target: {fileID: 611335872344610847, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: sc_state
