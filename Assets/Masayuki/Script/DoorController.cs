@@ -57,16 +57,12 @@ public class DoorController : MonoBehaviour
                 }
             }
         }
-        //Ç±Ç±Ç‹Ç≈èàóùÇ™óàÇΩÇ∆Ç¢Ç§éñÇÕè’ìÀÇ™Ç»Ç©Ç¡ÇΩÇ∆Ç¢Ç§Ç±Ç∆
-        GameObject[] ray_collider_doors = GameObject.FindGameObjectsWithTag("RayColliderDoor");
-        foreach (GameObject ray_collider_door in ray_collider_doors)
-        {
-            DoorController temp = ray_collider_door.transform.parent.GetComponent<DoorController>();
-            if (temp.m_collision_with_light == false && temp.m_request_open_door_from_button == false)
-            {
-                temp.CloseDoor();
-            }
-        }
+        
+        //GameObject[] ray_collider_doors = GameObject.FindGameObjectsWithTag("RayColliderDoor");
+        //foreach (GameObject ray_collider_door in ray_collider_doors)
+        //{
+        //    DoorController temp = ray_collider_door.transform.parent.GetComponent<DoorController>();
+            
     }
 
     // Start is called before the first frame update
@@ -87,6 +83,11 @@ public class DoorController : MonoBehaviour
 
     private void LateUpdate()
     {
+            if (m_collision_with_light == false && m_request_open_door_from_button == false)
+            {
+                CloseDoor();
+            }
+        
         m_collision_with_light = false;
         m_request_open_door_from_button = false;
     }
