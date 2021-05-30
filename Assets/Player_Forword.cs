@@ -56,8 +56,6 @@ public class Player_Forword : MonoBehaviour
             sc_state.Set_CanClimb_Forword(true);
             sc_state.Set_IsStage(true);
         }
-
-        Debug.Log(other.name);
     }
 
         void OnTriggerExit(Collider other)

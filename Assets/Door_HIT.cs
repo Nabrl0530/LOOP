@@ -27,6 +27,11 @@ public class Door_HIT : MonoBehaviour
                 other.GetComponent<Player>().SetGate(transform.position);
             }
         }
+
+        if (other.gameObject.CompareTag("Stage"))
+        {
+            door.SET_WARP_OK(false);
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -38,6 +43,11 @@ public class Door_HIT : MonoBehaviour
                 other.GetComponent<Player>().SetGate(transform.position);
             }
         }
+
+        if(other.gameObject.CompareTag("Stage"))
+        {
+            door.SET_WARP_OK(false);
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -46,6 +56,8 @@ public class Door_HIT : MonoBehaviour
         {
             other.GetComponent<Player>().ClearHIT_DOOR();
         }
+
+        door.SET_WARP_OK(true);
     }
 
     public Door GetDoor()

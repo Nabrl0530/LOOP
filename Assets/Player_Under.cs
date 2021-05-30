@@ -28,6 +28,10 @@ public class Player_Under : MonoBehaviour
     {
         if (other.gameObject.tag == "Player") return;
 
+        if (other.gameObject.tag == "View") return;
+
+        if (other.gameObject.tag == "Door_HIT") return;
+
         sc_move.Set_IsUnder(true);
     }
 
@@ -38,8 +42,6 @@ public class Player_Under : MonoBehaviour
         if (other.gameObject.tag == "View") return;
 
         if (other.gameObject.tag == "Door_HIT") return;
-
-        //Debug.Log(other.name+"‚Æ“–‚½‚Á‚Ä‚é");
 
         sc_move.Set_IsUnder(true);
     }

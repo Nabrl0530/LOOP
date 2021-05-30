@@ -774,6 +774,9 @@ public class Player : MonoBehaviour
                     Player_Check.PosReset();
                     Player_Under.PosReset();
 
+                    IsUnder_m = false;
+                    Under_count = 0;
+
                     ClearHIT_DOOR();
 
                     Forced = false;
@@ -887,7 +890,7 @@ public class Player : MonoBehaviour
             this.transform.rotation = rot;
         }
 
-        if(IsUnder_m)
+        if(IsUnder_m && Actcount == 0)
         {
             Under_count++;
 
@@ -1191,6 +1194,11 @@ public class Player : MonoBehaviour
     public void block_out()
     {
         sc_state.release_block2();
+    }
+
+    public bool GET_WARP_OK()
+    {
+        return door.GET_WARP_OK_pair();
     }
 
     private void UIset_Bridge()

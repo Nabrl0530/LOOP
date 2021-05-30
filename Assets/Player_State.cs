@@ -216,10 +216,14 @@ public class Player_State : MonoBehaviour
                 }
                 else if (IsDoor)
                 {
-                    m_AnimationState = (int)e_PlayerAnimationState.DOOR_SET;
-                    m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
-                    m_CanAction = false;
-                    sc_move.Set_Act_spin();
+                    //à⁄ìÆêÊÇ™ñÑÇ‹Ç¡ÇƒÇ¢Ç»ÇØÇÍÇŒ
+                    if (sc_move.GET_WARP_OK())
+                    {
+                        m_AnimationState = (int)e_PlayerAnimationState.DOOR_SET;
+                        m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
+                        m_CanAction = false;
+                        sc_move.Set_Act_spin();
+                    }
                 }
             }
 

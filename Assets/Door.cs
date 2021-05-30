@@ -9,10 +9,11 @@ public class Door : MonoBehaviour
     private GameObject C_Laser = null;
     private bool Use = false;
     private int Hit_Count = 0;
+    public bool WARP_OK;
     // Start is called before the first frame update
     void Start()
     {
-        
+        WARP_OK = true;
     }
 
     // Update is called once per frame
@@ -75,5 +76,20 @@ public class Door : MonoBehaviour
     {
         Quaternion Rot = Quaternion.Euler(pair_door.transform.eulerAngles.x, pair_door.transform.eulerAngles.y + 225, pair_door.transform.eulerAngles.z);
         return Rot;
+    }
+
+    public void SET_WARP_OK(bool _is)
+    {
+        WARP_OK = _is;
+    }
+
+    public bool GET_WARP_OK()
+    {
+        return WARP_OK;
+    }
+
+    public bool GET_WARP_OK_pair()
+    {
+        return pair_door.GetComponent<Door>().GET_WARP_OK();
     }
 }
