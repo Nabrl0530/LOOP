@@ -2289,7 +2289,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 0, z: 0}
   m_offset_distance: 0
   m_height_preset: 1
-  m_offset_height: 0.5
+  m_offset_height: 0.2
 --- !u!4 &413756310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2559863078251211645, guid: 545933d19a599fa48b2576e11fb672c8,
@@ -4792,7 +4792,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5342fcbe468003944b5916b16ecc4df5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.1
+      value: 4.7999997
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5342fcbe468003944b5916b16ecc4df5,
         type: 3}
@@ -10098,7 +10098,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c3c3cefad8fcd7d45ba8ed293070ec18,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.62
+      value: 1.3199999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c3c3cefad8fcd7d45ba8ed293070ec18,
         type: 3}
@@ -10446,7 +10446,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 0, z: 0}
   m_offset_distance: 0
   m_height_preset: 0
-  m_offset_height: 0
+  m_offset_height: -0.3
 --- !u!114 &1869268410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10672,7 +10672,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.8
+      value: 5.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
@@ -10758,7 +10758,7 @@ MonoBehaviour:
   m_offset_rotation: {x: 0, y: 0, z: 0}
   m_offset_distance: 0
   m_height_preset: 1
-  m_offset_height: 1.2
+  m_offset_height: 1
 --- !u!4 &1901488176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7051027654460601998, guid: ce45e27fac6b1694fa570df6b16ce4a0,
