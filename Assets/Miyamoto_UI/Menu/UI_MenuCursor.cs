@@ -78,15 +78,15 @@ public class UI_MenuCursor : MonoBehaviour
         switch (CursorPosition)
         {
             case (int)CursorPos.Retry:
-                thisTransform.anchoredPosition = new Vector2(70.0f, 280.0f);
+                thisTransform.anchoredPosition = new Vector2(75.0f, 280.0f);
                 break;
 
             case (int)CursorPos.Stage:
-                thisTransform.anchoredPosition = new Vector2(70.0f, 100.0f);
+                thisTransform.anchoredPosition = new Vector2(75.0f, 100.0f);
                 break;
 
             case (int)CursorPos.Return:
-                thisTransform.anchoredPosition = new Vector2(70.0f, -60.0f);
+                thisTransform.anchoredPosition = new Vector2(75.0f, -85.0f);
                 break;
 
             default:

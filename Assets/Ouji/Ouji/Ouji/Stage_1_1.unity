@@ -3372,6 +3372,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 965600455}
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
       propertyPath: fade
       value: 
       objectReference: {fileID: 1508664492}
@@ -3393,7 +3398,7 @@ PrefabInstance:
     - target: {fileID: 6170834053742128981, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 6170834053742128981, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
@@ -5098,6 +5103,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 345106661225409972, guid: bc5ab65b04172d843a1418caea45b90b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 345106661225409976, guid: bc5ab65b04172d843a1418caea45b90b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6553,6 +6563,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3662174870730225906, guid: 57c0ca432efb92149bd9d2436e4e5825,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3662174870730225910, guid: 57c0ca432efb92149bd9d2436e4e5825,
         type: 3}
       propertyPath: m_Pivot.x
@@ -6566,7 +6581,7 @@ PrefabInstance:
     - target: {fileID: 3662174870730225910, guid: 57c0ca432efb92149bd9d2436e4e5825,
         type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 3662174870730225910, guid: 57c0ca432efb92149bd9d2436e4e5825,
         type: 3}
