@@ -47,6 +47,15 @@ public class Stage_Select_Normal : MonoBehaviour
 
     public GameObject[] Obj = new GameObject[MAX_OBJ];
 
+
+
+
+    // サウンドmiya
+    public sound_move sc_move;
+    public sound_select sc_select;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -126,6 +135,11 @@ public class Stage_Select_Normal : MonoBehaviour
             {
                 if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && !CHECK)
                 {
+
+                    // サウンドmiya
+                    sc_select.Play();
+
+
                     //OutStartFadeAnim();
                     ssc.SetON();
                     sscr.SetON();
@@ -133,6 +147,11 @@ public class Stage_Select_Normal : MonoBehaviour
                 }
                 else if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && CHECK)
                 {
+
+                    // サウンドmiya
+                    sc_select.Play();
+
+
                     if (YES)
                     {
                         OutStartFadeAnim();
@@ -150,6 +169,11 @@ public class Stage_Select_Normal : MonoBehaviour
                 {
                     if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || con_L || con_R) && wait == 0)
                     {
+
+                        // サウンドmiya
+                        sc_move.Play();
+
+
                         YES = !YES;
                         sscr.SetNext();
                         wait = 10;
@@ -159,6 +183,11 @@ public class Stage_Select_Normal : MonoBehaviour
 
                 if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < MAX_OBJ)
                 {
+
+                    // サウンドmiya
+                    sc_move.Play();
+
+
                     Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetDown_IN(false);
                     Obj[Select].GetComponent<Stage_Select_Slide>().SetDown_IN(true);
                     Stage_Select_CArrow.SetBig();
@@ -170,6 +199,11 @@ public class Stage_Select_Normal : MonoBehaviour
 
                 if ((Input.GetKey(KeyCode.DownArrow) || con_D) && wait == 0 && Select > 1)
                 {
+
+                    // サウンドmiya
+                    sc_move.Play();
+
+
                     Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetUp_IN(false);
                     Obj[Select - 2].GetComponent<Stage_Select_Slide>().SetUp_IN(true);
                     Stage_Select_CArrow2.SetBig();

@@ -33,6 +33,14 @@ public class Stage_Select : MonoBehaviour
     public GameObject[] Obj = new GameObject[MAX_OBJ];
     public Canvas[] can = new Canvas[MAX_OBJ];
 
+
+
+    // サウンドmiya
+    public sound_move sc_move;
+    public sound_select sc_select;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +64,14 @@ public class Stage_Select : MonoBehaviour
                 Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetPick();
                 WorldEND = true;
 
-                if(Select == 1)
+
+
+                // サウンドmiya
+                sc_select.Play();
+
+
+
+                if (Select == 1)
                 {
                     can[0].GetComponent<Stage_Select_Easy>().SET_USE();
                 }
@@ -73,6 +88,11 @@ public class Stage_Select : MonoBehaviour
             //タイトルに戻る
             if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0)
             {
+
+                // サウンドmiya
+                sc_select.Play();
+
+
                 OutStartFadeAnim();
                 WorldEND = true;
             }
@@ -85,6 +105,12 @@ public class Stage_Select : MonoBehaviour
 
                 wait = 50;
 
+
+                // サウンドmiya
+                sc_move.Play();
+
+
+
                 Select++;
             }
 
@@ -95,6 +121,14 @@ public class Stage_Select : MonoBehaviour
                 Stage_Select_CArrow2.SetBig();
 
                 wait = 50;
+
+
+
+                // サウンドmiya
+                sc_move.Play();
+
+
+
 
                 Select--;
             }
