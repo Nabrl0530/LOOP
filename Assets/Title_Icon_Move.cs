@@ -9,6 +9,7 @@ public class Title_Icon_Move : MonoBehaviour
     public Title_Icon_s title_Icon_S;
     public Title_Icon_e title_Icon_E;
     public Title_Icon_m title_Icon_M;
+    public omake om;
 
     bool con_L; //コントローラー入力左
     bool con_R; //コントローラー入力右
@@ -19,7 +20,6 @@ public class Title_Icon_Move : MonoBehaviour
     private bool UseMenu = false;
     public bool isPlaying = false;
     public Image fadeImg;
-    public Image MenuImg;
     private float start;
     private float end;
 
@@ -73,7 +73,7 @@ public class Title_Icon_Move : MonoBehaviour
                 se_select.Play();
 
                 UseMenu = true;
-                MenuImg.gameObject.SetActive(true);
+                om.SetOpen(true);
             }
             else
             {
@@ -81,7 +81,7 @@ public class Title_Icon_Move : MonoBehaviour
                 se_select.Play();
 
                 UseMenu = false;
-                MenuImg.gameObject.SetActive(false);
+                om.SetOpen(false);
             }
         }
 
