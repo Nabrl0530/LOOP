@@ -13,6 +13,7 @@ using UnityEngine;
 public class UI_Menu : MonoBehaviour
 {
     public bool Show;       // メニューが見えるか否か
+    public bool NotUSE;     // 使用禁止状態
     Transform Commands;     // 子オブジェクト（メニューとカーソル全体統括するオブジェクト）のトランスフォーム
 
     // ------------------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ public class UI_Menu : MonoBehaviour
     {
         Commands = GameObject.Find("Commands").transform;   // 全体統括子オブジェクト取得
         Show = false;                                       // 最初は見えないようにする
+        NotUSE = false;
     }
 
     // ------------------------------------------------------------------------------------------
@@ -42,11 +44,14 @@ public class UI_Menu : MonoBehaviour
 
         if(Show)    // 見えるとき、全体統括オブジェクトの子オブジェクトをすべてアクティブにする
         {
-            foreach (Transform t in Commands)
+            if (!NotUSE)
             {
-                if (!t.gameObject.activeSelf)
+                foreach (Transform t in Commands)
                 {
-                    t.gameObject.SetActive(true);
+                    if (!t.gameObject.activeSelf)
+                    {
+                        t.gameObject.SetActive(true);
+                    }
                 }
             }
         }
@@ -72,5 +77,10 @@ public class UI_Menu : MonoBehaviour
         {
             Show = true;    // 見える
         }
+    }
+
+    public void SetNot()
+    {
+        NotUSE = true;
     }
 }

@@ -10,6 +10,7 @@ public class Player_State : MonoBehaviour
     public Player_Check sc_check;
     public Animator animator;
     public UI_Menu UI_menu;
+    public Camera_Move cm;
 
     // —ñ‹“
     public enum e_PlayerAnimationState
@@ -99,9 +100,16 @@ public class Player_State : MonoBehaviour
             UI_menu.SetShow();
             sc_move.Set_Menu_On();
             Menu_ON = !Menu_ON;
+
+            if (Menu_ON)
+            {
+                cm.Set_Menu(true);
+            }
+            else
+            {
+                cm.Set_Menu(false);
+            }                       
         }
-
-
 
         //s“®‹K§’†‚Í“ü—Í‹ÖŽ~
         if (wait_Act > 0 || wait_key > 0 || Menu_ON)
@@ -461,5 +469,12 @@ public class Player_State : MonoBehaviour
     public void release_block2()
     {
         release_block();
+    }
+
+    public void Menu_OFF()
+    {
+        Menu_ON = false;
+        sc_move.Set_Menu_On();
+        cm.Set_Menu(false);
     }
 }

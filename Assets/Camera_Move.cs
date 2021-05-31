@@ -42,6 +42,8 @@ public class Camera_Move : MonoBehaviour
     public CinemachineVirtualCamera follow_camera;
     public GameObject object_FollowCamera;
 
+    public bool Menu_ON;
+
 
     // 初期化--------------------------------------------------------------------------------------------
     void Start()
@@ -59,6 +61,8 @@ public class Camera_Move : MonoBehaviour
         normal_camera = this.GetComponent<CinemachineVirtualCamera>();
 
         diray = 0;
+
+        Menu_ON = false;
 
     }
 
@@ -129,16 +133,19 @@ public class Camera_Move : MonoBehaviour
     // 更新
     void Update()
     {
-        // 入力
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (!Menu_ON)
         {
-            if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
-            if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
-        }
-        // ゲームパッド// 原田君用2
-        else if (Mathf.Abs(Input.GetAxis("Horizontal_c")) > 0)
-        {
-            Degree += Input.GetAxis("Horizontal_c") * Speed_Rotate * Time.deltaTime;
+            // 入力
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+            {
+                if (Input.GetKey(KeyCode.LeftArrow)) Degree += Speed_Rotate * Time.deltaTime;
+                if (Input.GetKey(KeyCode.RightArrow)) Degree -= Speed_Rotate * Time.deltaTime;
+            }
+            // ゲームパッド// 原田君用2
+            else if (Mathf.Abs(Input.GetAxis("Horizontal_c")) > 0)
+            {
+                Degree += Input.GetAxis("Horizontal_c") * Speed_Rotate * Time.deltaTime;
+            }
         }
 
         // 原田君用('ω')タワーのためのズーム
@@ -207,31 +214,35 @@ public class Camera_Move : MonoBehaviour
                 //if (Input.GetKey(KeyCode.DownArrow)) Height -= Speed_Height * Time.deltaTime;
             }
 
-            // 見下ろし視点へ切替
-            // ゲームパッド// 原田君用2
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
-            {
-                Set_DefaultCamera();
-                Looking_FromUp_m = true;
-                Light_L.SetActive(false);
-                diray = -1;
-            }
 
-            // 通常視点へ切替//十字ボタン左
-            // ゲームパッド// 原田君用2
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1)
+            if (!Menu_ON)
             {
-                Set_DefaultCamera();
-                Looking_FromUp_m = false;
-                diray = 2;
-            }
+                // 見下ろし視点へ切替
+                // ゲームパッド// 原田君用2
+                if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
+                {
+                    Set_DefaultCamera();
+                    Looking_FromUp_m = true;
+                    Light_L.SetActive(false);
+                    diray = -1;
+                }
 
-            // フォローカメラ//十字ボタン右
-            if (Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1)
-            {
-                Set_FollowCamera();
-                Looking_FromUp_m = false;
-                diray = 2;
+                // 通常視点へ切替//十字ボタン左
+                // ゲームパッド// 原田君用2
+                if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1)
+                {
+                    Set_DefaultCamera();
+                    Looking_FromUp_m = false;
+                    diray = 2;
+                }
+
+                // フォローカメラ//十字ボタン右
+                if (Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1)
+                {
+                    Set_FollowCamera();
+                    Looking_FromUp_m = false;
+                    diray = 2;
+                }
             }
 
         }
@@ -244,5 +255,10 @@ public class Camera_Move : MonoBehaviour
     public void Release_Tower()
     {
         Tower_m = null;
+    }
+
+    public void Set_Menu(bool _is)
+    {
+        Menu_ON = _is;
     }
 }
