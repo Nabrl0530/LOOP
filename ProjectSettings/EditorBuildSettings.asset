@@ -33,6 +33,15 @@ EditorBuildSettings:
     path: Assets/Masayuki/Level/Masayuki_Stage_1.unity
     guid: 5f4ced13635ca534b9a08d3490a2e8db
   - enabled: 1
+    path: Assets/Miya/miya_scene/Stage/miya_stage_1-1-0.5.unity
+    guid: a1e2b1d1f76c76d4b8954eb5fee2212c
+  - enabled: 1
+    path: Assets/Miya/miya_scene/Stage/miya_stage_1-1-0.75.unity
+    guid: 7f62b11b4d280564f8a74779403cda16
+  - enabled: 1
+    path: Assets/Miya/miya_scene/Stage/miya_stage_1-2-0.5.unity
+    guid: d3b511ab580de124e99011e5dde8bc7c
+  - enabled: 1
     path: Assets/Ouji/Ouji/Ouji/Stage_2_1.unity
     guid: dec10b3863f7fd044b0e9557ae185024
   - enabled: 1
@@ -44,4 +53,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ouji/Ouji/Ouji/Stage_3_3.unity
     guid: 86dfbf393323dda4680e200492efbe82
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_4_3.unity
+    guid: 55a17de5c9177ad409da692bf2e80b0f
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_5_2.unity
+    guid: 2ef160162d2dd5d4fbc925d8a9c13d86
   m_configObjects: {}

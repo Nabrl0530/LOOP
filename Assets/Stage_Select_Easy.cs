@@ -40,7 +40,7 @@ public class Stage_Select_Easy : MonoBehaviour
     float size;
     int Diray;
 
-    const int MAX_OBJ = 4;
+    const int MAX_OBJ = 7;
 
     int wait;
     public int Select;
@@ -298,6 +298,16 @@ public class Stage_Select_Easy : MonoBehaviour
                 case 4:
                     SceneManager.LoadScene("Masayuki_Stage_1");
                     break;
+                case 5:
+                    SceneManager.LoadScene("miya_stage_1-1-0.5");
+                    break;
+                case 6:
+                    SceneManager.LoadScene("miya_stage_1-1-0.75");
+                    break;
+                case 7:
+                    SceneManager.LoadScene("miya_stage_1-2-0.5");
+                    break;
+                    
 
             }
         }
