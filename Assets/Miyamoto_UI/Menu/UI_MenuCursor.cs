@@ -26,6 +26,12 @@ public class UI_MenuCursor : MonoBehaviour
 
     int keywait;
 
+    // サウンドmiya
+    public AudioSource se_move;
+    public AudioSource se_select;
+
+
+
     // カーソルの場所一覧
     enum CursorPos
     {
@@ -58,6 +64,12 @@ public class UI_MenuCursor : MonoBehaviour
         // カーソル移動
         if (Input.GetKeyDown(KeyCode.DownArrow) || con_D)
         {
+
+
+            // サウンドmiya
+            if (se_move) se_move.Play();
+
+
             CursorPosition++;
             if (CursorPosition > (int)CursorPos.Return)
             {
@@ -67,6 +79,12 @@ public class UI_MenuCursor : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) || con_U)
         {
+
+
+            // サウンドmiya
+            if (se_move) se_move.Play();
+
+
             CursorPosition--;
             if (CursorPosition < (int)CursorPos.Retry)
             {
@@ -97,6 +115,9 @@ public class UI_MenuCursor : MonoBehaviour
         // 決定が押されたら
         if (Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK"))
         {
+            // サウンドmiya
+            if (se_select) se_select.Play();
+
             switch (CursorPosition)
             {
                 case (int)CursorPos.Retry:
