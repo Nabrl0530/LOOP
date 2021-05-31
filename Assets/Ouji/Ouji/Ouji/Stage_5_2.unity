@@ -10102,7 +10102,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.6257167
+      value: -6.675065
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
@@ -10112,12 +10112,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5296679
+      value: 1.2975006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7826081
+      value: -0.77162457
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
@@ -10127,7 +10127,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6225147
+      value: 0.63607824
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 04c0a89d5e0cc15428ffa584dd550be9,
         type: 3}
@@ -10188,7 +10188,7 @@ MonoBehaviour:
   m_floor_number: 0
   m_place_angle: 270
   m_snap_angle: 45
-  m_offset_place_angle: 13
+  m_offset_place_angle: 11
   m_adjust_place_angle_and_rotation: 1
   m_offset_rotation: {x: 0, y: 0, z: 0}
   m_offset_distance: 0
