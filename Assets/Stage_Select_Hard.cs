@@ -10,15 +10,22 @@ public class Stage_Select_Hard : MonoBehaviour
 
     bool con_U; //コントローラー入力上
     bool con_D; //コントローラー入力下
+    bool con_L; //コントローラー入力左
+    bool con_R; //コントローラー入力右
 
     public Stage_Select_CArrow Stage_Select_CArrow;
     public Stage_Select_CArrow Stage_Select_CArrow2;
+    public Stage_Select_Check ssc;
+    public Stage_Select_Cursor sscr;
+
     public Image fadeImg;
 
     bool USE;
     bool END;
     bool OK;
+    bool CHECK;
     bool SELECT_END;
+    bool YES;
 
     public bool isPlaying = false;
 
@@ -33,7 +40,7 @@ public class Stage_Select_Hard : MonoBehaviour
     float size;
     int Diray;
 
-    const int MAX_OBJ = 3;
+    const int MAX_OBJ = 4;
 
     int wait;
     public int Select;
@@ -54,6 +61,8 @@ public class Stage_Select_Hard : MonoBehaviour
         end = 1f;
         Select = 1;
         SELECT_END = false;
+        CHECK = false;
+        YES = true;
     }
 
     // Update is called once per frame
@@ -80,9 +89,17 @@ public class Stage_Select_Hard : MonoBehaviour
 
             if (OK && !END)
             {
-                if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0)
+                if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0 && !CHECK)
                 {
                     END = true;
+                }
+
+                if ((Input.GetKeyDown(KeyCode.K) || Input.GetButton("NO")) && wait == 0 && CHECK)
+                {
+                    CHECK = false;
+                    YES = true;
+                    ssc.SetOFF();
+                    sscr.SetOFF();
                 }
             }
 
@@ -96,6 +113,7 @@ public class Stage_Select_Hard : MonoBehaviour
                     USE = false;
                     OK = false;
                     END = false;
+                    YES = true;
                     rt.localScale = new Vector3(size, size, size);
 
                     ss.Back();
@@ -106,10 +124,38 @@ public class Stage_Select_Hard : MonoBehaviour
 
             if (!SELECT_END)
             {
-                if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && wait == 0 && OK)
+                if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && !CHECK)
                 {
-                    OutStartFadeAnim();
+                    //OutStartFadeAnim();
+                    ssc.SetON();
+                    sscr.SetON();
+                    CHECK = true;
                 }
+                else if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && CHECK)
+                {
+                    if (YES)
+                    {
+                        OutStartFadeAnim();
+                    }
+                    else
+                    {
+                        ssc.SetOFF();
+                        sscr.SetOFF();
+                        CHECK = false;
+                        YES = true;
+                    }
+                }
+
+                if (CHECK)
+                {
+                    if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || con_L || con_R) && wait == 0)
+                    {
+                        YES = !YES;
+                        sscr.SetNext();
+                        wait = 10;
+                    }
+                }
+
 
                 if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < MAX_OBJ)
                 {
@@ -163,10 +209,14 @@ public class Stage_Select_Hard : MonoBehaviour
     private void Check_Cont()
     {
         float UD;
+        float LR;
         UD = Input.GetAxis("Vertical_p"); //上ぷら
+        LR = Input.GetAxis("Horizontal_p");
 
         con_U = false;
         con_D = false;
+        con_L = false;
+        con_R = false;
 
         if (UD > 0.5f)
         {
@@ -177,6 +227,17 @@ public class Stage_Select_Hard : MonoBehaviour
         {
             con_D = true;
         }
+
+        if (LR > 0.5f)
+        {
+            con_R = true;
+        }
+
+        if (LR < -0.5f)
+        {
+            con_L = true;
+        }
+
     }
 
     public void OutStartFadeAnim()
