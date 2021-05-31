@@ -12,7 +12,6 @@ public class SPIN_FloorOne : MonoBehaviour
 
     // ƒTƒEƒ“ƒhmiya
     public sound_round sc_round;
-    //public AudioSource se_round;
 
 
 
