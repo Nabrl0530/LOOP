@@ -40,7 +40,7 @@ public class Stage_Select_Normal : MonoBehaviour
     float size;
     int Diray;
 
-    const int MAX_OBJ = 4;
+    const int MAX_OBJ = 3;
 
     int wait;
     public int Select;
