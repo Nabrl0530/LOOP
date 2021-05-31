@@ -31,6 +31,18 @@ public class Title_Icon_Move : MonoBehaviour
     int Select;
 
 
+
+
+
+    // サウンドmiya
+    public AudioSource se_move;
+    public AudioSource se_select;
+
+
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +59,9 @@ public class Title_Icon_Move : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
         {
+            // サウンドmiya
+            se_select.Play();
+
             OutStartFadeAnim();
         }
 
@@ -54,11 +69,17 @@ public class Title_Icon_Move : MonoBehaviour
         {
             if (!UseMenu)
             {
+                // サウンドmiya
+                se_select.Play();
+
                 UseMenu = true;
                 MenuImg.gameObject.SetActive(true);
             }
             else
             {
+                // サウンドmiya
+                se_select.Play();
+
                 UseMenu = false;
                 MenuImg.gameObject.SetActive(false);
             }
@@ -72,7 +93,13 @@ public class Title_Icon_Move : MonoBehaviour
             wait = 50;
 
             Select++;
-            if(Select==4)
+
+
+            // サウンドmiya
+            se_move.Play();
+
+
+            if (Select==4)
             {
                 Select = 1;
             }
@@ -86,6 +113,12 @@ public class Title_Icon_Move : MonoBehaviour
             wait = 50;
 
             Select--;
+
+
+            // サウンドmiya
+            se_move.Play();
+
+
             if (Select == 0)
             {
                 Select = 3;
