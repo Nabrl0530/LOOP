@@ -4078,11 +4078,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1576164011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &973384607 stripped
+--- !u!114 &973384607
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -3992877379093032035, guid: 8fdb477176ff6f24d8987575bb61ad58,
-    type: 3}
-  m_PrefabInstance: {fileID: 1576164011}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973384606}
   m_Enabled: 1
@@ -4090,6 +4090,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755fa30b6e1273040916f0eb53cc9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sc_player: {fileID: 1490060283}
+  sc_state: {fileID: 1490060282}
+  HEIGHT_MAX: 16
+  Speed_Rotate: 60
+  Degree: -180
+  GazePoint: {fileID: 58269599}
+  Tower_m: {fileID: 0}
+  Light_L: {fileID: 1153701016}
+  clear_camera: {fileID: 1449778705}
+  follow_camera: {fileID: 806473302}
+  object_FollowCamera: {fileID: 806473301}
+  Menu_ON: 0
 --- !u!114 &980798051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3662174870730225865, guid: 57c0ca432efb92149bd9d2436e4e5825,
