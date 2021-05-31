@@ -2347,6 +2347,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159670167}
   m_CullTransparentMesh: 1
+--- !u!1001 &1163730332
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3511445573713254868, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_Name
+      value: SE_Select2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 12.082422
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.5748944
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.245754
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034615238630739195, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033, type: 3}
+--- !u!114 &1163730333 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4893122561725505376, guid: 6f3e8f62fba1c2e4b8ac6fb305f1a033,
+    type: 3}
+  m_PrefabInstance: {fileID: 1163730332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172982fa204706742bb9e1bbcd054db6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1201444763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,6 +2824,7 @@ MonoBehaviour:
   - {fileID: 1850806536}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
+  sc_select2: {fileID: 1163730333}
 --- !u!114 &1348437592 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6180311624789732031, guid: f940875b3066db14da7617a0a7855874,
@@ -3235,6 +3317,7 @@ MonoBehaviour:
   - {fileID: 924380434}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
+  sc_select2: {fileID: 0}
 --- !u!114 &1702498767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3457,6 +3540,7 @@ MonoBehaviour:
   - {fileID: 121319739}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
+  sc_select2: {fileID: 0}
 --- !u!114 &1850806534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3923,6 +4007,7 @@ MonoBehaviour:
   - {fileID: 1033146214}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
+  sc_select2: {fileID: 0}
 --- !u!1 &2077493350
 GameObject:
   m_ObjectHideFlags: 0
