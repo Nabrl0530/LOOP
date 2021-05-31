@@ -30,7 +30,7 @@ public class Title_Icon_Move : MonoBehaviour
 
     int Select;
 
-
+    bool FINISH;
 
 
 
@@ -50,6 +50,7 @@ public class Title_Icon_Move : MonoBehaviour
         end = 1f;
         wait = 0;
         Select = 2;
+        FINISH = false;
     }
 
     // Update is called once per frame
@@ -57,71 +58,75 @@ public class Title_Icon_Move : MonoBehaviour
     {
         Check_Cont();
 
-        if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
+        if (!FINISH)
         {
-            // サウンドmiya
-            if (se_select) se_select.Play();
 
-            OutStartFadeAnim();
-        }
-
-        if ((Input.GetKeyDown(KeyCode.J)|| Input.GetButton("OK")) && Select == 1 && wait == 0)
-        {
-            if (!UseMenu)
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
             {
                 // サウンドmiya
                 if (se_select) se_select.Play();
 
-                UseMenu = true;
-                om.SetOpen(true);
+                OutStartFadeAnim();
             }
-            else
+
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select == 1 && wait == 0)
             {
+                if (!UseMenu)
+                {
+                    // サウンドmiya
+                    if (se_select) se_select.Play();
+
+                    UseMenu = true;
+                    om.SetOpen(true);
+                }
+                else
+                {
+                    // サウンドmiya
+                    if (se_select) se_select.Play();
+
+                    UseMenu = false;
+                    om.SetOpen(false);
+                }
+            }
+
+            if ((Input.GetKey(KeyCode.RightArrow) || con_R) && wait == 0 && !UseMenu)
+            {
+                title_Icon_S.SetMoveL();
+                title_Icon_E.SetMoveL();
+                title_Icon_M.SetMoveL();
+                wait = 50;
+
+                Select++;
+
+
                 // サウンドmiya
-                if (se_select) se_select.Play();
+                if (se_move) se_move.Play();
 
-                UseMenu = false;
-                om.SetOpen(false);
+
+                if (Select == 4)
+                {
+                    Select = 1;
+                }
             }
-        }
 
-        if ((Input.GetKey(KeyCode.RightArrow) || con_R) && wait == 0 && !UseMenu)
-        {
-            title_Icon_S.SetMoveL();
-            title_Icon_E.SetMoveL();
-            title_Icon_M.SetMoveL();
-            wait = 50;
-
-            Select++;
-
-
-            // サウンドmiya
-            if (se_move) se_move.Play();
-
-
-            if (Select==4)
+            if ((Input.GetKey(KeyCode.LeftArrow) || con_L) && wait == 0 && !UseMenu)
             {
-                Select = 1;
-            }
-        }
+                title_Icon_S.SetMoveR();
+                title_Icon_E.SetMoveR();
+                title_Icon_M.SetMoveR();
+                wait = 50;
 
-        if ((Input.GetKey(KeyCode.LeftArrow) || con_L) && wait == 0 && !UseMenu)
-        {
-            title_Icon_S.SetMoveR();
-            title_Icon_E.SetMoveR();
-            title_Icon_M.SetMoveR();
-            wait = 50;
-
-            Select--;
+                Select--;
 
 
-            // サウンドmiya
-            if (se_move) se_move.Play();
+                // サウンドmiya
+                if (se_move) se_move.Play();
 
 
-            if (Select == 0)
-            {
-                Select = 3;
+                if (Select == 0)
+                {
+                    Select = 3;
+                }
             }
         }
 
@@ -163,6 +168,7 @@ public class Title_Icon_Move : MonoBehaviour
             return;
         }
 
+        FINISH = true;
         StartCoroutine(fadeinplay());
     }
 

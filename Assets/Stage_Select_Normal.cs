@@ -26,6 +26,7 @@ public class Stage_Select_Normal : MonoBehaviour
     bool CHECK;
     bool SELECT_END;
     bool YES;
+    bool FINISH;
 
     public bool isPlaying = false;
 
@@ -73,6 +74,7 @@ public class Stage_Select_Normal : MonoBehaviour
         SELECT_END = false;
         CHECK = false;
         YES = true;
+        FINISH = false;
     }
 
     // Update is called once per frame
@@ -134,89 +136,88 @@ public class Stage_Select_Normal : MonoBehaviour
 
             if (!SELECT_END)
             {
-                if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && !CHECK)
+                if (!FINISH)
                 {
-
-                    // サウンドmiya
-                    sc_select.Play();
-
-
-                    //OutStartFadeAnim();
-                    ssc.SetON();
-                    sscr.SetON();
-                    CHECK = true;
-                }
-                else if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && CHECK)
-                {
-
-                    // サウンドmiya
-                    sc_select2.Play();
-
-
-                    if (YES)
+                    if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && !CHECK)
                     {
-                        OutStartFadeAnim();
-                    }
-                    else
-                    {
-                        ssc.SetOFF();
-                        sscr.SetOFF();
-                        CHECK = false;
-                        YES = true;
-                    }
-                }
 
-                if (CHECK)
-                {
-                    if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || con_L || con_R) && wait == 0)
+                        // サウンドmiya
+                        sc_select.Play();
+
+
+                        //OutStartFadeAnim();
+                        ssc.SetON();
+                        sscr.SetON();
+                        CHECK = true;
+                    }
+                    else if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && wait == 0 && OK && CHECK)
+                    {
+
+                        // サウンドmiya
+                        sc_select2.Play();
+
+
+                        if (YES)
+                        {
+                            OutStartFadeAnim();
+                        }
+                        else
+                        {
+                            ssc.SetOFF();
+                            sscr.SetOFF();
+                            CHECK = false;
+                            YES = true;
+                        }
+                    }
+
+                    if (CHECK)
+                    {
+                        if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || con_L || con_R) && wait == 0)
+                        {
+
+                            // サウンドmiya
+                            sc_move.Play();
+
+
+                            YES = !YES;
+                            sscr.SetNext();
+                            wait = 10;
+                        }
+                    }
+
+
+                    if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < MAX_OBJ)
                     {
 
                         // サウンドmiya
                         sc_move.Play();
 
 
-                        YES = !YES;
-                        sscr.SetNext();
-                        wait = 10;
+                        Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetDown_IN(false);
+                        Obj[Select].GetComponent<Stage_Select_Slide>().SetDown_IN(true);
+                        Stage_Select_CArrow.SetBig();
+
+                        wait = 50;
+
+                        Select++;
+                    }
+
+                    if ((Input.GetKey(KeyCode.DownArrow) || con_D) && wait == 0 && Select > 1)
+                    {
+
+                        // サウンドmiya
+                        sc_move.Play();
+
+
+                        Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetUp_IN(false);
+                        Obj[Select - 2].GetComponent<Stage_Select_Slide>().SetUp_IN(true);
+                        Stage_Select_CArrow2.SetBig();
+
+                        wait = 50;
+
+                        Select--;
                     }
                 }
-
-
-                if ((Input.GetKey(KeyCode.UpArrow) || con_U) && wait == 0 && Select < MAX_OBJ)
-                {
-
-                    // サウンドmiya
-                    sc_move.Play();
-
-
-                    Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetDown_IN(false);
-                    Obj[Select].GetComponent<Stage_Select_Slide>().SetDown_IN(true);
-                    Stage_Select_CArrow.SetBig();
-
-                    wait = 50;
-
-                    Select++;
-                }
-
-                if ((Input.GetKey(KeyCode.DownArrow) || con_D) && wait == 0 && Select > 1)
-                {
-
-                    // サウンドmiya
-                    sc_move.Play();
-
-
-                    Obj[Select - 1].GetComponent<Stage_Select_Slide>().SetUp_IN(false);
-                    Obj[Select - 2].GetComponent<Stage_Select_Slide>().SetUp_IN(true);
-                    Stage_Select_CArrow2.SetBig();
-
-                    wait = 50;
-
-                    Select--;
-                }
-            }
-            else if (SELECT_END)
-            {
-
             }
 
             ChoiceStage();
@@ -282,7 +283,7 @@ public class Stage_Select_Normal : MonoBehaviour
         {
             return;
         }
-
+        FINISH = true;
         StartCoroutine(fadeinplay());
     }
 

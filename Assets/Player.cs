@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
             sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
             sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
         }
-        if(is_block)
+        else if(is_block)
         {
             if(!CATCH)
             {
