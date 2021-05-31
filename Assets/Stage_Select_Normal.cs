@@ -40,7 +40,7 @@ public class Stage_Select_Normal : MonoBehaviour
     float size;
     int Diray;
 
-    const int MAX_OBJ = 3;
+    const int MAX_OBJ = 4;
 
     int wait;
     public int Select;
@@ -321,6 +321,7 @@ public class Stage_Select_Normal : MonoBehaviour
         {
             switch (Select)
             {
+                /*
                 case 1:
                     SceneManager.LoadScene("Stage_2_1");
                     break;
@@ -329,6 +330,20 @@ public class Stage_Select_Normal : MonoBehaviour
                     break;
                 case 3:
                     SceneManager.LoadScene("Stage_2_3");
+                    break;
+                    */
+
+                case 1:
+                    SceneManager.LoadScene("miya_stage_1-2-0.5");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Stage_1_3");
+                    break;
+                case 3:
+                    SceneManager.LoadScene("Stage_2_1");
+                    break;
+                case 4:
+                    SceneManager.LoadScene("Stage_2_2");
                     break;
 
             }

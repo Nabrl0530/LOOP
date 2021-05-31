@@ -40,7 +40,7 @@ public class Stage_Select_Hard : MonoBehaviour
     float size;
     int Diray;
 
-    const int MAX_OBJ = 3;
+    const int MAX_OBJ = 4;
 
     int wait;
     public int Select;
@@ -319,6 +319,7 @@ public class Stage_Select_Hard : MonoBehaviour
         {
             switch (Select)
             {
+                /*
                 case 1:
                     SceneManager.LoadScene("Stage_3_3");
                     break;
@@ -328,7 +329,20 @@ public class Stage_Select_Hard : MonoBehaviour
                 case 3:
                     SceneManager.LoadScene("Stage_5_2");
                     break;
+                    */
 
+                case 1:
+                    SceneManager.LoadScene("Stage_2_3");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Stage_5_2");
+                    break;
+                case 3:
+                    SceneManager.LoadScene("Stage_4_3");
+                    break;
+                case 4:
+                    SceneManager.LoadScene("Stage_3_3");
+                    break;
             }
         }
     }
