@@ -65,6 +65,7 @@ public class CRISTAL : MonoBehaviour
             if(count == 370)
             {
                 fade.SetOut();
+                fade.SetNext(2);
             }
 
             /*
