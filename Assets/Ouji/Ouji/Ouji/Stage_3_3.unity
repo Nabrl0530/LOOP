@@ -1655,7 +1655,7 @@ MonoBehaviour:
   USE_LINE_NUM: 2
   Ui_Clear: {fileID: 1635166776}
   player: {fileID: 3813967360127909492}
-  Camera_Move: {fileID: 0}
+  Camera_Move: {fileID: 973384607}
   fade: {fileID: 1643434593}
   Clare: 000000
 --- !u!136 &237714317

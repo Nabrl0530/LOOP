@@ -56,7 +56,7 @@ public class UI_MenuCursor : MonoBehaviour
         Check_Cont();
 
         // ƒJ[ƒ\ƒ‹ˆÚ“®
-        if (Input.GetKeyDown(KeyCode.DownArrow) || con_U)
+        if (Input.GetKeyDown(KeyCode.DownArrow) || con_D)
         {
             CursorPosition++;
             if (CursorPosition > (int)CursorPos.Return)
@@ -65,7 +65,7 @@ public class UI_MenuCursor : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) || con_D)
+        if (Input.GetKeyDown(KeyCode.UpArrow) || con_U)
         {
             CursorPosition--;
             if (CursorPosition < (int)CursorPos.Retry)
@@ -95,7 +95,7 @@ public class UI_MenuCursor : MonoBehaviour
 
 
         // Œˆ’è‚ª‰Ÿ‚³‚ê‚½‚ç
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK"))
         {
             switch (CursorPosition)
             {

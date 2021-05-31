@@ -95,7 +95,7 @@ public class Player_State : MonoBehaviour
             //Debug.Log("Animation StateÅF" + m_AnimationState);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButton("OK"))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Menu"))
         {
             UI_menu.SetShow();
             sc_move.Set_Menu_On();
