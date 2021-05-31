@@ -69,6 +69,12 @@ public class Player_State : MonoBehaviour
     // デバッグ用
     int state_past = (int)e_PlayerAnimationState.WAITING;
 
+
+    // サウンドmiya
+    public sound_select sc_select;
+
+
+
     // 初期化
     void Start()
     {
@@ -101,6 +107,13 @@ public class Player_State : MonoBehaviour
             UI_menu.SetShow();
             sc_move.Set_Menu_On();
             Menu_ON = !Menu_ON;
+
+
+
+            // サウンドmiya
+            if (sc_select) sc_select.Play();
+
+
 
             if (Menu_ON)
             {

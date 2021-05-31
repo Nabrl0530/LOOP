@@ -95,9 +95,6 @@ public class Player : MonoBehaviour
     public int Under_count;
     public int No_Under;
 
-
-
-
     public void Set_Camera(GameObject _camera)
 	{
         Camera = _camera;
