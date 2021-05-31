@@ -38,6 +38,7 @@ public class Stage_Select : MonoBehaviour
     // ƒTƒEƒ“ƒhmiya
     public sound_move sc_move;
     public sound_select sc_select;
+    public sound_select2 sc_select2;
 
 
 
