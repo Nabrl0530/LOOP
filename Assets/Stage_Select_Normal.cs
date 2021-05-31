@@ -53,6 +53,7 @@ public class Stage_Select_Normal : MonoBehaviour
     // サウンドmiya
     public sound_move sc_move;
     public sound_select sc_select;
+    public sound_select2 sc_select2;
 
 
 
@@ -149,7 +150,7 @@ public class Stage_Select_Normal : MonoBehaviour
                 {
 
                     // サウンドmiya
-                    sc_select.Play();
+                    sc_select2.Play();
 
 
                     if (YES)
