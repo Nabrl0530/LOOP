@@ -691,7 +691,7 @@ PrefabInstance:
     - target: {fileID: 345106661225409976, guid: bc5ab65b04172d843a1418caea45b90b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 28
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 345106661225409976, guid: bc5ab65b04172d843a1418caea45b90b,
         type: 3}
@@ -798,6 +798,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 3813967360127909489}
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: fade
+      value: 
+      objectReference: {fileID: 1604885049}
     - target: {fileID: 6170834053742128977, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_Name
@@ -910,6 +920,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c8cb3b812a01b34e98598c610e330b1, type: 3}
+--- !u!114 &127002047 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6170834053742128980, guid: 0c8cb3b812a01b34e98598c610e330b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 127002046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a725f1e5973c0d64194cb17cb5f086c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &142535270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1317,7 +1339,7 @@ MonoBehaviour:
   USE_LINE_NUM: 1
   Ui_Clear: {fileID: 484135629}
   player: {fileID: 533954430}
-  Camera_Move: {fileID: 973384607}
+  Camera_Move: {fileID: 0}
   fade: {fileID: 1604885049}
   Clare: 000000
 --- !u!136 &237714317
@@ -1727,7 +1749,7 @@ PrefabInstance:
     - target: {fileID: 3662174870730225910, guid: 57c0ca432efb92149bd9d2436e4e5825,
         type: 3}
       propertyPath: m_RootOrder
-      value: 29
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3662174870730225910, guid: 57c0ca432efb92149bd9d2436e4e5825,
         type: 3}
@@ -1961,6 +1983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 2110912847}
+  WARP_OK: 0
 --- !u!65 &360874586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4387,11 +4410,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1576164011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &973384607 stripped
+--- !u!114 &973384607
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 611335872344610847, guid: 8fdb477176ff6f24d8987575bb61ad58,
-    type: 3}
-  m_PrefabInstance: {fileID: 1576164011}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973384606}
   m_Enabled: 1
@@ -4399,6 +4422,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755fa30b6e1273040916f0eb53cc9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sc_player: {fileID: 533954430}
+  sc_state: {fileID: 3813967360127909489}
+  HEIGHT_MAX: 16
+  Speed_Rotate: 60
+  Degree: -180
+  GazePoint: {fileID: 58269599}
+  Tower_m: {fileID: 0}
+  Light_L: {fileID: 1107766950}
+  clear_camera: {fileID: 657355902}
+  follow_camera: {fileID: 1313686236}
+  object_FollowCamera: {fileID: 1313686235}
+  Menu_ON: 0
 --- !u!1001 &994690672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5725,6 +5760,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 1962972120}
+  WARP_OK: 0
 --- !u!4 &1353964437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2559863078251211645, guid: 545933d19a599fa48b2576e11fb672c8,
@@ -8429,6 +8465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 1351606255}
+  WARP_OK: 0
 --- !u!1001 &1979153417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9644,6 +9681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 360874580}
+  WARP_OK: 0
 --- !u!65 &2110912852
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10228,6 +10266,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: cm
+      value: 
+      objectReference: {fileID: 973384607}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: UI_menu
+      value: 
+      objectReference: {fileID: 127002047}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dff353908e2c3a42a883cbbde94839c, type: 3}
 --- !u!114 &3813967360127909489 stripped
