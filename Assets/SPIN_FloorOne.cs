@@ -6,6 +6,16 @@ public class SPIN_FloorOne : MonoBehaviour
 {
     int Spin;
     int count;
+
+
+
+
+    // サウンドmiya
+    public sound_round sc_round;
+    //public AudioSource se_round;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +39,11 @@ public class SPIN_FloorOne : MonoBehaviour
             if(count == 0)
             {
                 Spin = 0;
+
+
+
+                // サウンドmiya
+                if (sc_round) sc_round.Stop();
             }
         }
     }
@@ -39,6 +54,10 @@ public class SPIN_FloorOne : MonoBehaviour
         {
             count = 45;
             Spin = spin;
+
+
+            // サウンドmiya
+            if (sc_round) sc_round.Play();
         }        
     }
 }
