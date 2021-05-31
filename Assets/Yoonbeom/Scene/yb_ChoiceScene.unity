@@ -3317,7 +3317,7 @@ MonoBehaviour:
   - {fileID: 924380434}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
-  sc_select2: {fileID: 0}
+  sc_select2: {fileID: 1163730333}
 --- !u!114 &1702498767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3540,7 +3540,7 @@ MonoBehaviour:
   - {fileID: 121319739}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
-  sc_select2: {fileID: 0}
+  sc_select2: {fileID: 1163730333}
 --- !u!114 &1850806534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4007,7 +4007,7 @@ MonoBehaviour:
   - {fileID: 1033146214}
   sc_move: {fileID: 1354167633}
   sc_select: {fileID: 1348437592}
-  sc_select2: {fileID: 0}
+  sc_select2: {fileID: 1163730333}
 --- !u!1 &2077493350
 GameObject:
   m_ObjectHideFlags: 0
