@@ -1944,22 +1944,22 @@ PrefabInstance:
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.69096917
+      value: 0.6909691
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14830592
+      value: 0.14830594
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.69175315
+      value: 0.6917532
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.14847423
+      value: -0.14847422
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
@@ -6891,6 +6891,18 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1191308791}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1191308793 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6180311624789732031, guid: f940875b3066db14da7617a0a7855874,
+    type: 3}
+  m_PrefabInstance: {fileID: 1191308791}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3677112c819ab9f4dbe32537471b5120, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1226641630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13106,6 +13118,11 @@ PrefabInstance:
       propertyPath: m_parent
       value: 
       objectReference: {fileID: 149153290}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: sc_select
+      value: 
+      objectReference: {fileID: 1191308793}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dff353908e2c3a42a883cbbde94839c, type: 3}
 --- !u!114 &3813967360127909489 stripped
