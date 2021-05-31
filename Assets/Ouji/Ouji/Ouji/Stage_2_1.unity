@@ -1641,7 +1641,7 @@ MonoBehaviour:
   USE_LINE_NUM: 1
   Ui_Clear: {fileID: 1464366617}
   player: {fileID: 433102773}
-  Camera_Move: {fileID: 973384607}
+  Camera_Move: {fileID: 0}
   fade: {fileID: 918343051}
   Clare: 000000
 --- !u!136 &237714317
@@ -2170,6 +2170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 2110912847}
+  WARP_OK: 0
 --- !u!65 &360874586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4456,11 +4457,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1576164011}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &973384607 stripped
+--- !u!114 &973384607
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 611335872344610847, guid: 8fdb477176ff6f24d8987575bb61ad58,
-    type: 3}
-  m_PrefabInstance: {fileID: 1576164011}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 973384606}
   m_Enabled: 1
@@ -4468,6 +4469,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755fa30b6e1273040916f0eb53cc9459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sc_player: {fileID: 433102773}
+  sc_state: {fileID: 433102775}
+  HEIGHT_MAX: 16
+  Speed_Rotate: 60
+  Degree: -180
+  GazePoint: {fileID: 58269599}
+  Tower_m: {fileID: 0}
+  Light_L: {fileID: 154507005}
+  clear_camera: {fileID: 1230353247}
+  follow_camera: {fileID: 1356321357}
+  object_FollowCamera: {fileID: 1356321356}
+  Menu_ON: 0
 --- !u!1001 &980284160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4998,6 +5011,18 @@ MonoBehaviour:
   m_offset_distance: 0
   m_height_preset: 0
   m_offset_height: 0
+--- !u!114 &1011198656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6170834053742128980, guid: 0c8cb3b812a01b34e98598c610e330b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1332183298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a725f1e5973c0d64194cb17cb5f086c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1046017924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5815,12 +5840,12 @@ PrefabInstance:
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0005545705
+      value: -0.0005545537
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.00011903005
+      value: -0.00011902644
       objectReference: {fileID: 0}
     - target: {fileID: 2023493802402437762, guid: 977bf10b4b7273742a09ff7553f1cdd8,
         type: 3}
@@ -6316,6 +6341,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 433102775}
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: fade
+      value: 
+      objectReference: {fileID: 918343051}
     - target: {fileID: 6170834053742128977, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_Name
@@ -6334,7 +6369,7 @@ PrefabInstance:
     - target: {fileID: 6170834053742128981, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 33
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 6170834053742128981, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
@@ -6616,6 +6651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 1962972120}
+  WARP_OK: 0
 --- !u!4 &1353964437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2559863078251211645, guid: 545933d19a599fa48b2576e11fb672c8,
@@ -7643,7 +7679,7 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000025393067
+      value: 0.000000025393065
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -8326,7 +8362,7 @@ PrefabInstance:
     - target: {fileID: 345106661225409976, guid: bc5ab65b04172d843a1418caea45b90b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 31
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 345106661225409976, guid: bc5ab65b04172d843a1418caea45b90b,
         type: 3}
@@ -9033,7 +9069,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.1037552, y: 0.000000025393067, z: -0.0000000026489593, w: 0.99460286}
+  m_LocalRotation: {x: 0.1037552, y: 0.000000025393065, z: -0.0000000026489593, w: 0.99460286}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -9346,6 +9382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 1351606255}
+  WARP_OK: 0
 --- !u!1001 &1979153417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10713,6 +10750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   pair_door: {fileID: 360874580}
+  WARP_OK: 0
 --- !u!65 &2110912852
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11347,6 +11385,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: cm
+      value: 
+      objectReference: {fileID: 973384607}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: UI_menu
+      value: 
+      objectReference: {fileID: 1011198656}
     - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
         type: 3}
       propertyPath: m_parent
