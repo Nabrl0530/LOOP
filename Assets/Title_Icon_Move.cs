@@ -60,7 +60,7 @@ public class Title_Icon_Move : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
         {
             // サウンドmiya
-            se_select.Play();
+            if (se_select) se_select.Play();
 
             OutStartFadeAnim();
         }
@@ -70,7 +70,7 @@ public class Title_Icon_Move : MonoBehaviour
             if (!UseMenu)
             {
                 // サウンドmiya
-                se_select.Play();
+                if (se_select) se_select.Play();
 
                 UseMenu = true;
                 om.SetOpen(true);
@@ -78,7 +78,7 @@ public class Title_Icon_Move : MonoBehaviour
             else
             {
                 // サウンドmiya
-                se_select.Play();
+                if (se_select) se_select.Play();
 
                 UseMenu = false;
                 om.SetOpen(false);
@@ -96,7 +96,7 @@ public class Title_Icon_Move : MonoBehaviour
 
 
             // サウンドmiya
-            se_move.Play();
+            if (se_move) se_move.Play();
 
 
             if (Select==4)
@@ -116,7 +116,7 @@ public class Title_Icon_Move : MonoBehaviour
 
 
             // サウンドmiya
-            se_move.Play();
+            if (se_move) se_move.Play();
 
 
             if (Select == 0)
