@@ -85,6 +85,7 @@ public class Player_State : MonoBehaviour
     {
         if(Clear)
         {
+            animator.SetInteger("state", m_AnimationState_Motion);
             return;
         }
 

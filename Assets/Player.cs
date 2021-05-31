@@ -160,6 +160,12 @@ public class Player : MonoBehaviour
             }
         }
 
+        if(Clear)
+        {
+            UIset_Non();
+            sc_state.Set_AnimationState(Player_State.e_PlayerAnimationState.WAITING);
+            sc_state.Set_Motion(Player_State.e_PlayerAnimationState.WAITING);
+        }
         if(is_block)
         {
             if(!CATCH)
@@ -466,7 +472,8 @@ public class Player : MonoBehaviour
                 {
                     // à íu
                     Vector3 new_vec = new Vector3(0, 0, 0);
-                    new_vec = StartPosition + this.transform.forward * GoLength_AfterClimbing;
+                    //new_vec = StartPosition + this.transform.forward * GoLength_AfterClimbing;
+                    new_vec = transform.position + this.transform.forward * GoLength_AfterClimbing;
                     //new_vec.y += Height_Climb_Block;
                     new_vec.y += 1.75f; //ÇøÇÂÇ§Ç«Ç¢Ç¢êîéö
                     this.transform.position = new_vec;
