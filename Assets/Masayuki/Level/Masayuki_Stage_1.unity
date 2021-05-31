@@ -9978,6 +9978,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -105.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6070749186014034317, guid: b11537bf3c25119438c72b498f0e79b9,
+        type: 3}
+      propertyPath: m_Name
+      value: Obstacle_add_collision
+      objectReference: {fileID: 0}
     - target: {fileID: 6070749186014034323, guid: b11537bf3c25119438c72b498f0e79b9,
         type: 3}
       propertyPath: m_or_buttons.Array.size
