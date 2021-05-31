@@ -106,13 +106,13 @@ public class Stage_Select_Slide : MonoBehaviour
         if (_is)
         {
             IN = true;
-            VecM = 100;
+            VecM = 150;
             count = 50;
         }
         else
         {
             IN = false;
-            VecM = 100;
+            VecM = 150;
             count = 50;
         }
     }
@@ -122,13 +122,13 @@ public class Stage_Select_Slide : MonoBehaviour
         if (_is)
         {
             IN = true;
-            VecM = -100;
+            VecM = -150;
             count = 50;
         }
         else
         {
             IN = false;
-            VecM = -100;
+            VecM = -150;
             count = 50;
         }
     }
