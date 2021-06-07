@@ -9,7 +9,8 @@ public class Button : MonoBehaviour
     private GameObject FloorThree;
 
     private float len;  //’·‚³
-    private bool ON;
+    public bool ON;
+    int no_count;
 
     private int count;
     // Start is called before the first frame update
@@ -55,6 +56,13 @@ public class Button : MonoBehaviour
                     FloorOne.GetComponent<SPIN_FloorOne>().SetSpin(-1);
                 }
             }
+
+            no_count++;
+            if(no_count == 2)
+            {
+                no_count = 0;
+                ON = false;
+            }
         }
     }
 
@@ -68,7 +76,7 @@ public class Button : MonoBehaviour
 
             if(other.gameObject.CompareTag("Block"))
             {
-                other.gameObject.transform.SetParent(this.gameObject.transform);
+                //other.gameObject.transform.SetParent(this.gameObject.transform);
             }
         }
     }
@@ -76,7 +84,8 @@ public class Button : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Block"))
         {
-            ON = true;
+            //ON = true;
+            no_count = 0;
         }
     }
 
@@ -84,7 +93,7 @@ public class Button : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Block"))
         {
-            ON = false;
+            //ON = false;
         }
     }
 }
