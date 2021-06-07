@@ -177,7 +177,7 @@ public class Player_State : MonoBehaviour
             //Debug.Log("C : " + m_CanClimb_check);
 
             // よじ登る
-            if (Input.GetKey(KeyCode.Space) || Input.GetButton("Climb"))
+            if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Climb")) && !sc_move.GetSPIN_NOW())
             {
                 // 登れるものがあれば
                 if (m_CanClimb_forword && !m_CanClimb_check)
@@ -185,6 +185,8 @@ public class Player_State : MonoBehaviour
                     m_AnimationState = (int)e_PlayerAnimationState.CLIMBING;
                     m_AnimationState_Motion = (int)e_PlayerAnimationState.CLIMBING;
                     m_CanAction = false;
+
+                    sc_move.SetNO_SPIN(true);
 
                     //ワープなので不要
                     //Rigid.useGravity = false;

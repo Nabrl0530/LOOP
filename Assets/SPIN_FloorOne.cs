@@ -7,7 +7,7 @@ public class SPIN_FloorOne : MonoBehaviour
     int Spin;
     int count;
 
-
+    bool NO_SPIN;
 
 
     // サウンドmiya
@@ -30,6 +30,11 @@ public class SPIN_FloorOne : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(NO_SPIN)
+        {
+            return;
+        }
+
         if(count > 0)
         {
             transform.Rotate(0, 1 * Spin, 0);
@@ -49,6 +54,11 @@ public class SPIN_FloorOne : MonoBehaviour
 
     public void SetSpin(int spin)
     {
+        if(NO_SPIN)
+        {
+            return;
+        }
+
         if(count == 0 && Spin == 0)
         {
             count = 45;
@@ -58,5 +68,20 @@ public class SPIN_FloorOne : MonoBehaviour
             // サウンドmiya
             if (sc_round) sc_round.Play();
         }        
+    }
+
+    public void Set_No_SPIN(bool _is)
+    {
+        NO_SPIN = _is;
+    }
+
+    public bool SPIN_NOW()
+    {
+        if (count > 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 }
