@@ -1143,7 +1143,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f80999c03fb5849ad574d8f87630ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  Laser_array:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   BasePos: {x: 0, y: 0, z: 0}
 --- !u!65 &239372193
 BoxCollider:
@@ -2013,7 +2016,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff43ccf36a13a4a8014f262ea4284d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   Laser_array:
   - {fileID: 0}
   - {fileID: 0}
@@ -5892,7 +5894,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff43ccf36a13a4a8014f262ea4284d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   Laser_array:
   - {fileID: 0}
   - {fileID: 0}
@@ -8783,7 +8784,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1876033932
 Camera:
   m_ObjectHideFlags: 0
@@ -9261,7 +9262,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff43ccf36a13a4a8014f262ea4284d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   Laser_array:
   - {fileID: 0}
   - {fileID: 0}
@@ -10754,7 +10754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff43ccf36a13a4a8014f262ea4284d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   Laser_array:
   - {fileID: 0}
   - {fileID: 0}
