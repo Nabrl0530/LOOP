@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 6-3guangci
-  m_Shader: {fileID: 4800000, guid: 0bb724037e6ff8e4bb9f8ff84ad2cf8e, type: 3}
+  m_Name: 6-3guangci_red
+  m_Shader: {fileID: 4800000, guid: e826758dc5f6b2f43b3a8f3006f35053, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -34,5 +34,5 @@ Material:
     m_Floats:
     - _Cutoff: 0.5
     m_Colors:
-    - _node_6506: {r: 0.33725488, g: 1, b: 0.35953677, a: 1}
+    - _node_6506: {r: 1, g: 0.33725488, b: 0.3424212, a: 1}
   m_BuildTextureStacks: []
