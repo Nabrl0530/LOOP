@@ -103,7 +103,6 @@ public class Player : MonoBehaviour
 
 
 
-
     // ‰Šú‰»
     void Start()
     {
@@ -136,11 +135,11 @@ public class Player : MonoBehaviour
         No_Under = 0;
         Clear = false;
         Menu_ON = false;
-    }
+	}
 
     void Update()
     {
-        if (!CATCH)
+		if (!CATCH)
         {
             len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
             if (len >= 12.0f)
