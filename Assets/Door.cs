@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public GameObject Laser;
     public GameObject[] Laser_array = new GameObject[3];
     public GameObject pair_door;
     private GameObject C_Laser = null;

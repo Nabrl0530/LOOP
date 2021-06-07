@@ -991,7 +991,7 @@ PrefabInstance:
     - target: {fileID: 110159810534709311, guid: bc8d1e642597d5546b7c2988071955aa,
         type: 3}
       propertyPath: Use_ID
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 436256246762439715, guid: bc8d1e642597d5546b7c2988071955aa,
         type: 3}
@@ -1698,6 +1698,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  Laser_array:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   BasePos: {x: 0, y: 0, z: 0}
 --- !u!65 &239372193
 BoxCollider:
@@ -6414,6 +6418,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1573025636}
     m_Modifications:
+    - target: {fileID: 110159810534709311, guid: bc8d1e642597d5546b7c2988071955aa,
+        type: 3}
+      propertyPath: Use_ID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 436256246762439715, guid: bc8d1e642597d5546b7c2988071955aa,
         type: 3}
       propertyPath: m_RootOrder
@@ -8926,7 +8935,7 @@ PrefabInstance:
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000025393065
+      value: 0.000000025393067
       objectReference: {fileID: 0}
     - target: {fileID: 3099816323204661761, guid: 8fdb477176ff6f24d8987575bb61ad58,
         type: 3}
@@ -10842,7 +10851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876033930}
-  m_LocalRotation: {x: 0.1037552, y: 0.000000025393065, z: -0.0000000026489593, w: 0.99460286}
+  m_LocalRotation: {x: 0.1037552, y: 0.000000025393067, z: -0.0000000026489593, w: 0.99460286}
   m_LocalPosition: {x: 0, y: 9.22235, z: -16.73692}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

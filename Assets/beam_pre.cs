@@ -65,7 +65,7 @@ public class beam_pre : MonoBehaviour
             if (hit.collider.CompareTag("MIRROR"))
             {
                 hit.collider.gameObject.GetComponent<MIRROR>().SetBasepos(hit.point,Ditector);
-                hit.collider.gameObject.GetComponent<MIRROR>().HitLaser();
+                hit.collider.gameObject.GetComponent<MIRROR>().HitLaser(color_ID);
             }
 
             if (hit.collider.CompareTag("CRISTAL"))
