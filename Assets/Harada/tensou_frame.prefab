@@ -209,7 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feff43ccf36a13a4a8014f262ea4284d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   Laser_array:
   - {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
   - {fileID: 7531025470120764413, guid: 85d3c36ff2d5b1449b6b0f6ff5d1a34a, type: 3}
@@ -228,7 +227,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7125beca0f877204b8e5617033d14417, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
