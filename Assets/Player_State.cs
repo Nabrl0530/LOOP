@@ -74,9 +74,14 @@ public class Player_State : MonoBehaviour
     public sound_select sc_select;
 
 
+	// サウンド歩き
+	AudioSource audio;
 
-    // 初期化
-    void Start()
+
+
+
+	// 初期化
+	void Start()
     {
         // Rigidbody取得
         Rigid = this.GetComponent<Rigidbody>();
@@ -84,7 +89,11 @@ public class Player_State : MonoBehaviour
         wait_key = 0;
         Clear = false;
         Menu_ON = false;
-    }
+
+
+		// サウンド歩き
+		audio = this.GetComponent<AudioSource>();
+	}
 
     // 更新
     void Update()
@@ -98,7 +107,27 @@ public class Player_State : MonoBehaviour
         // デバッグ
         if (state_past != m_AnimationState)
         {
-            state_past = m_AnimationState;
+
+			// サウンド歩き
+			if (m_AnimationState == (int)e_PlayerAnimationState.WALKING)
+			{
+				audio.pitch = 1.0f;
+				audio.Play();
+			}
+			else if (m_AnimationState == (int)e_PlayerAnimationState.RUNNING)
+			{
+				audio.pitch = 1.5f;
+				audio.Play();
+			}
+			else
+			{
+				audio.pitch = 1.0f;
+				audio.Stop();
+			}
+
+
+
+			state_past = m_AnimationState;
             //Debug.Log("Animation State：" + m_AnimationState);
         }
 
