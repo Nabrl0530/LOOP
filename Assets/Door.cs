@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public GameObject Laser;
+    public GameObject[] Laser_array = new GameObject[3];
     public GameObject pair_door;
     private GameObject C_Laser = null;
     private bool Use = false;
@@ -38,27 +39,28 @@ public class Door : MonoBehaviour
         }
     }
 
-    public void HitLaser()
+    public void HitLaser(int id)
     {
-        Make_Pair();
+        Make_Pair(id);
         Hit_Count = 0;
         //Debug.Log("HIT");
         Use = true;
     }
 
-    void Make_Pair()
+    void Make_Pair(int id)
     {
         if(!Use)
         {
-            pair_door.GetComponent<Door>().MakeLaser();
+            pair_door.GetComponent<Door>().MakeLaser(id);
             Use = true;
         }      
     }
 
-    void MakeLaser()
+    void MakeLaser(int id)
     {
         Quaternion Rot = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + 180, transform.eulerAngles.z);
-        C_Laser = Instantiate(Laser, this.transform.position, Rot);
+        C_Laser = Instantiate(Laser_array[id], this.transform.position, Rot);
+        C_Laser.gameObject.GetComponent<beam_pre>().Set_Color_ID(id);
     }
 
     void Finish_Laser()

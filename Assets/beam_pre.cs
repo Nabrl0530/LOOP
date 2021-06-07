@@ -9,6 +9,7 @@ public class beam_pre : MonoBehaviour
 
     CRISTAL cristal;
     bool HIT_CRISTAL;
+    int color_ID;
 
     int layerMask = ~(1 << 2 | 1 << 10);    //イグノアとダミーを回避
     void Start()
@@ -53,7 +54,7 @@ public class beam_pre : MonoBehaviour
             //Debug.Log(hit.collider.gameObject);
             if(hit.collider.CompareTag("Door"))
             {
-                hit.collider.gameObject.GetComponent<Door>().HitLaser();
+                hit.collider.gameObject.GetComponent<Door>().HitLaser(color_ID);
             }
 
             if (hit.collider.CompareTag("HOLE"))
@@ -113,5 +114,10 @@ public class beam_pre : MonoBehaviour
     public void Setrot(Quaternion rot)
     {
         transform.rotation = rot;
+    }
+
+    public void Set_Color_ID(int id)
+    {
+        color_ID = id;
     }
 }

@@ -43,7 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c455811dd49645842b9c1b355b762108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  Laser:
+  - {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  - {fileID: 7531025470120764413, guid: 85d3c36ff2d5b1449b6b0f6ff5d1a34a, type: 3}
+  - {fileID: 7531025470120764413, guid: 29f8ed442c6a7764aa7ccfa0fa98fd2c, type: 3}
+  Use_ID: 0
 --- !u!1 &956509223345348249
 GameObject:
   m_ObjectHideFlags: 0

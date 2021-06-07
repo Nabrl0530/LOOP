@@ -209,6 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Laser: {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  Laser_array:
+  - {fileID: 7531025470120764413, guid: fffb4d4067015fc43ad9a31664bca375, type: 3}
+  - {fileID: 7531025470120764413, guid: 85d3c36ff2d5b1449b6b0f6ff5d1a34a, type: 3}
+  - {fileID: 7531025470120764413, guid: 29f8ed442c6a7764aa7ccfa0fa98fd2c, type: 3}
   pair_door: {fileID: 0}
   WARP_OK: 0
 --- !u!1001 &1202299292749567321
