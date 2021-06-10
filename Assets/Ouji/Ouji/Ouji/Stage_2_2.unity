@@ -3007,6 +3007,11 @@ PrefabInstance:
       propertyPath: se_select
       value: 
       objectReference: {fileID: 2024197221}
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: sc_follow_camera
+      value: 
+      objectReference: {fileID: 623903933}
     - target: {fileID: 6170834053742128977, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_Name
@@ -10776,6 +10781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24cb7577b4f074b8fadd7ca2dd9791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ON: 0
 --- !u!65 &1869268411
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12330,6 +12336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24cb7577b4f074b8fadd7ca2dd9791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ON: 0
 --- !u!65 &2054602536
 BoxCollider:
   m_ObjectHideFlags: 0
