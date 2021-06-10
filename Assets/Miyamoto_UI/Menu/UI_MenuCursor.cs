@@ -31,9 +31,14 @@ public class UI_MenuCursor : MonoBehaviour
     public AudioSource se_select;
 
 
+	public follow_camera_miya sc_follow_camera;
 
-    // カーソルの場所一覧
-    enum CursorPos
+
+
+
+
+	// カーソルの場所一覧
+	enum CursorPos
     {
         Retry,
         Stage,
@@ -139,7 +144,13 @@ public class UI_MenuCursor : MonoBehaviour
                 case (int)CursorPos.Return:
                     ps.Menu_OFF();
                     ParentMenu.Show = false;        // メニューを見えないようにする
-                    break;
+
+
+					// フォローカメラ
+					if (sc_follow_camera) sc_follow_camera.Set_isMenu(false);
+
+
+					break;
 
                 default:
                     break;

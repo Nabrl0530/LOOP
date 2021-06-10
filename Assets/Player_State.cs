@@ -12,8 +12,13 @@ public class Player_State : MonoBehaviour
     public UI_Menu UI_menu;
     public Camera_Move cm;
 
-    // 列挙
-    public enum e_PlayerAnimationState
+
+
+	public follow_camera_miya sc_follow_camera;
+
+
+	// 列挙
+	public enum e_PlayerAnimationState
     {
         WAITING,        // 待機
         WALKING,        // 歩き
@@ -76,8 +81,6 @@ public class Player_State : MonoBehaviour
 
 	// サウンド歩き
 	AudioSource audio;
-
-
 
 
 	// 初期化
@@ -143,15 +146,18 @@ public class Player_State : MonoBehaviour
             if (sc_select) sc_select.Play();
 
 
-
             if (Menu_ON)
             {
                 cm.Set_Menu(true);
-            }
+
+				if (sc_follow_camera)sc_follow_camera.Set_isMenu(true);
+			}
             else
             {
                 cm.Set_Menu(false);
-            }                       
+
+				if (sc_follow_camera) sc_follow_camera.Set_isMenu(false);
+			}                       
         }
 
         //行動規制中は入力禁止
