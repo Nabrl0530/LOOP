@@ -212,7 +212,7 @@ public class Title_Icon_Move : MonoBehaviour
 
                     break;
                 case 2:
-                    SceneManager.LoadScene("yb_ChoiceScene");
+                    SceneManager.LoadScene("StageSelect_Newer");
 
                     break;
                 case 3:
