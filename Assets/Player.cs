@@ -484,6 +484,7 @@ public class Player : MonoBehaviour
                     sc_state.Set_IsStage(false);
 
                     m_Count_Second = 0;
+                    SetNO_SPIN(false);
                 }
 
                 // ÉJÉEÉìÉ^ëùâ¡
@@ -1209,6 +1210,22 @@ public class Player : MonoBehaviour
     public void Set_Menu_On()
     {
         Menu_ON = !Menu_ON;
+    }
+
+    public void SetNO_SPIN(bool _is)
+    {
+        Pipe1.GetComponent<SPIN_FloorOne>().Set_No_SPIN(_is);
+        Pipe2.GetComponent<SPIN_FloorOne>().Set_No_SPIN(_is);
+        Pipe3.GetComponent<SPIN_FloorOne>().Set_No_SPIN(_is);
+    }
+
+    public bool GetSPIN_NOW()
+    {
+        bool flag;
+
+        flag = Pipe1.GetComponent<SPIN_FloorOne>().SPIN_NOW()  || Pipe2.GetComponent<SPIN_FloorOne>().SPIN_NOW() || Pipe3.GetComponent<SPIN_FloorOne>().SPIN_NOW();
+
+        return flag;
     }
 
     private void UIset_Bridge()
