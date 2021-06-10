@@ -74,7 +74,7 @@ public class Fade : MonoBehaviour
                         SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // 現在シーンを読込しなおす
                         break;
                     case 2:
-                        SceneManager.LoadScene("yb_ChoiceScene");   //ステージセレクトを読み込む
+                        SceneManager.LoadScene("StageSelect_Newer");   //ステージセレクトを読み込む
                         break;
                 }
             }
