@@ -18,6 +18,9 @@ public class Camera_Move : MonoBehaviour
     // 変数------------------------------------------------------------------------------------------
     // 視点モード
     bool Looking_FromUp_m = false;
+
+	public bool Get_Looking_FromUp() { return Looking_FromUp_m; }
+
     // 基本
     float Length_FromCenter = 0;
     float Length_FromCenter_Current = 0;

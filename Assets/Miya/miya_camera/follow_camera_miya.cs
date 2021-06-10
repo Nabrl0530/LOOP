@@ -10,6 +10,7 @@ public class follow_camera_miya : MonoBehaviour
 	// フォローカメラ
 	CinemachineVirtualCamera follow_camera;
 	private CinemachineOrbitalTransposer _transposer;
+	string name;
 
 	bool isMenu = false;
 	public void Set_isMenu(bool _is) { isMenu = _is; }
@@ -19,6 +20,7 @@ public class follow_camera_miya : MonoBehaviour
     {
 		follow_camera = this.GetComponent<CinemachineVirtualCamera>();
 		_transposer = follow_camera.GetCinemachineComponent<CinemachineOrbitalTransposer>();
+		name = _transposer.m_XAxis.m_InputAxisName;
 	}
 
     // Update is called once per frame
@@ -27,10 +29,11 @@ public class follow_camera_miya : MonoBehaviour
         if ( isMenu )
 		{
 			_transposer.m_XAxis.m_InputAxisName = null;
+			_transposer.m_XAxis.m_InputAxisValue = 0;
 		}
 		else
 		{
-			_transposer.m_XAxis.m_InputAxisName = "Holizontal_c";
+			_transposer.m_XAxis.m_InputAxisName = name;
 		}
     }
 }

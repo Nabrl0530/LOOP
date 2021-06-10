@@ -101,10 +101,11 @@ public class Player : MonoBehaviour
 	}
 
 
+	Camera_Move sc_camera_move;
 
 
-    // 初期化
-    void Start()
+	// 初期化
+	void Start()
     {
         // Rigidbody取得
         Rigid = this.GetComponent<Rigidbody>();
@@ -135,6 +136,12 @@ public class Player : MonoBehaviour
         No_Under = 0;
         Clear = false;
         Menu_ON = false;
+
+
+
+
+		sc_camera_move = Camera.GetComponent<Camera_Move>();
+
 	}
 
     void Update()
@@ -242,16 +249,22 @@ public class Player : MonoBehaviour
         Vector3 distance = this.transform.position - Camera.transform.position; distance.y = 0;
         Vector3 camera_front;
         Vector3 camera_right;
-        if (distance.magnitude < Camera_DistanceTolerance)
+
+
+		Vector3 camera_up;
+		camera_up = Camera.transform.up;
+
+
+		if (distance.magnitude < Camera_DistanceTolerance)
         {
             camera_front = Camera.transform.forward;
             camera_right = Camera.transform.right;
-        }
+		}
         else
         {
             camera_front = distance;
             camera_right = Quaternion.Euler(0, 90, 0) * camera_front;
-        }
+		}
 
         // アクション可能
         if (sc_state.Get_CanAction())
@@ -264,8 +277,16 @@ public class Player : MonoBehaviour
 
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
                 {
-                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+					if (sc_camera_move.Get_Looking_FromUp())
+					{
+						if (Input.GetKey(KeyCode.W)) direction_move += camera_up;
+						if (Input.GetKey(KeyCode.S)) direction_move -= camera_up;
+					}
+					else
+					{
+						if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+						if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+					}
                     if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
                     if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
 
@@ -288,12 +309,18 @@ public class Player : MonoBehaviour
                     // 原田君用3
                     if (Mathf.Abs(Input.GetAxis("Vertical_p")) > 0 || Mathf.Abs(Input.GetAxis("Horizontal_p")) > 0)
                     {
-                        // 元々あったコントローラー操作
-                        direction_move += camera_front * Input.GetAxis("Vertical_p");
-                        direction_move += camera_right * Input.GetAxis("Horizontal_p");
+						// 元々あったコントローラー操作
+						if (sc_camera_move.Get_Looking_FromUp())
+						{
+							direction_move += camera_up * Input.GetAxis("Vertical_p");
+						}
+						else
+						{
+							direction_move += camera_front * Input.GetAxis("Vertical_p");
+						}
 
-                        // 走る
-                        if (Input.GetButton("Run"))
+						// 走る
+						if (Input.GetButton("Run"))
                         {
                             Speed_Move = Speed_Run;
                             sc_state.Set_IsRunning(true);
@@ -394,17 +421,32 @@ public class Player : MonoBehaviour
                 _isMove = false;
 
                 if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
-                {
-                    if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
-                    if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
-                    if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
+				{
+					if (sc_camera_move.Get_Looking_FromUp())
+					{
+						if (Input.GetKey(KeyCode.W)) direction_move += camera_up;
+						if (Input.GetKey(KeyCode.S)) direction_move -= camera_up;
+					}
+					else
+					{
+						if (Input.GetKey(KeyCode.W)) direction_move += camera_front;
+						if (Input.GetKey(KeyCode.S)) direction_move -= camera_front;
+					}
+					if (Input.GetKey(KeyCode.D)) direction_move += camera_right;
                     if (Input.GetKey(KeyCode.A)) direction_move -= camera_right;
 
                     _isMove = true;
                 }
                 else
-                {
-                    direction_move += camera_front * Input.GetAxis("Vertical_p");
+				{
+					if (sc_camera_move.Get_Looking_FromUp())
+					{
+						direction_move += camera_up * Input.GetAxis("Vertical_p");
+					}
+					else
+					{
+						direction_move += camera_front * Input.GetAxis("Vertical_p");
+					}
                     direction_move += camera_right * Input.GetAxis("Horizontal_p");
 
                     _isMove = true;

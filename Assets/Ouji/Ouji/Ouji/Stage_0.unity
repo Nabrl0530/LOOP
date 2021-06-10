@@ -5441,6 +5441,11 @@ PrefabInstance:
       propertyPath: se_select
       value: 
       objectReference: {fileID: 108855644}
+    - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: sc_follow_camera
+      value: 
+      objectReference: {fileID: 1766705642}
     - target: {fileID: 6170834053742128977, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: m_Name
@@ -8043,6 +8048,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4975ae56ff25e394fae9b5c730ebfed1, type: 3}
+--- !u!114 &1766705642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4215333464740335199, guid: 4975ae56ff25e394fae9b5c730ebfed1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1766705641}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592628018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c2090a0b0f3d124cb986b26ffe34f93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1803306856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9421,6 +9438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24cb7577b4f074b8fadd7ca2dd9791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ON: 0
 --- !u!65 &2054602536
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10623,6 +10641,11 @@ PrefabInstance:
       propertyPath: sc_select
       value: 
       objectReference: {fileID: 108855645}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: sc_follow_camera
+      value: 
+      objectReference: {fileID: 1766705642}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dff353908e2c3a42a883cbbde94839c, type: 3}
 --- !u!114 &3813967360127909489 stripped
