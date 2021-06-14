@@ -25,7 +25,7 @@ public class Block : MonoBehaviour
     private float rot_z;   //回転速度
     private float Size = 1.0f;
     public Vector3 Act_move;  //アクションによる移動量
-    int undercount;
+    public int undercount;
 
     // Start is called before the first frame update
     void Start()
@@ -164,7 +164,7 @@ public class Block : MonoBehaviour
             if(!Block_Under.Get_HIT())
             {
                 undercount++;
-                if(undercount == 5)
+                if(undercount >= 5)
                 {
                     player.block_out();
                 }
