@@ -9,11 +9,11 @@ public class Title_Icon_s : MonoBehaviour
     Image image;
 
     int Slide;
-    bool Warp;
     int position;
     float size;
     float size_gap;
-    float VecM;
+    float VecM; //â°à⁄ìÆó 
+    float VecY; //ècà⁄ìÆó 
     int count = 0;
     Vector2 Base_Size = new Vector2(300, 150);
 
@@ -24,7 +24,6 @@ public class Title_Icon_s : MonoBehaviour
         image = this.GetComponent<Image>();
 
         Slide = 0;
-        Warp = false;
 
         position = 2;
         size = 1.8f;
@@ -38,65 +37,52 @@ public class Title_Icon_s : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(count > 0 && !Warp)
+        if(count > 0)
         {
             Vector3 pos = rt.position;
             pos.x += VecM;
+            pos.y += VecY;
             rt.position = pos;
 
             size += size_gap;
 
             count--;
         }
-        else if(count > 0 && Warp)
-        {
-            Vector3 pos = rt.position;
-            pos.x += VecM;
-            
-            if(count > 25)
-            {
-                size -= 0.02f;
-                pos.y += 3;
-            }
-            else
-            {
-                size += 0.02f;
-                pos.y -= 3;
-            }
-
-            rt.position = pos;
-
-            count--;
-            if(count == 0)
-            {
-                Warp = false;
-            }
-        }
-
     }
 
     public void SetMoveR()
     {
         position++;
-        if(position == 4)
+        if(position == 2)
         {
-            VecM = -800 / 50;
-            count = 50;
-            Warp = true;
-            position = 1;
-        }
-        else if(position == 2)
-        {
-            VecM = 400 / 50;
+            VecM = 450 / 50;
+            VecY = 0;
             count = 50;
             size_gap = 0.8f / 50;
         }
         else if (position == 3)
         {
-            VecM = 400 / 50;
+            VecM = 450 / 50;
+            VecY = 0;
             count = 50;
             size_gap = -0.8f / 50;
         }
+        else if (position == 4)
+        {
+            VecM = -450 / 50;
+            VecY = 1.5f;
+            count = 50;
+            size_gap = -1.0f / 50;
+        }
+        else if (position == 5)
+        {
+            VecM = -450 / 50;
+            VecY = -1.5f;
+            count = 50;
+            size_gap = 1.0f / 50;
+            position = 1;
+        }
+        
     }
 
     public void SetMoveL()
@@ -104,24 +90,32 @@ public class Title_Icon_s : MonoBehaviour
         position--;
         if (position == 0)
         {
-            VecM = 800 / 50;
+            VecM = 450 / 50;
+            VecY = 1.5f;
             count = 50;
-            Warp = true;
-            position = 3;
-        }
-        else if (position == 2)
-        {
-            VecM = -400 / 50;
-            count = 50;
-            size_gap = 0.8f / 50;
+            size_gap = -1.0f / 50;
+            position = 4;
         }
         else if (position == 1)
         {
-            VecM = -400 / 50;
+            VecM = -450 / 50;
+            VecY = 0;
             count = 50;
             size_gap = -0.8f / 50;
         }
+        else if (position == 2)
+        {
+            VecM = -450 / 50;
+            VecY = 0;
+            count = 50;
+            size_gap = 0.8f / 50;
+        }
+        else if (position == 3)
+        {
+            VecM = 450 / 50;
+            VecY = -1.5f;
+            count = 50;
+            size_gap = 1.0f / 50;
+        }
     }
-
-
 }
