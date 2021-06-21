@@ -713,6 +713,7 @@ public class Player : MonoBehaviour
                     Player_Forword.PosReset();
                     Player_Check.PosReset();
                     Player_Under.PosReset();
+                    sc_state.WORLD_START();
 
                     Forced = false;
                 }
@@ -822,6 +823,8 @@ public class Player : MonoBehaviour
                     Player_Check.PosReset();
                     Player_Under.PosReset();
 
+                    sc_state.WORLD_START();
+
                     IsUnder_m = false;
                     Under_count = 0;
 
@@ -883,6 +886,8 @@ public class Player : MonoBehaviour
                     Block_Catch();
                     Set_Catch();
                     sc_state.BlockUse();
+
+                    sc_state.WORLD_START();
 
                     Forced = false;
 
