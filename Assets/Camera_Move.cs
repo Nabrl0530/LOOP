@@ -46,6 +46,7 @@ public class Camera_Move : MonoBehaviour
     public GameObject object_FollowCamera;
 
     public bool Menu_ON;
+    bool CLEAR;
 
 
     // 初期化--------------------------------------------------------------------------------------------
@@ -66,6 +67,7 @@ public class Camera_Move : MonoBehaviour
         diray = 0;
 
         Menu_ON = false;
+        CLEAR = false;
 
     }
 
@@ -87,6 +89,7 @@ public class Camera_Move : MonoBehaviour
         normal_camera.Priority = 10;
 
         sc_player.Set_Camera(this.gameObject);
+        CLEAR = true;
     }
     // デフォルトへ戻す
     public void Set_DefaultCamera()
@@ -222,7 +225,7 @@ public class Camera_Move : MonoBehaviour
             {
                 // 見下ろし視点へ切替
                 // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1)
+                if ((Input.GetKey(KeyCode.UpArrow) || Input.GetAxisRaw("Change_c") == 1) && !CLEAR)
                 {
                     Set_DefaultCamera();
                     Looking_FromUp_m = true;
@@ -232,7 +235,7 @@ public class Camera_Move : MonoBehaviour
 
                 // 通常視点へ切替//十字ボタン左
                 // ゲームパッド// 原田君用2
-                if (Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1)
+                if ((Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1) && !CLEAR)
                 {
                     Set_DefaultCamera();
                     Looking_FromUp_m = false;
@@ -240,7 +243,7 @@ public class Camera_Move : MonoBehaviour
                 }
 
                 // フォローカメラ//十字ボタン右
-                if (Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1)
+                if ((Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1) && !CLEAR)
                 {
                     Set_FollowCamera();
                     Looking_FromUp_m = false;
