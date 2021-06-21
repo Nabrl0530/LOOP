@@ -11114,6 +11114,97 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1143748414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1901334582
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7551814565717601560, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: USE_BUTTON_NUM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601560, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: bs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1948373853}
+    - target: {fileID: 7551814565717601561, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_Name
+      value: WORLD_MANAGER
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551814565717601567, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e, type: 3}
+--- !u!114 &1901334583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7551814565717601560, guid: 4dfcf5b0d1bdf0e4b84afcdc94bb528e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1901334582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63dfb1540c596e4c9937f82c3aa614a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1901488176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7051027654460601998, guid: ce45e27fac6b1694fa570df6b16ce4a0,
@@ -13740,6 +13831,11 @@ PrefabInstance:
       propertyPath: sc_select
       value: 
       objectReference: {fileID: 1568764865}
+    - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
+        type: 3}
+      propertyPath: the_world
+      value: 
+      objectReference: {fileID: 1901334583}
     - target: {fileID: 5367641860322307548, guid: 4dff353908e2c3a42a883cbbde94839c,
         type: 3}
       propertyPath: sc_follow_camera
