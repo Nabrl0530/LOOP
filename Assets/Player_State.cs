@@ -11,7 +11,7 @@ public class Player_State : MonoBehaviour
     public Animator animator;
     public UI_Menu UI_menu;
     public Camera_Move cm;
-
+    public THE_WORLD the_world;
 
 
 	public follow_camera_miya sc_follow_camera;
@@ -67,6 +67,7 @@ public class Player_State : MonoBehaviour
     public bool IsDoor = false;
     bool Clear;
     bool Menu_ON;
+    bool FLOOR_SPIN;    //フロア回転中
 
     int wait_Act;
     int wait_key;
@@ -139,6 +140,15 @@ public class Player_State : MonoBehaviour
             UI_menu.SetShow();
             sc_move.Set_Menu_On();
             Menu_ON = !Menu_ON;
+
+            if(Menu_ON)
+            {
+                the_world.world_stop();
+            }
+            else
+            {
+                the_world.world_start();
+            }
 
 
 
@@ -235,12 +245,13 @@ public class Player_State : MonoBehaviour
             {
                 // 対象によってステート変更
                 // ブロック
-                if (IsBlock)
+                if (IsBlock && !sc_move.GetSPIN_NOW())
                 {
                     //m_AnimationState = (int)e_PlayerAnimationState.PUSH_WAITING;
                     m_AnimationState = (int)e_PlayerAnimationState.BLOCK_MOVE;
                     m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                     sc_move.Set_ActMove_Block();
+                    the_world.world_stop();
                     m_CanAction = false;
                     //sc_move.Block_Catch();
                     //sc_move.Set_Catch();
@@ -275,7 +286,7 @@ public class Player_State : MonoBehaviour
                 {
                     sc_move.UseLever();
                 }
-                else if (IsBridge)
+                else if (IsBridge && !sc_move.GetSPIN_NOW())
                 {
                     if (sc_move.Check_Bridge())
                     {
@@ -283,9 +294,10 @@ public class Player_State : MonoBehaviour
                         m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                         m_CanAction = false;
                         sc_move.Set_Act_spin();
+                        the_world.world_stop(); //フロアの回転を無効
                     }
                 }
-                else if (IsDoor)
+                else if (IsDoor && !sc_move.GetSPIN_NOW())
                 {
                     //移動先が埋まっていなければ
                     if (sc_move.GET_WARP_OK())
@@ -294,6 +306,7 @@ public class Player_State : MonoBehaviour
                         m_AnimationState_Motion = (int)e_PlayerAnimationState.WALKING;
                         m_CanAction = false;
                         sc_move.Set_Act_spin();
+                        the_world.world_stop(); //フロアの回転を無効
                     }
                 }
             }
@@ -527,5 +540,15 @@ public class Player_State : MonoBehaviour
         Menu_ON = false;
         sc_move.Set_Menu_On();
         cm.Set_Menu(false);
+    }
+
+    public void SET_FLOOR_SPIN(bool _is)
+    {
+        FLOOR_SPIN = _is;
+    }
+
+    public void WORLD_START()
+    {
+        the_world.world_start();
     }
 }

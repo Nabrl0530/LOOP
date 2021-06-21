@@ -10,6 +10,7 @@ public class Button : MonoBehaviour
 
     private float len;  //í∑Ç≥
     public bool ON;
+    bool STOP;
     int no_count;
 
     private int count;
@@ -20,6 +21,7 @@ public class Button : MonoBehaviour
         FloorTwo = GameObject.Find("FloorTwo");
         FloorThree = GameObject.Find("FloorThree");
         count = 0;
+        STOP = false;
     }
 
     // Update is called once per frame
@@ -30,6 +32,12 @@ public class Button : MonoBehaviour
 
     void FixedUpdate()
     {
+        //ã@î\í‚é~íÜÇÕèàóùíÜíf
+        if(STOP)
+        {
+            return;
+        }
+
         if(ON)
         {
             count++;
@@ -95,5 +103,15 @@ public class Button : MonoBehaviour
         {
             //ON = false;
         }
+    }
+
+    public void Set_stop()
+    {
+        STOP = true;
+    }
+
+    public void Clare_stop()
+    {
+        STOP = false;
     }
 }
