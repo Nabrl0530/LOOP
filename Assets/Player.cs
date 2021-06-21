@@ -1349,9 +1349,12 @@ public class Player : MonoBehaviour
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
         UI_stage.SetActive(false);
-        UI_Cristal1.SetActive(false);
-        UI_Cristal2.SetActive(false);
-        UI_Cristal3.SetActive(false);
+        if (Clear)
+        {
+            UI_Cristal1.SetActive(false);
+            UI_Cristal2.SetActive(false);
+            UI_Cristal3.SetActive(false);
+        }
     }
 
     //オブジェクトを発見した際にスクリプトを獲得する

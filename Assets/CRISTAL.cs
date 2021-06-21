@@ -13,6 +13,9 @@ public class CRISTAL : MonoBehaviour
     public int laser_count1;
     public int laser_count2;
     public int laser_count3;
+    int laser_count1_2;
+    int laser_count2_2;
+    int laser_count3_2;
     const int nolma = 150;
     public int no;
 
@@ -41,6 +44,9 @@ public class CRISTAL : MonoBehaviour
         laser_count1 = 0;
         laser_count2 = 0;
         laser_count3 = 0;
+        laser_count1_2 = 0;
+        laser_count2_2 = 0;
+        laser_count3_2 = 0;
         no = 0;
 
         UI_clear_crystal = GameObject.Find("UI_crystal").GetComponent<Image>();
@@ -67,7 +73,7 @@ public class CRISTAL : MonoBehaviour
         }
 
         Line_count = 0;
-        OK = false;
+        //OK = false;
 
         /*
         if (Clare[USE_LINE_NUM -1] == true)
@@ -107,22 +113,26 @@ public class CRISTAL : MonoBehaviour
         if(Clare[0] == true)
         {
             laser_count1++;
-            if(laser_count1 > 150)
+            laser_count1_2 = 0;
+            if (laser_count1 > 150)
             {
                 laser_count1 = 150;
             }
         }
         else
         {
-            if (laser_count1 > 0)
+            if (laser_count1 > 0 && laser_count1_2 > 1)
             {
                 laser_count1--;
             }
+
+            laser_count1_2++;
         }
 
         if (Clare[1] == true)
         {
             laser_count2++;
+            laser_count2_2 = 0;
             if (laser_count2 > 150)
             {
                 laser_count2 = 150;
@@ -130,15 +140,17 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            if (laser_count2 > 0)
+            if (laser_count2 > 0 && laser_count2_2 > 1)
             {
                 laser_count2--;
             }
+            laser_count2_2++;
         }
 
         if (Clare[2] == true)
         {
             laser_count3++;
+            laser_count3_2 = 0;
             if (laser_count3 > 150)
             {
                 laser_count3 = 150;
@@ -146,10 +158,12 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            if (laser_count3 > 0)
+            if (laser_count3 > 0 && laser_count3_2 > 1)
             {
                 laser_count3--;
             }
+
+            laser_count3_2++;
         }
 
         if((laser_count1 + laser_count2 + laser_count3) >= nolma * USE_LINE_NUM && !CLEAR)
@@ -176,6 +190,7 @@ public class CRISTAL : MonoBehaviour
         }
 
         UI_clear_crystal.fillAmount = (float)(laser_count1 + laser_count2 + laser_count3) / (150 * USE_LINE_NUM);
+
 
         for (int i=0;i<MAX_LINE;i++)
         {
