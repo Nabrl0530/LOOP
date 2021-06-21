@@ -4,8 +4,9 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: 6-3luoxuanxian 1
   m_Shader: {fileID: 4800000, guid: 0a178fb8045e8774e966c23f86c1431f, type: 3}
   m_ShaderKeywords: 
@@ -29,4 +30,5 @@ Material:
     m_Floats:
     - _Cutoff: 0.5
     m_Colors:
-    - _node_57: {r: 1, g: 0.44852942, b: 0.44852942, a: 1}
+    - _node_57: {r: 0.4470588, g: 0.8633024, b: 1, a: 1}
+  m_BuildTextureStacks: []
