@@ -8,6 +8,7 @@ public class Title_Icon_Move : MonoBehaviour
 {
     public Title_Icon_s title_Icon_S;
     public Title_Icon_e title_Icon_E;
+    public Title_Icon_o title_Icon_O;
     public Title_Icon_m title_Icon_M;
     public omake om;
 
@@ -61,7 +62,7 @@ public class Title_Icon_Move : MonoBehaviour
         if (!FINISH)
         {
 
-            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && wait == 0)
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && Select != 3 && wait == 0)
             {
                 // サウンドmiya
                 if (se_select) se_select.Play();
@@ -89,10 +90,16 @@ public class Title_Icon_Move : MonoBehaviour
                 }
             }
 
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select == 3 && wait == 0)
+            {
+                //ここにメニュー画面表示の処理を書いてね～
+            }
+
             if ((Input.GetKey(KeyCode.RightArrow) || con_R) && wait == 0 && !UseMenu)
             {
                 title_Icon_S.SetMoveL();
                 title_Icon_E.SetMoveL();
+                title_Icon_O.SetMoveL();
                 title_Icon_M.SetMoveL();
                 wait = 50;
 
@@ -103,7 +110,7 @@ public class Title_Icon_Move : MonoBehaviour
                 if (se_move) se_move.Play();
 
 
-                if (Select == 4)
+                if (Select == 5)
                 {
                     Select = 1;
                 }
@@ -113,6 +120,7 @@ public class Title_Icon_Move : MonoBehaviour
             {
                 title_Icon_S.SetMoveR();
                 title_Icon_E.SetMoveR();
+                title_Icon_O.SetMoveR();
                 title_Icon_M.SetMoveR();
                 wait = 50;
 
@@ -125,7 +133,7 @@ public class Title_Icon_Move : MonoBehaviour
 
                 if (Select == 0)
                 {
-                    Select = 3;
+                    Select = 4;
                 }
             }
         }
@@ -202,13 +210,12 @@ public class Title_Icon_Move : MonoBehaviour
 
     private void ChoiceStage()
     {
-
         if (ClearFade)
         {
             switch (Select)
             {
                 case 1:
-                    //メニュー
+                    //オマケ
 
                     break;
                 case 2:
@@ -216,6 +223,9 @@ public class Title_Icon_Move : MonoBehaviour
 
                     break;
                 case 3:
+                //メニュー
+
+                case 4:
                     //UnityEditor.EditorApplication.isPlaying = false;
                     Application.Quit();
                     break;

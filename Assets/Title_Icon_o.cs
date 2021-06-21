@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Title_Icon_m : MonoBehaviour
+public class Title_Icon_o : MonoBehaviour
 {
     RectTransform rt;
     Image image;
@@ -25,7 +25,7 @@ public class Title_Icon_m : MonoBehaviour
 
         Slide = 0;
 
-        position = 3;
+        position = 1;
         size = 1.0f;
     }
 
