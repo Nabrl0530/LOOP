@@ -1319,7 +1319,7 @@ GameObject:
   - component: {fileID: 393623757942421803}
   - component: {fileID: 4609668993533007733}
   m_Layer: 5
-  m_Name: Text
+  m_Name: UI_crystal_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

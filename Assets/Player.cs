@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     GameObject UI_frame;
     GameObject UI_leba;
     GameObject UI_stage;
+    GameObject UI_Cristal1;
+    GameObject UI_Cristal2;
+    GameObject UI_Cristal3;
 
     public Player_Forword Player_Forword;
     public Player_Check Player_Check;
@@ -125,6 +128,9 @@ public class Player : MonoBehaviour
         UI_frame = GameObject.Find("UI_Frame");
         UI_leba = GameObject.Find("UI_leba");
         UI_stage = GameObject.Find("UI_Stage");
+        UI_Cristal1 = GameObject.Find("UI_crystal");
+        UI_Cristal2 = GameObject.Find("crystal_back");
+        UI_Cristal3 = GameObject.Find("UI_crystal_text");
 
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);
@@ -1343,6 +1349,9 @@ public class Player : MonoBehaviour
         UI_frame.SetActive(false);
         UI_leba.SetActive(false);
         UI_stage.SetActive(false);
+        UI_Cristal1.SetActive(false);
+        UI_Cristal2.SetActive(false);
+        UI_Cristal3.SetActive(false);
     }
 
     //オブジェクトを発見した際にスクリプトを獲得する
