@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3409197297882991956}
   - component: {fileID: 3409197297882991963}
+  - component: {fileID: 6315480940633635691}
   m_Layer: 0
   m_Name: BGM_EasyStages
   m_TagString: Untagged
@@ -127,3 +128,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6315480940633635691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3409197297882991962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 1
