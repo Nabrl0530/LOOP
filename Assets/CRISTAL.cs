@@ -184,8 +184,9 @@ public class CRISTAL : MonoBehaviour
 
             if (count == 220)
             {
-                fade.SetOut();
-                fade.SetNext(2);
+                //fade.SetOut();
+                //fade.SetNext(2);
+                CFadeManager.FadeOut(1);    //ステージセレクトへ
             }
         }
 
