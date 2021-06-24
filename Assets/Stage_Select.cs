@@ -50,6 +50,8 @@ public class Stage_Select : MonoBehaviour
         wait = 0;
         Select = 1;
         WorldEND = false;
+
+        CFadeManager.FadeIn();
     }
 
     // Update is called once per frame
@@ -175,7 +177,8 @@ public class Stage_Select : MonoBehaviour
             return;
         }
 
-        StartCoroutine(fadeinplay());
+        //StartCoroutine(fadeinplay());
+        CFadeManager.FadeOut(0);    //ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö
     }
 
     IEnumerator fadeinplay()
