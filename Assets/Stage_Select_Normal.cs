@@ -45,6 +45,7 @@ public class Stage_Select_Normal : MonoBehaviour
 
     int wait;
     public int Select;
+    int[] Stage_Array = new int[4];
 
     public GameObject[] Obj = new GameObject[MAX_OBJ];
 
@@ -75,6 +76,11 @@ public class Stage_Select_Normal : MonoBehaviour
         CHECK = false;
         YES = true;
         FINISH = false;
+
+        Stage_Array[0] = 9;
+        Stage_Array[1] = 5;
+        Stage_Array[2] = 10;
+        Stage_Array[3] = 11;
     }
 
     // Update is called once per frame
@@ -159,7 +165,8 @@ public class Stage_Select_Normal : MonoBehaviour
 
                         if (YES)
                         {
-                            OutStartFadeAnim();
+                            //OutStartFadeAnim();
+                            CFadeManager.FadeOut(Stage_Array[Select - 1]);    //各ステージへ
                         }
                         else
                         {

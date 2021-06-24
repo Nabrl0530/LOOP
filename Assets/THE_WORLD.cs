@@ -23,6 +23,8 @@ public class THE_WORLD : MonoBehaviour
         {
             USE_FLAG[i] = false;
         }
+
+        CFadeManager.FadeIn();
     }
 
     // Update is called once per frame

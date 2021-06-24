@@ -52,6 +52,8 @@ public class Title_Icon_Move : MonoBehaviour
         wait = 0;
         Select = 2;
         FINISH = false;
+
+        CFadeManager.FadeIn();
     }
 
     // Update is called once per frame
@@ -68,6 +70,7 @@ public class Title_Icon_Move : MonoBehaviour
                 if (se_select) se_select.Play();
 
                 OutStartFadeAnim();
+
             }
 
             if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select == 1 && wait == 0)
@@ -138,7 +141,7 @@ public class Title_Icon_Move : MonoBehaviour
             }
         }
 
-        ChoiceStage();
+        //ChoiceStage();
     }
 
     void FixedUpdate()
@@ -177,7 +180,8 @@ public class Title_Icon_Move : MonoBehaviour
         }
 
         FINISH = true;
-        StartCoroutine(fadeinplay());
+        //StartCoroutine(fadeinplay());
+        CFadeManager.FadeOut(1);    //ステージセレクトへ
     }
 
     IEnumerator fadeinplay()
