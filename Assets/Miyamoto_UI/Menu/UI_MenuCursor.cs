@@ -128,15 +128,17 @@ public class UI_MenuCursor : MonoBehaviour
                 case (int)CursorPos.Retry:
                     ParentMenu.Show = false;                                        // メニューを見えないようにする
                     //SceneManager.LoadScene(SceneManager.GetActiveScene().name);     // 現在シーンを読込しなおす
-                    fade.SetOut();
-                    fade.SetNext(1);
+                    //fade.SetOut();
+                    //fade.SetNext(1);
+                    CFadeManager.FadeOut(SceneManager.GetActiveScene().buildIndex);
                     ParentMenu.SetNot();    //開けない状態に
                     break;
 
                 case (int)CursorPos.Stage:
                     ParentMenu.Show = false;        // メニューを見えないようにする
-                    fade.SetOut();
-                    fade.SetNext(2);
+                    //fade.SetOut();
+                    //fade.SetNext(2);
+                    CFadeManager.FadeOut(1);
                     ParentMenu.SetNot();    //開けない状態に
                     // ステージ選択画面シーンへ遷移
                     break;
