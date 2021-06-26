@@ -19,6 +19,12 @@ public class miya_test_UI : MonoBehaviour
 	Slider slider_bgm;
 	Slider slider_se;
 
+	// 選択時背景
+	Image Back_BGM;
+	Image Back_SE;
+	Image Back_Exit;
+	Image Back_Reset;
+
 	// ボリューム
 	static public float Magnification_BGM = 0.5f;
 	static public float Magnification_SE = 0.5f;
@@ -26,8 +32,27 @@ public class miya_test_UI : MonoBehaviour
 	// デバッグ
 	bool active = false;
 
-    // Start is called before the first frame update
-    void Start()
+	// グリッド調整
+	public float GridValue = 0.1f;
+
+
+	// 操作箇所
+	enum Witch_e
+	{
+		BGM,
+		SE,
+		Exit,
+		Reset
+	}
+	int Witch_Control = (int)Witch_e.BGM;
+	public GameObject Witch_Slider;
+	public GameObject Witch_Button;//koko
+
+
+
+
+	// Start is called before the first frame update
+	void Start()
 	{
 		// テストサウンド
 		if (TestBGM) TestBGM_audio = TestBGM.GetComponent<AudioSource>();
@@ -40,6 +65,14 @@ public class miya_test_UI : MonoBehaviour
 		slider_bgm = back.transform.Find("Slider_BGM").GetComponent<Slider>();
 		slider_se = back.transform.Find("Slider_SE").GetComponent<Slider>();
 
+		// 選択時背景
+		Back_BGM	= back.transform.Find("Back_BGM"	).GetComponent<Image>();
+		Back_SE		= back.transform.Find("Back_SE"		).GetComponent<Image>(); Back_SE.enabled = false;
+		Back_Exit	= back.transform.Find("Back_Exit"	).GetComponent<Image>(); Back_Exit.enabled = false;
+		Back_Reset	= back.transform.Find("Back_Reset"	).GetComponent<Image>(); Back_Reset.enabled = false;
+		Witch_Control = (int)Witch_e.BGM;
+		
+
 		// ボリューム
 		Magnification_BGM = 0.5f;
 		Magnification_SE = 0.5f;
@@ -47,7 +80,7 @@ public class miya_test_UI : MonoBehaviour
 		// デバッグ
 		active = false;
 	}
-	
+
 	// Update is called once per frame
 	void Update()
 	{
@@ -59,8 +92,113 @@ public class miya_test_UI : MonoBehaviour
 		TestBGM_audio.volume = FirstVolume_BGM * Magnification_BGM;
 		TestSE_audio.volume = FirstVolume_SE * Magnification_SE;
 
-		// SEテストプレイ
-		if (Input.GetMouseButtonUp(0)) TestSE_audio.Play();
+		if (active)
+		{
+			// SEテストプレイ
+			if (Input.GetMouseButtonUp(0)) TestSE_audio.Play();
+
+			// キー入力対応															コントローラー要追記
+			{
+				// 選択位置
+				{
+					// 縦
+					if (Witch_Control <= (int)Witch_e.Exit)
+					{
+						if (Input.GetKeyUp(KeyCode.DownArrow))
+						{
+							if (Witch_Control < (int)Witch_e.Exit) Witch_Control++;
+						}
+						if (Input.GetKeyUp(KeyCode.UpArrow))
+						{
+							if (Witch_Control > (int)Witch_e.BGM) Witch_Control--;
+						}
+					}
+					// 横
+					if (Witch_Control >= (int)Witch_e.Exit)
+					{
+						if (Input.GetKeyUp(KeyCode.RightArrow))
+						{
+							if (Witch_Control == (int)Witch_e.Exit) Witch_Control++;
+						}
+						if (Input.GetKeyUp(KeyCode.LeftArrow))
+						{
+							if (Witch_Control == (int)Witch_e.Reset) Witch_Control--;
+						}
+					}
+				}
+				// スライド数値
+				if (Witch_Control == (int)Witch_e.BGM)
+				{
+					if (Input.GetKeyUp(KeyCode.RightArrow))
+					{
+						slider_bgm.value += GridValue;
+					}
+					if (Input.GetKeyUp(KeyCode.LeftArrow))
+					{
+						slider_bgm.value -= GridValue;
+					}
+					if (slider_bgm.value > 1) slider_bgm.value = 1;
+					if (slider_bgm.value < 0) slider_bgm.value = 0;
+				}
+				else if (Witch_Control == (int)Witch_e.SE)
+				{
+					if (Input.GetKeyUp(KeyCode.RightArrow))
+					{
+						slider_se.value += GridValue;
+						TestSE_audio.Play();
+					}
+					if (Input.GetKeyUp(KeyCode.LeftArrow))
+					{
+						slider_se.value -= GridValue;
+						TestSE_audio.Play();
+					}
+					if (slider_bgm.value > 1) slider_se.value = 1;
+					if (slider_bgm.value < 0) slider_se.value = 0;
+				}
+				// 選択時背景
+				switch(Witch_Control)
+				{
+					case (int)Witch_e.BGM:
+						Back_BGM.enabled = true;
+						Back_SE.enabled = false;
+						Back_Exit.enabled = false;
+						Back_Reset.enabled = false;
+						break;
+					case (int)Witch_e.SE:
+						Back_BGM.enabled = false;
+						Back_SE.enabled = true;
+						Back_Exit.enabled = false;
+						Back_Reset.enabled = false;
+						break;
+					case (int)Witch_e.Exit:
+						Back_BGM.enabled = false;
+						Back_SE.enabled = false;
+						Back_Exit.enabled = true;
+						Back_Reset.enabled = false;
+						break;
+					case (int)Witch_e.Reset:
+						Back_BGM.enabled = false;
+						Back_SE.enabled = false;
+						Back_Exit.enabled = false;
+						Back_Reset.enabled = true;
+						break;
+				}
+				// 選択、Exit,Reset
+				if (Input.GetKeyUp(KeyCode.Return))
+				{
+					if (Witch_Control == (int)Witch_e.Exit)
+					{
+						Close_Window();
+						TestSE_audio.Play();
+					}
+					if (Witch_Control == (int)Witch_e.Reset)
+					{
+						Reset_Value();
+						TestSE_audio.Play();
+					}
+				}
+			}
+		}
 
 		// デバッグ
 		{
@@ -91,6 +229,8 @@ public class miya_test_UI : MonoBehaviour
 	{
 		UI_window.SetActive(false);
 		active = false;
+
+		Witch_Control = (int)Witch_e.BGM;
 	}
 
 	public void Reset_Value()
