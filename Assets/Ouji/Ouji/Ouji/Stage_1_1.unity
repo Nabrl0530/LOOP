@@ -3627,6 +3627,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 965600455}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: fade
+      value: 
+      objectReference: {fileID: 1508664492}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: se_move
+      value: 
+      objectReference: {fileID: 2004040290}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: se_select
+      value: 
+      objectReference: {fileID: 1295794462}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: sc_follow_camera
+      value: 
+      objectReference: {fileID: 636212084}
     - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: ps
