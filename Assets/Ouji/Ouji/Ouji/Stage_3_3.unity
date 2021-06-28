@@ -3801,6 +3801,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: ps
+      value: 
+      objectReference: {fileID: 3813967360127909489}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: fade
+      value: 
+      objectReference: {fileID: 1643434593}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: se_move
+      value: 
+      objectReference: {fileID: 1808149756}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: se_select
+      value: 
+      objectReference: {fileID: 1568764864}
+    - target: {fileID: 1966017625548883234, guid: 0c8cb3b812a01b34e98598c610e330b1,
+        type: 3}
+      propertyPath: sc_follow_camera
+      value: 
+      objectReference: {fileID: 766107914}
     - target: {fileID: 6170834053555388343, guid: 0c8cb3b812a01b34e98598c610e330b1,
         type: 3}
       propertyPath: ps
@@ -8757,7 +8782,7 @@ MonoBehaviour:
   m_ShadowmapMode: 0
   m_Cameras:
   - {fileID: 1876033932}
-  m_CurrentCamera: {fileID: 1876033932}
+  m_CurrentCamera: {fileID: 0}
   m_Size: {x: 10, y: 10, z: 20}
   m_SpotNear: 0.1
   m_SpotFar: 1
