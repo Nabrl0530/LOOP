@@ -44,7 +44,7 @@ public class miya_test_UI : MonoBehaviour
 		Exit,
 		Reset
 	}
-	int Witch_Control = (int)Witch_e.BGM;
+	int Witch_Control = (int)Witch_e.BGM;   //縦の位置
 	public GameObject Witch_Slider;
 	public GameObject Witch_Button;//koko
 
@@ -152,8 +152,8 @@ public class miya_test_UI : MonoBehaviour
 						slider_se.value -= GridValue;
 						TestSE_audio.Play();
 					}
-					if (slider_bgm.value > 1) slider_se.value = 1;
-					if (slider_bgm.value < 0) slider_se.value = 0;
+					if (slider_se.value > 1) slider_se.value = 1;
+					if (slider_se.value < 0) slider_se.value = 0;
 				}
 				// 選択時背景
 				switch(Witch_Control)
@@ -238,4 +238,120 @@ public class miya_test_UI : MonoBehaviour
 		slider_bgm.value = 0.5f;
 		slider_se.value = 0.5f;
 	}
+
+    //上キー入力による呼び出し
+    public void UpKey()
+    {
+        if(Witch_Control == (int)Witch_e.Reset)
+        {
+            return;
+        }
+
+        Witch_Control--;
+
+        if (Witch_Control == -1)
+        {
+            Witch_Control = (int)Witch_e.Exit;
+        }
+    }
+
+    //下キー入力による呼び出し
+    public void DownKey()
+    {
+        if (Witch_Control == (int)Witch_e.Reset)
+        {
+            return;
+        }
+
+        Witch_Control++;
+
+        if (Witch_Control == (int)Witch_e.Reset)
+        {
+            Witch_Control = (int)Witch_e.BGM;
+        }
+    }
+
+    //右キー入力による呼び出し
+    public void RightKey()
+    {
+        //最下段にいる場合
+        if (Witch_Control == (int)Witch_e.Exit || Witch_Control == (int)Witch_e.Reset)
+        {
+            if (Witch_Control == (int)Witch_e.Exit)
+            {
+                Witch_Control = (int)Witch_e.Reset;
+            }
+            else
+            {
+                Witch_Control = (int)Witch_e.Exit;
+            }
+        }
+        else
+        {
+            //音量切り替えの場合
+            if (Witch_Control == (int)Witch_e.BGM)
+            {
+                slider_bgm.value += GridValue;
+                if (slider_bgm.value > 1) slider_bgm.value = 1;
+            }
+
+            if (Witch_Control == (int)Witch_e.SE)
+            {
+                
+                slider_se.value += GridValue;
+                if (slider_se.value > 1) slider_se.value = 1;
+                TestSE_audio.Play();               
+            }
+        }
+    }
+
+    //左キー入力による呼び出し
+    public void LeftKey()
+    {
+        //最下段にいる場合
+        if (Witch_Control == (int)Witch_e.Exit || Witch_Control == (int)Witch_e.Reset)
+        {
+            if (Witch_Control == (int)Witch_e.Exit)
+            {
+                Witch_Control = (int)Witch_e.Reset;
+            }
+            else
+            {
+                Witch_Control = (int)Witch_e.Exit;
+            }
+        }
+        else
+        {
+            //音量切り替えの場合
+            if (Witch_Control == (int)Witch_e.BGM)
+            {
+                slider_bgm.value -= GridValue;
+                if (slider_bgm.value < 0) slider_bgm.value = 0;
+            }
+
+            if (Witch_Control == (int)Witch_e.SE)
+            {
+                slider_se.value -= GridValue;
+                if (slider_se.value < 0) slider_se.value = 0;
+                TestSE_audio.Play();
+            }
+        }
+    }
+
+    public bool ActionKey()
+    {
+        if (Witch_Control == (int)Witch_e.Exit)
+        {
+            Close_Window();
+            TestSE_audio.Play();
+            return true;
+        }
+        if (Witch_Control == (int)Witch_e.Reset)
+        {
+            Reset_Value();
+            TestSE_audio.Play();
+        }
+
+        return false;
+    }
 }

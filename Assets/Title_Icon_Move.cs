@@ -14,11 +14,14 @@ public class Title_Icon_Move : MonoBehaviour
 
     bool con_L; //コントローラー入力左
     bool con_R; //コントローラー入力右
+    bool con_U; //コントローラー入力上
+    bool con_D; //コントローラー入力下
 
 
     public float FadeTime = 1.0f;
     float time = 0f;
     private bool UseMenu = false;
+    private bool UseOption = false;
     public bool isPlaying = false;
     public Image fadeImg;
     private float start;
@@ -40,9 +43,8 @@ public class Title_Icon_Move : MonoBehaviour
     public AudioSource se_select;
 
 
-
-
-
+    // miyaUI
+    public miya_test_UI menu_script;
 
     // Start is called before the first frame update
     void Start()
@@ -63,7 +65,6 @@ public class Title_Icon_Move : MonoBehaviour
 
         if (!FINISH)
         {
-
             if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select != 1 && Select != 3 && wait == 0)
             {
                 // サウンドmiya
@@ -73,7 +74,7 @@ public class Title_Icon_Move : MonoBehaviour
 
             }
 
-            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select == 1 && wait == 0)
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && Select == 1 && wait == 0)
             {
                 if (!UseMenu)
                 {
@@ -93,12 +94,29 @@ public class Title_Icon_Move : MonoBehaviour
                 }
             }
 
-            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK")) && Select == 3 && wait == 0)
+            if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && Select == 3 && wait == 0)
             {
                 //ここにメニュー画面表示の処理を書いてね～
+                
+                if (!UseOption)
+                {
+                    // サウンドmiya
+                    if (se_select) se_select.Play();
+                    UseOption = true;
+                    menu_script.Show_Window();
+                    wait = 15;
+                }
+                else
+                {
+                    // サウンドmiya
+                    //if (se_select) se_select.Play();
+
+                    //UseOption = false;
+                    //menu_script.Close_Window();
+                }
             }
 
-            if ((Input.GetKey(KeyCode.RightArrow) || con_R) && wait == 0 && !UseMenu)
+            if ((Input.GetKey(KeyCode.RightArrow) || con_R) && wait == 0 && !UseMenu && !UseOption)
             {
                 title_Icon_S.SetMoveL();
                 title_Icon_E.SetMoveL();
@@ -119,7 +137,7 @@ public class Title_Icon_Move : MonoBehaviour
                 }
             }
 
-            if ((Input.GetKey(KeyCode.LeftArrow) || con_L) && wait == 0 && !UseMenu)
+            if ((Input.GetKey(KeyCode.LeftArrow) || con_L) && wait == 0 && !UseMenu && !UseOption)
             {
                 title_Icon_S.SetMoveR();
                 title_Icon_E.SetMoveR();
@@ -139,6 +157,46 @@ public class Title_Icon_Move : MonoBehaviour
                     Select = 4;
                 }
             }
+
+            //オプション画面が開いている場合
+            if(UseOption && wait == 0)
+            {
+                if(Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK"))
+                {
+                    if(menu_script.ActionKey())
+                    {
+                        // サウンドmiya
+                        if (se_select) se_select.Play();
+
+                        UseOption = false;
+                        menu_script.Close_Window();
+                    }
+                }
+
+                if((Input.GetKey(KeyCode.RightArrow) || con_R))
+                {
+                    menu_script.RightKey();
+                    wait = 15;
+                }
+
+                if(Input.GetKey(KeyCode.LeftArrow) || con_L)
+                {
+                    menu_script.LeftKey();
+                    wait = 15;
+                }
+
+                if ((Input.GetKey(KeyCode.UpArrow) || con_U))
+                {
+                    menu_script.UpKey();
+                    wait = 15;
+                }
+
+                if (Input.GetKey(KeyCode.DownArrow) || con_D)
+                {
+                    menu_script.DownKey();
+                    wait = 15;
+                }
+            }
         }
 
         //ChoiceStage();
@@ -155,10 +213,14 @@ public class Title_Icon_Move : MonoBehaviour
     private void Check_Cont()
     {
         float LR;
+        float UD;
         LR = Input.GetAxis("Horizontal_p"); //右ぷら
+        UD = Input.GetAxis("Vertical_p"); //上ぷら
 
         con_L = false;
         con_R = false;
+        con_U = false;
+        con_D = false;
 
         if (LR > 0.5f)
         {
@@ -168,6 +230,16 @@ public class Title_Icon_Move : MonoBehaviour
         if (LR < -0.5f)
         {
             con_L = true;
+        }
+
+        if (UD > 0.5f)
+        {
+            con_U = true;
+        }
+
+        if (UD < -0.5f)
+        {
+            con_D = true;
         }
     }
 
