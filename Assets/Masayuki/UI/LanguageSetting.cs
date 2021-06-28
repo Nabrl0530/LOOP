@@ -13,7 +13,7 @@ public class LanguageSetting : MonoBehaviour
     [SerializeField]
     private GameObject m_toggle_english = null;
 
-    static bool m_is_japanese = true;
+    static bool m_is_japanese = false;
     // Start is called before the first frame update
     void Start()
     {
