@@ -22,7 +22,9 @@ public class miya_test_UI : MonoBehaviour
 	// 選択時背景
 	Image Back_BGM;
 	Image Back_SE;
-	Image Back_Exit;
+    Image Back_JAPANESE;
+    Image Back_ENGLISH;
+    Image Back_Exit;
 	Image Back_Reset;
 
 	// ボリューム
@@ -41,6 +43,8 @@ public class miya_test_UI : MonoBehaviour
 	{
 		BGM,
 		SE,
+        JAPANESE,
+        ENGLISH,
 		Exit,
 		Reset
 	}
@@ -49,10 +53,14 @@ public class miya_test_UI : MonoBehaviour
 	public GameObject Witch_Button;//koko
 
 
+    [SerializeField]
+    private GameObject m_toggle_japanese = null;
+    [SerializeField]
+    private GameObject m_toggle_english = null;
 
 
-	// Start is called before the first frame update
-	void Start()
+    // Start is called before the first frame update
+    void Start()
 	{
 		// テストサウンド
 		if (TestBGM) TestBGM_audio = TestBGM.GetComponent<AudioSource>();
@@ -68,7 +76,9 @@ public class miya_test_UI : MonoBehaviour
 		// 選択時背景
 		Back_BGM	= back.transform.Find("Back_BGM"	).GetComponent<Image>();
 		Back_SE		= back.transform.Find("Back_SE"		).GetComponent<Image>(); Back_SE.enabled = false;
-		Back_Exit	= back.transform.Find("Back_Exit"	).GetComponent<Image>(); Back_Exit.enabled = false;
+        Back_JAPANESE = back.transform.Find("Back_JAPANESE").GetComponent<Image>(); Back_JAPANESE.enabled = false;
+        Back_ENGLISH = back.transform.Find("Back_ENGLISH").GetComponent<Image>(); Back_ENGLISH.enabled = false;
+        Back_Exit	= back.transform.Find("Back_Exit"	).GetComponent<Image>(); Back_Exit.enabled = false;
 		Back_Reset	= back.transform.Find("Back_Reset"	).GetComponent<Image>(); Back_Reset.enabled = false;
 		Witch_Control = (int)Witch_e.BGM;
 		
@@ -101,20 +111,60 @@ public class miya_test_UI : MonoBehaviour
 			{
 				// 選択位置
 				{
-					// 縦
-					if (Witch_Control <= (int)Witch_e.Exit)
-					{
-						if (Input.GetKeyUp(KeyCode.DownArrow))
-						{
-							if (Witch_Control < (int)Witch_e.Exit) Witch_Control++;
-						}
-						if (Input.GetKeyUp(KeyCode.UpArrow))
-						{
-							if (Witch_Control > (int)Witch_e.BGM) Witch_Control--;
-						}
-					}
-					// 横
-					if (Witch_Control >= (int)Witch_e.Exit)
+                    // 縦
+                    if (Witch_Control < (int)Witch_e.JAPANESE)
+                    {
+                        if (Input.GetKeyUp(KeyCode.DownArrow))
+                        {
+                            Witch_Control++;
+                        }
+                        if (Input.GetKeyUp(KeyCode.UpArrow))
+                        {
+                            if (Witch_Control > (int)Witch_e.BGM) Witch_Control--;
+                        }
+                    }
+                    else if (Witch_Control == (int)Witch_e.JAPANESE)
+                    {
+                        if (Input.GetKeyUp(KeyCode.DownArrow))
+                        {
+                            Witch_Control += 2;
+                        }
+                        if (Input.GetKeyUp(KeyCode.UpArrow))
+                        {
+                            Witch_Control--;
+                        }
+                    }
+                    else if (Witch_Control == (int)Witch_e.ENGLISH)
+                    {
+                        if (Input.GetKeyUp(KeyCode.DownArrow))
+                        {
+                            Witch_Control++;
+                        }
+                        if (Input.GetKeyUp(KeyCode.UpArrow))
+                        {
+                            Witch_Control -= 2;
+                        }
+                    }
+                    else if (Witch_Control == (int)Witch_e.Exit)
+                    {
+                        if (Input.GetKeyUp(KeyCode.UpArrow))
+                        {
+                            Witch_Control -= 2;
+                        }
+                    }
+                    // 横
+                    if (Witch_Control == (int)Witch_e.JAPANESE || Witch_Control == (int)Witch_e.ENGLISH)
+                    {
+                        if (Input.GetKeyUp(KeyCode.RightArrow))
+                        {
+                            if (Witch_Control == (int)Witch_e.JAPANESE) Witch_Control++;
+                        }
+                        if (Input.GetKeyUp(KeyCode.LeftArrow))
+                        {
+                            if (Witch_Control == (int)Witch_e.ENGLISH) Witch_Control--;
+                        }
+                    }
+                    if (Witch_Control >= (int)Witch_e.Exit)
 					{
 						if (Input.GetKeyUp(KeyCode.RightArrow))
 						{
@@ -161,31 +211,66 @@ public class miya_test_UI : MonoBehaviour
 					case (int)Witch_e.BGM:
 						Back_BGM.enabled = true;
 						Back_SE.enabled = false;
-						Back_Exit.enabled = false;
+                        Back_JAPANESE.enabled = false;
+                        Back_ENGLISH.enabled = false;
+                        Back_Exit.enabled = false;
 						Back_Reset.enabled = false;
 						break;
 					case (int)Witch_e.SE:
 						Back_BGM.enabled = false;
 						Back_SE.enabled = true;
-						Back_Exit.enabled = false;
+                        Back_JAPANESE.enabled = false;
+                        Back_ENGLISH.enabled = false;
+                        Back_Exit.enabled = false;
 						Back_Reset.enabled = false;
 						break;
-					case (int)Witch_e.Exit:
+                    case (int)Witch_e.JAPANESE:
+                        Back_BGM.enabled = false;
+                        Back_SE.enabled = false;
+                        Back_JAPANESE.enabled = true;
+                        Back_ENGLISH.enabled = false;
+                        Back_Exit.enabled = false;
+                        Back_Reset.enabled = false;
+                        break;
+                    case (int)Witch_e.ENGLISH:
+                        Back_BGM.enabled = false;
+                        Back_SE.enabled = false;
+                        Back_JAPANESE.enabled = false;
+                        Back_ENGLISH.enabled = true;
+                        Back_Exit.enabled = false;
+                        Back_Reset.enabled = false;
+                        break;
+                    case (int)Witch_e.Exit:
 						Back_BGM.enabled = false;
 						Back_SE.enabled = false;
-						Back_Exit.enabled = true;
+                        Back_JAPANESE.enabled = false;
+                        Back_ENGLISH.enabled = false;
+                        Back_Exit.enabled = true;
 						Back_Reset.enabled = false;
 						break;
 					case (int)Witch_e.Reset:
 						Back_BGM.enabled = false;
 						Back_SE.enabled = false;
-						Back_Exit.enabled = false;
+                        Back_JAPANESE.enabled = false;
+                        Back_ENGLISH.enabled = false;
+                        Back_Exit.enabled = false;
 						Back_Reset.enabled = true;
 						break;
 				}
-				// 選択、Exit,Reset
+
+				// 選択、LANGUAGE,Exit,Reset
 				if (Input.GetKeyUp(KeyCode.Return))
 				{
+                    if (Witch_Control == (int)Witch_e.JAPANESE)
+                    {
+                        m_toggle_japanese.GetComponent<Toggle>().isOn = true;
+                        LanguageSetting.Set_Is_Japanese(true);
+                    }
+                    if (Witch_Control == (int)Witch_e.ENGLISH)
+                    {
+                        m_toggle_english.GetComponent<Toggle>().isOn = true;
+                        LanguageSetting.Set_Is_Japanese(false);
+                    }
 					if (Witch_Control == (int)Witch_e.Exit)
 					{
 						Close_Window();
@@ -247,11 +332,23 @@ public class miya_test_UI : MonoBehaviour
             return;
         }
 
-        Witch_Control--;
+        if (Witch_Control <= (int)Witch_e.JAPANESE)
+        {
+            Witch_Control--;
+        }
+        else if (Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            Witch_Control -= 2;
+        }
+        else if (Witch_Control == (int)Witch_e.Exit)
+        {
+            Witch_Control -= 2;
+        }
 
         if (Witch_Control == -1)
         {
-            Witch_Control = (int)Witch_e.Exit;
+            Witch_Control = 0;
+            //Witch_Control = (int)Witch_e.Exit;
         }
     }
 
@@ -263,11 +360,22 @@ public class miya_test_UI : MonoBehaviour
             return;
         }
 
-        Witch_Control++;
+        if (Witch_Control < (int)Witch_e.JAPANESE)
+        {
+            Witch_Control++;
+        }
+        else if (Witch_Control == (int)Witch_e.JAPANESE)
+        {
+            Witch_Control += 2;
+        }
+        else if (Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            Witch_Control++;
+        }
 
         if (Witch_Control == (int)Witch_e.Reset)
         {
-            Witch_Control = (int)Witch_e.BGM;
+            //Witch_Control = (int)Witch_e.BGM;
         }
     }
 
@@ -283,7 +391,18 @@ public class miya_test_UI : MonoBehaviour
             }
             else
             {
-                Witch_Control = (int)Witch_e.Exit;
+                //Witch_Control = (int)Witch_e.Exit;
+            }
+        }
+        else if (Witch_Control == (int)Witch_e.JAPANESE || Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            if (Witch_Control == (int)Witch_e.JAPANESE)
+            {
+                Witch_Control = (int)Witch_e.ENGLISH;
+            }
+            else
+            {
+                //Witch_Control = (int)Witch_e.JAPANESE;
             }
         }
         else
@@ -313,11 +432,22 @@ public class miya_test_UI : MonoBehaviour
         {
             if (Witch_Control == (int)Witch_e.Exit)
             {
-                Witch_Control = (int)Witch_e.Reset;
+                //Witch_Control = (int)Witch_e.Reset;
             }
             else
             {
                 Witch_Control = (int)Witch_e.Exit;
+            }
+        }
+        else if (Witch_Control == (int)Witch_e.JAPANESE || Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            if (Witch_Control == (int)Witch_e.JAPANESE)
+            {
+                //Witch_Control = (int)Witch_e.ENGLISH;
+            }
+            else
+            {
+                Witch_Control = (int)Witch_e.JAPANESE;
             }
         }
         else

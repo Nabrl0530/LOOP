@@ -14,6 +14,9 @@ public class LanguageSetting : MonoBehaviour
     private GameObject m_toggle_english = null;
 
     static bool m_is_japanese = false;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,10 @@ public class LanguageSetting : MonoBehaviour
     public static bool Get_Is_Japanese()
     {
         return m_is_japanese;
+    }
+    public static void Set_Is_Japanese(bool _true)
+    {
+        m_is_japanese = _true;
     }
 
     public void Show_Window()
