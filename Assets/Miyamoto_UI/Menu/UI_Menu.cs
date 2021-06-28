@@ -19,7 +19,22 @@ public class UI_Menu : MonoBehaviour
     // ------------------------------------------------------------------------------------------
     void Start()
     {
-        Commands = GameObject.Find("Commands").transform;   // 全体統括子オブジェクト取得
+        // 全体統括子オブジェクト取得
+        if (LanguageSetting.Get_Is_Japanese())
+        {
+            Commands = GameObject.Find("CommandsEnglishVer").transform;
+            SetAllInactive();
+            Commands = GameObject.Find("Commands").transform; 
+        }
+        else
+        {
+            Commands = GameObject.Find("Commands").transform;
+            SetAllInactive();
+            Commands = GameObject.Find("CommandsEnglishVer").transform;
+
+        }
+        
+        
         Show = false;                                       // 最初は見えないようにする
         NotUSE = false;
     }
@@ -82,5 +97,28 @@ public class UI_Menu : MonoBehaviour
     public void SetNot()
     {
         NotUSE = true;
+    }
+
+    //子オブジェクトをすべて非アクティブにする
+    private void SetAllInactive()
+    {
+        foreach (Transform t in Commands)
+        {
+            if (t.gameObject.activeSelf)
+            {
+                t.gameObject.SetActive(false);
+            }
+        }
+    }
+    //全体統括オブジェクトの子オブジェクトをすべてアクティブにする
+    private void SetAllActive()
+    {
+        foreach (Transform t in Commands)
+        {
+            if (!t.gameObject.activeSelf)
+            {
+                t.gameObject.SetActive(true);
+            }
+        }
     }
 }
