@@ -319,11 +319,13 @@ public class Player : MonoBehaviour
 						if (sc_camera_move.Get_Looking_FromUp())
 						{
 							direction_move += camera_up * Input.GetAxis("Vertical_p");
-						}
+                            direction_move += camera_right * Input.GetAxis("Horizontal_p");
+                        }
 						else
 						{
 							direction_move += camera_front * Input.GetAxis("Vertical_p");
-						}
+                            direction_move += camera_right * Input.GetAxis("Horizontal_p");
+                        }
 
 						// 走る
 						if (Input.GetButton("Run"))
@@ -352,6 +354,8 @@ public class Player : MonoBehaviour
 
                     Last_Direction = direction_move;
                 }
+
+                Debug.Log(direction_move);
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
                 //Rigid.velocity = direction_move * Speed_Move;
