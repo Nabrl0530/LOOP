@@ -474,16 +474,33 @@ public class miya_test_UI : MonoBehaviour
 
     public bool ActionKey()
     {
+        //カーソルがExitにある
         if (Witch_Control == (int)Witch_e.Exit)
         {
             Close_Window();
             TestSE_audio.Play();
             return true;
         }
+
+        //カーソルがResetにある
         if (Witch_Control == (int)Witch_e.Reset)
         {
             Reset_Value();
             TestSE_audio.Play();
+        }
+
+        //カーソルがJAPANESEにある
+        if (Witch_Control == (int)Witch_e.JAPANESE)
+        {
+            m_toggle_japanese.GetComponent<Toggle>().isOn = true;
+            LanguageSetting.Set_Is_Japanese(true);
+        }
+
+        //カーソルがENGLISHにある
+        if (Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            m_toggle_english.GetComponent<Toggle>().isOn = true;
+            LanguageSetting.Set_Is_Japanese(false);
         }
 
         return false;

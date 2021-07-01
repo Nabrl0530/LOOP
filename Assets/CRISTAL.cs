@@ -9,6 +9,7 @@ public class CRISTAL : MonoBehaviour
     bool HIT;
     bool CLEAR;
     bool ONE;
+    bool ACTIVE;
     public int count;
     public int laser_count1;
     public int laser_count2;
@@ -40,6 +41,7 @@ public class CRISTAL : MonoBehaviour
         OK = false;
         CLEAR = false;
         ONE = true;
+        ACTIVE = false;
         count = 0;
         laser_count1 = 0;
         laser_count2 = 0;
@@ -56,11 +58,18 @@ public class CRISTAL : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        ACTIVE = true;
     }
 
     void FixedUpdate()
     {
+        if(!ACTIVE)
+        {
+            return;
+        }
+
+        ACTIVE = false;
+
         if(ONE)
         {
             ONE = false;
@@ -121,7 +130,7 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            if (laser_count1 > 0 && laser_count1_2 > 1)
+            if (laser_count1 > 0 && laser_count1_2 > 2)
             {
                 laser_count1--;
             }
@@ -140,7 +149,7 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            if (laser_count2 > 0 && laser_count2_2 > 1)
+            if (laser_count2 > 0 && laser_count2_2 > 2)
             {
                 laser_count2--;
             }
@@ -158,7 +167,7 @@ public class CRISTAL : MonoBehaviour
         }
         else
         {
-            if (laser_count3 > 0 && laser_count3_2 > 1)
+            if (laser_count3 > 0 && laser_count3_2 > 2)
             {
                 laser_count3--;
             }
@@ -191,6 +200,10 @@ public class CRISTAL : MonoBehaviour
         }
 
         UI_clear_crystal.fillAmount = (float)(laser_count1 + laser_count2 + laser_count3) / (150 * USE_LINE_NUM);
+
+
+
+        //UI_clear_crystal.color = new Color(1.0f, 1.0f, 1.0f, (float)(laser_count1 + laser_count2 + laser_count3) / (150 * USE_LINE_NUM));
 
 
         for (int i=0;i<MAX_LINE;i++)

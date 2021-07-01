@@ -241,6 +241,11 @@ public class Title_Icon_Move : MonoBehaviour
         {
             con_D = true;
         }
+
+        if(!con_L && !con_R && !con_U && !con_D && UseOption)
+        {
+            wait = 0;
+        }
     }
 
     public void OutStartFadeAnim()
