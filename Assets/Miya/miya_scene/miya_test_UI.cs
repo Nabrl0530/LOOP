@@ -89,6 +89,10 @@ public class miya_test_UI : MonoBehaviour
 
 		// デバッグ
 		active = false;
+
+        // 表示バグ用
+        if (LanguageSetting.Get_Is_Japanese())  m_toggle_japanese.GetComponent<Toggle>().isOn   = true;
+        else                                    m_toggle_english.GetComponent<Toggle>().isOn    = true;
 	}
 
 	// Update is called once per frame
