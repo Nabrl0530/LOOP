@@ -96,7 +96,14 @@ public class CFadeManager : MonoBehaviour
             {
                 iFade.Range = 1.0f;
                 isFadeOut = false;
-                SceneManager.LoadScene(NextScene);
+                if(NextScene != 999)
+                {
+                    SceneManager.LoadScene(NextScene);
+                }
+                else
+                {
+                    UnityEngine.Application.Quit();
+                }
             }
         }
     }

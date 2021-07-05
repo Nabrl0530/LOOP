@@ -31,6 +31,7 @@ public class Title_Icon_Move : MonoBehaviour
     private Color fadecolor;
 
     int wait;
+    bool USE_KEY_BORD;
 
     int Select;
 
@@ -52,6 +53,7 @@ public class Title_Icon_Move : MonoBehaviour
         start = 0f;
         end = 1f;
         wait = 0;
+        USE_KEY_BORD = false;
         Select = 2;
         FINISH = false;
 
@@ -130,7 +132,6 @@ public class Title_Icon_Move : MonoBehaviour
                 // サウンドmiya
                 if (se_move) se_move.Play();
 
-
                 if (Select == 5)
                 {
                     Select = 1;
@@ -196,6 +197,11 @@ public class Title_Icon_Move : MonoBehaviour
                     menu_script.DownKey();
                     wait = 15;
                 }
+
+                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+                {
+                    USE_KEY_BORD = true;
+                }
             }
         }
 
@@ -207,6 +213,10 @@ public class Title_Icon_Move : MonoBehaviour
         if (wait > 0)
         {
             wait--;
+            if(wait == 0)
+            {
+                USE_KEY_BORD = false;
+            }
         }
     }
 
@@ -242,9 +252,14 @@ public class Title_Icon_Move : MonoBehaviour
             con_D = true;
         }
 
-        if(!con_L && !con_R && !con_U && !con_D && UseOption)
+        if(!con_L && !con_R && !con_U && !con_D && UseOption && !USE_KEY_BORD)
         {
             wait = 0;
+        }
+
+        if (!Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        {
+            USE_KEY_BORD = false;
         }
     }
 
@@ -258,7 +273,16 @@ public class Title_Icon_Move : MonoBehaviour
 
         FINISH = true;
         //StartCoroutine(fadeinplay());
-        CFadeManager.FadeOut(1);    //ステージセレクトへ
+
+        if(Select == 2)
+        {
+            CFadeManager.FadeOut(1);    //ステージセレクトへ
+        }
+        else if(Select ==4)
+        {
+            CFadeManager.FadeOut(999);    //ステージセレクトへ
+        }
+        
     }
 
     IEnumerator fadeinplay()

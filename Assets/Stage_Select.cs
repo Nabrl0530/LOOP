@@ -178,7 +178,9 @@ public class Stage_Select : MonoBehaviour
         }
 
         //StartCoroutine(fadeinplay());
+        
         CFadeManager.FadeOut(0);    //ƒ^ƒCƒgƒ‹‰æ–Ê‚Ö
+        
     }
 
     IEnumerator fadeinplay()
