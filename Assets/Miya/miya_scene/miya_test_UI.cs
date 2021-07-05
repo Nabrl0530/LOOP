@@ -359,28 +359,28 @@ public class miya_test_UI : MonoBehaviour
     //下キー入力による呼び出し
     public void DownKey()
     {
-        if (Witch_Control == (int)Witch_e.Reset)
-        {
-            return;
-        }
+        //if (Witch_Control == (int)Witch_e.Reset)
+        //{
+        //    return;
+        //}
 
-        if (Witch_Control < (int)Witch_e.JAPANESE)
-        {
-            Witch_Control++;
-        }
-        else if (Witch_Control == (int)Witch_e.JAPANESE)
-        {
-            Witch_Control += 2;
-        }
-        else if (Witch_Control == (int)Witch_e.ENGLISH)
-        {
-            Witch_Control++;
-        }
+        //if (Witch_Control < (int)Witch_e.JAPANESE)
+        //{
+        //    Witch_Control++;
+        //}
+        //else if (Witch_Control == (int)Witch_e.JAPANESE)
+        //{
+        //    Witch_Control += 2;
+        //}
+        //else if (Witch_Control == (int)Witch_e.ENGLISH)
+        //{
+        //    Witch_Control++;
+        //}
 
-        if (Witch_Control == (int)Witch_e.Reset)
-        {
-            //Witch_Control = (int)Witch_e.BGM;
-        }
+        //if (Witch_Control == (int)Witch_e.Reset)
+        //{
+        //    Witch_Control = (int)Witch_e.BGM;
+        //}
     }
 
     //右キー入力による呼び出し
