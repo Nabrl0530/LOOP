@@ -22,7 +22,16 @@ public class UI_Clear : MonoBehaviour
     void Start()
     {
         isUiClear = false;
-        ChildTransform = GameObject.Find("ClearImage").transform;
+        if(LanguageSetting.Get_Is_Japanese())
+        {
+            ChildTransform = GameObject.Find("ClearImage").transform;
+            GameObject.Find("ClearImageEnglish").transform.gameObject.SetActive(false);
+        }
+        else
+        {
+            ChildTransform = GameObject.Find("ClearImageEnglish").transform;
+            GameObject.Find("ClearImage").transform.gameObject.SetActive(false);
+        }
         time = 0;
     }
 
