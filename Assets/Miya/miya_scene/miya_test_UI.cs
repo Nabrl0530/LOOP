@@ -113,6 +113,7 @@ public class miya_test_UI : MonoBehaviour
 
 			// キー入力対応															コントローラー要追記
 			{
+                /*
 				// 選択位置
 				{
                     // 縦
@@ -209,6 +210,8 @@ public class miya_test_UI : MonoBehaviour
 					if (slider_se.value > 1) slider_se.value = 1;
 					if (slider_se.value < 0) slider_se.value = 0;
 				}
+                */
+
 				// 選択時背景
 				switch(Witch_Control)
 				{
@@ -359,28 +362,28 @@ public class miya_test_UI : MonoBehaviour
     //下キー入力による呼び出し
     public void DownKey()
     {
-        //if (Witch_Control == (int)Witch_e.Reset)
-        //{
-        //    return;
-        //}
+        if (Witch_Control == (int)Witch_e.Reset)
+        {
+            return;
+        }
 
-        //if (Witch_Control < (int)Witch_e.JAPANESE)
-        //{
-        //    Witch_Control++;
-        //}
-        //else if (Witch_Control == (int)Witch_e.JAPANESE)
-        //{
-        //    Witch_Control += 2;
-        //}
-        //else if (Witch_Control == (int)Witch_e.ENGLISH)
-        //{
-        //    Witch_Control++;
-        //}
+        if (Witch_Control < (int)Witch_e.JAPANESE)
+        {
+            Witch_Control++;
+        }
+        else if (Witch_Control == (int)Witch_e.JAPANESE)
+        {
+            Witch_Control += 2;
+        }
+        else if (Witch_Control == (int)Witch_e.ENGLISH)
+        {
+            Witch_Control++;
+        }
 
-        //if (Witch_Control == (int)Witch_e.Reset)
-        //{
-        //    Witch_Control = (int)Witch_e.BGM;
-        //}
+        if (Witch_Control == (int)Witch_e.Reset)
+        {
+            Witch_Control = (int)Witch_e.BGM;
+        }
     }
 
     //右キー入力による呼び出し
