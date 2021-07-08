@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
         UI_stage = GameObject.Find("UI_Stage");
         UI_Cristal1 = GameObject.Find("UI_crystal");
         UI_Cristal2 = GameObject.Find("crystal_back");
-        UI_Cristal3 = GameObject.Find("UI_crystal_text");
+        UI_Cristal3 = GameObject.Find("UI_crystal_num_Image");
 
         m_Count_Second = 0;
         Last_Direction = new Vector3(0, 0, -1);

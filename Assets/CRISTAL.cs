@@ -28,10 +28,12 @@ public class CRISTAL : MonoBehaviour
     public Player player;
     public Camera_Move Camera_Move;
     public Fade fade;
+    UI_Cristal UI_Cristal;
 
     public bool[] Clare = new bool[MAX_LINE];
 
     Image UI_clear_crystal;
+    Image UI_clear_num;
     Text UI_text;
 
     // Start is called before the first frame update
@@ -52,7 +54,7 @@ public class CRISTAL : MonoBehaviour
         no = 0;
 
         UI_clear_crystal = GameObject.Find("UI_crystal").GetComponent<Image>();
-        UI_text = GameObject.Find("UI_crystal_text").GetComponent<Text>();
+        UI_Cristal = GameObject.Find("UI_crystal_num_Image").GetComponent<UI_Cristal>();
     }
 
     // Update is called once per frame
@@ -73,7 +75,7 @@ public class CRISTAL : MonoBehaviour
         if(ONE)
         {
             ONE = false;
-            UI_text.text = USE_LINE_NUM.ToString();
+            UI_Cristal.Set_UI_Num(USE_LINE_NUM);
         }
 
         if(USE_LINE_NUM ==0)
