@@ -36,6 +36,11 @@ public class Scroll : MonoBehaviour
         CANCEL,
     }
 
+    bool con_L; //コントローラー入力左
+    bool con_R; //コントローラー入力右
+    bool con_U; //コントローラー入力上
+    bool con_D; //コントローラー入力下
+
 
     [SerializeField] int num;
     [SerializeField] bool up;
@@ -184,8 +189,10 @@ public class Scroll : MonoBehaviour
         if (isPop)
             return;
 
+        Check_Cont();
+
         //上下
-        if (up || Input.GetKeyDown(KeyCode.W))
+        if (up || Input.GetKeyDown(KeyCode.W) ||con_U)
         {
             if (status == STATE.STAY)
             {
@@ -206,7 +213,7 @@ public class Scroll : MonoBehaviour
             up = false;
         }
 
-        if (down || Input.GetKeyDown(KeyCode.S))
+        if (down || Input.GetKeyDown(KeyCode.S) || con_D)
         {
             if (status == STATE.STAY)
             {
@@ -231,7 +238,7 @@ public class Scroll : MonoBehaviour
         }
 
         //難易度移動
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || con_R)
         {
             if (status == STATE.STAY)
             {
@@ -243,7 +250,7 @@ public class Scroll : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) || con_L)
         {
             if (status == STATE.STAY)
             {
@@ -291,7 +298,7 @@ public class Scroll : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK"))
         {
             int yn = data.GetStageStatus(currentStagenum);
 
@@ -497,6 +504,39 @@ public class Scroll : MonoBehaviour
             sound[(int)SOUND.CANCEL].Play();
             pop.SetActive(false);
             isPop = false;
+        }
+    }
+
+    private void Check_Cont()
+    {
+        float LR;
+        float UD;
+        LR = Input.GetAxis("Horizontal_p"); //右ぷら
+        UD = Input.GetAxis("Vertical_p"); //上ぷら
+
+        con_L = false;
+        con_R = false;
+        con_U = false;
+        con_D = false;
+
+        if (LR > 0.5f)
+        {
+            con_R = true;
+        }
+
+        if (LR < -0.5f)
+        {
+            con_L = true;
+        }
+
+        if (UD > 0.5f)
+        {
+            con_U = true;
+        }
+
+        if (UD < -0.5f)
+        {
+            con_D = true;
         }
     }
 }
