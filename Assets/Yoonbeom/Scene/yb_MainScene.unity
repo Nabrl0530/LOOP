@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 62497429}
   - component: {fileID: 62497428}
   - component: {fileID: 62497430}
+  - component: {fileID: 62497431}
   m_Layer: 5
   m_Name: Image_Start
   m_TagString: Untagged
@@ -212,6 +213,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de748cf570950846b965a7eee0a6c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &62497431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62497426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite_Japanese: {fileID: 21300000, guid: ecbb297b6ef5e9541a5ba14f98b91af2, type: 3}
+  Sprite_English: {fileID: 21300000, guid: b9c266208a9be99428c1eec25da1bee1, type: 3}
+  Is_Japanese: 1
 --- !u!1 &150878327
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,6 +489,7 @@ GameObject:
   - component: {fileID: 296347637}
   - component: {fileID: 296347636}
   - component: {fileID: 296347638}
+  - component: {fileID: 296347639}
   m_Layer: 5
   m_Name: Image_Menu
   m_TagString: Untagged
@@ -549,6 +566,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38e22b488528c44f99521cca35a1c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &296347639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296347634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite_Japanese: {fileID: 21300000, guid: 69d86def9a91eb4438237d6216b56291, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 75d2b1fbf8ea1d5468f5278d9872a4f4, type: 3}
+  Is_Japanese: 1
 --- !u!1 &340548939
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +845,7 @@ GameObject:
   - component: {fileID: 612653155}
   - component: {fileID: 612653154}
   - component: {fileID: 612653156}
+  - component: {fileID: 612653157}
   m_Layer: 5
   m_Name: Image_End
   m_TagString: Untagged
@@ -889,6 +922,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c94429e0116894699eae7d77067bf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &612653157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612653152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite_Japanese: {fileID: 21300000, guid: 0bae45335e77ba14bb565549b52cb9a0, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 5ba283dba9c716d4380d3bf69544c7e4, type: 3}
+  Is_Japanese: 1
 --- !u!1001 &647272988
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2425,6 +2473,7 @@ GameObject:
   - component: {fileID: 1910595605}
   - component: {fileID: 1910595604}
   - component: {fileID: 1910595603}
+  - component: {fileID: 1910595606}
   m_Layer: 5
   m_Name: Image_Extra
   m_TagString: Untagged
@@ -2501,6 +2550,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910595601}
   m_CullTransparentMesh: 1
+--- !u!114 &1910595606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910595601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite_Japanese: {fileID: 21300000, guid: b4bebeb0e8647e04ab9f08fe42bbbdb7, type: 3}
+  Sprite_English: {fileID: 21300000, guid: f683cbde16db5ee459a1f6b55ff48010, type: 3}
+  Is_Japanese: 1
 --- !u!82 &1923014189 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 3123931155565840629, guid: f940875b3066db14da7617a0a7855874,
