@@ -33,6 +33,7 @@ public class Scroll : MonoBehaviour
         MOVE,
         OK,
         OPEN,
+        CANCEL,
     }
 
 
@@ -46,20 +47,22 @@ public class Scroll : MonoBehaviour
     [SerializeField] int hard;
     [SerializeField] int normal;
     [SerializeField] int easy;
+
+    [SerializeField] GameObject pop;
+
     [SerializeField] Image level;
     [SerializeField] Image lvNum;
+
     [SerializeField] Animator batU;
     [SerializeField] Animator batD;
 
     [SerializeField] Sprite[] numTex = new Sprite[10];
+
     [SerializeField] List<Sprite> lvTex = new List<Sprite>();
-
     [SerializeField] List<AudioSource> sound = new List<AudioSource>();
-
-
     [SerializeField] List<int> moveStageNum = new List<int>();
-
     [SerializeField] List<int> stageList = new List<int>();
+
     Color color = new Color(1, 1, 1, 1);
     Scrollbar sb;
     Data data;
@@ -68,6 +71,7 @@ public class Scroll : MonoBehaviour
     STATE status = STATE.STAY;
     float nextPos = 0;
     float addValue = 0.1f;
+    bool isPop = false;
 
     const float correctionAdd = 0.0001f; //調整移動量
     const float scrollSpeed = 1.0f;
@@ -110,6 +114,7 @@ public class Scroll : MonoBehaviour
         sound[(int)SOUND.MOVE].Stop();
         sound[(int)SOUND.OK].Stop();
         sound[(int)SOUND.OPEN].Stop();
+        sound[(int)SOUND.CANCEL].Stop();
 
         //スクロールの初期ポジションをセット
         //ステージに入った記憶がある場合そのステージから選択できる
@@ -133,6 +138,8 @@ public class Scroll : MonoBehaviour
 
         //ステージレベルをセット
         ChangeStageLevel();
+
+        isPop = false;
     }
 
     void MoveSetting()
@@ -174,6 +181,9 @@ public class Scroll : MonoBehaviour
 
     void Update()
     {
+        if (isPop)
+            return;
+
         //上下
         if (up || Input.GetKeyDown(KeyCode.W))
         {
@@ -292,11 +302,19 @@ public class Scroll : MonoBehaviour
             if (yn == (int)Data.STAGE_STATUS.NONE)
                 Debug.Log("未開放");
             else if (yn == (int)Data.STAGE_STATUS.OPEN)
-                CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+            {
+               // CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+
+                pop.SetActive(true);
+                isPop = true;
+            }
+                
             else if (yn == (int)Data.STAGE_STATUS.CLEAR)
             {
-                Debug.Log("クリア済み");
-                CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+                // CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+
+                pop.SetActive(true);
+                isPop = true;
             }
 
             PlayerPrefs.SetInt(scrollkey, currentStagenum);
@@ -463,7 +481,22 @@ public class Scroll : MonoBehaviour
                 nextPos = correction * num + lv2 * (1.0f / (float)num - correction);
             else if (stageLevel == STAGE_LEVEL.END)
                 nextPos = correction * num + lv3 * (1.0f / (float)num - correction);
+        }
+    }
 
+
+    public void JudgeYesOrNo(bool isEnter)
+    {
+        if (isEnter)
+        {
+            sound[(int)SOUND.OK].Play();
+            CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+        }
+        else
+        {
+            sound[(int)SOUND.CANCEL].Play();
+            pop.SetActive(false);
+            isPop = false;
         }
     }
 }

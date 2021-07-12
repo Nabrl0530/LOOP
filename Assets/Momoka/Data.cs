@@ -11,7 +11,7 @@ public class Data : MonoBehaviour
     const string _statusKey = "stageStatus";
     const string scrollkey = "scrollkey";
     int currentStageNum;
-    [SerializeField] int stage_num;
+    [SerializeField] int stageNum;
 
     public static Data Instance
     {
@@ -51,22 +51,22 @@ public class Data : MonoBehaviour
 
         //PlayerPrefs.DeleteKey(_statusKey);
 
+
         //データをロード
-        if (!PlayerPrefs.HasKey(_statusKey))
+        if(!PlayerPrefs.HasKey(_statusKey))
         {
             string s = null;
 
-            for (int i = 0; i < stage_num; i++)
+            for (int i = 0; i < stageNum; i++)
             {
-                //_status[i] = (int)STAGE_STATUS.NONE;
-                if (i != 0)
+                if (i == 0)
                 {
-                    _status.Add((int)STAGE_STATUS.NONE);
+                    _status.Add((int)STAGE_STATUS.OPEN);
                     s += _status[i].ToString() + ",";
                 }
                 else
                 {
-                    _status.Add((int)STAGE_STATUS.OPEN);
+                    _status.Add((int)STAGE_STATUS.NONE);
                     s += _status[i].ToString() + ",";
                 }
             }
@@ -76,7 +76,6 @@ public class Data : MonoBehaviour
         }
         else
         {
-            //Debug.Log("残念");
             Load();
         }
 
@@ -85,7 +84,6 @@ public class Data : MonoBehaviour
         else
             currentStageNum = 0;
 
-        //StageClear();
     }
 
     private void Update()
