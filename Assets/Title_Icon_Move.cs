@@ -162,7 +162,7 @@ public class Title_Icon_Move : MonoBehaviour
             //オプション画面が開いている場合
             if(UseOption && wait == 0)
             {
-                if(Input.GetKeyDown(KeyCode.J) || Input.GetButton("OK"))
+                if(Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK"))
                 {
                     if(menu_script.ActionKey())
                     {
