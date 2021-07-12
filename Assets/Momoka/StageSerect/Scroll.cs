@@ -28,6 +28,14 @@ public class Scroll : MonoBehaviour
         SKIP,
     }
 
+    enum SOUND
+    {
+        MOVE,
+        OK,
+        OPEN,
+    }
+
+
     [SerializeField] int num;
     [SerializeField] bool up;
     [SerializeField] bool down;
@@ -45,6 +53,11 @@ public class Scroll : MonoBehaviour
 
     [SerializeField] Sprite[] numTex = new Sprite[10];
     [SerializeField] List<Sprite> lvTex = new List<Sprite>();
+
+    [SerializeField] List<AudioSource> sound = new List<AudioSource>();
+
+
+    [SerializeField] List<int> moveStageNum = new List<int>();
 
     [SerializeField] List<int> stageList = new List<int>();
     Color color = new Color(1, 1, 1, 1);
@@ -87,12 +100,17 @@ public class Scroll : MonoBehaviour
 
         //テキストの番号も更新
         int w = stageList[currentStagenum] % 10;
-        //tex.text = w.ToString();
         lvNum.sprite = numTex[w];
     }
 
     private void Start()
     {
+        CFadeManager.FadeIn();
+
+        sound[(int)SOUND.MOVE].Stop();
+        sound[(int)SOUND.OK].Stop();
+        sound[(int)SOUND.OPEN].Stop();
+
         //スクロールの初期ポジションをセット
         //ステージに入った記憶がある場合そのステージから選択できる
         if (PlayerPrefs.HasKey(scrollkey))
@@ -119,6 +137,8 @@ public class Scroll : MonoBehaviour
 
     void MoveSetting()
     {
+        sound[(int)SOUND.MOVE].Play();
+
         //移動の値を変更
         addValue = (nextPos - sb.value) / scrollSpeed;
 
@@ -139,7 +159,6 @@ public class Scroll : MonoBehaviour
 
         //番号をいったん見えなくする
         color.a = 0;
-        //tex.color = color;
         lvNum.color = color;
         level.color = color;
 
@@ -255,7 +274,6 @@ public class Scroll : MonoBehaviour
                 if (color.a < 1)
                 {
                     color.a += 1.5f * Time.deltaTime;
-                    //tex.color = color;
                     lvNum.color = color;
                     level.color = color;
                 }
@@ -267,12 +285,19 @@ public class Scroll : MonoBehaviour
         {
             int yn = data.GetStageStatus(currentStagenum);
 
+            Debug.Log(moveStageNum[currentStagenum]);
+
+            sound[(int)SOUND.OK].Play();
+
             if (yn == (int)Data.STAGE_STATUS.NONE)
                 Debug.Log("未開放");
             else if (yn == (int)Data.STAGE_STATUS.OPEN)
-                Debug.Log("開放済み");
+                CFadeManager.FadeOut(moveStageNum[currentStagenum]);
             else if (yn == (int)Data.STAGE_STATUS.CLEAR)
+            {
                 Debug.Log("クリア済み");
+                CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+            }
 
             PlayerPrefs.SetInt(scrollkey, currentStagenum);
             PlayerPrefs.Save();
@@ -308,14 +333,15 @@ public class Scroll : MonoBehaviour
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-
-        /// <summary>
-        /// ステージの解放
-        /// 引数：ステージの番号
-        /// </summary>
-        /// <param name="stagenum"></param>
     public void Open(int stagenum)
     {
+        if (stagenum > stageList.Count - 1)
+        {
+            Debug.Log("最大");
+            return;
+        }
+
+
         if (currentStagenum < stagenum)
         {
             batU.SetTrigger("fly");
@@ -332,15 +358,16 @@ public class Scroll : MonoBehaviour
             //番号テキストの変更
             int w;
             w = stageList[currentStagenum] % 10;
-            //tex.text = w.ToString();
             lvNum.sprite = numTex[w];
 
             ChangeStageLevel();
 
             data.SetStageStatus(stagenum, Data.STAGE_STATUS.OPEN);
+
+            sound[(int)SOUND.OPEN].Play();
+
         }
     }
-
 
     public void ChangeStageLevel()
     {

@@ -197,6 +197,7 @@ public class CRISTAL : MonoBehaviour
             {
                 //fade.SetOut();
                 //fade.SetNext(2);
+                Data.Instance.StageClear();
                 CFadeManager.FadeOut(1);    //ステージセレクトへ
             }
         }

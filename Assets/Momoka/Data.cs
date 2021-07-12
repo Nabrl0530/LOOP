@@ -9,12 +9,25 @@ public class Data : MonoBehaviour
     [SerializeField] List<int> _status = new List<int>();
     [SerializeField] bool save = false;
     const string _statusKey = "stageStatus";
+    const string scrollkey = "scrollkey";
+    int currentStageNum;
+    [SerializeField] int stage_num;
 
     public static Data Instance
     {
         get{
             return instance;
         }
+    }
+
+    public int CurrentStageNum
+    {
+        get { return currentStageNum; }
+    }
+
+    public int DataNum
+    {
+        get { return _status.Count; }
     }
 
     public enum STAGE_STATUS
@@ -36,16 +49,26 @@ public class Data : MonoBehaviour
         //全てのシーンに存在
         DontDestroyOnLoad(this.gameObject);
 
+        //PlayerPrefs.DeleteKey(_statusKey);
 
         //データをロード
-        if(!PlayerPrefs.HasKey(_statusKey))
+        if (!PlayerPrefs.HasKey(_statusKey))
         {
             string s = null;
 
-            for (int i = 0; i < _status.Count; i++)
+            for (int i = 0; i < stage_num; i++)
             {
-                _status[i] = (int)STAGE_STATUS.NONE;
-                s += _status[i].ToString() + ",";
+                //_status[i] = (int)STAGE_STATUS.NONE;
+                if (i != 0)
+                {
+                    _status.Add((int)STAGE_STATUS.NONE);
+                    s += _status[i].ToString() + ",";
+                }
+                else
+                {
+                    _status.Add((int)STAGE_STATUS.OPEN);
+                    s += _status[i].ToString() + ",";
+                }
             }
 
             PlayerPrefs.SetString(_statusKey, s);
@@ -53,8 +76,16 @@ public class Data : MonoBehaviour
         }
         else
         {
+            //Debug.Log("残念");
             Load();
         }
+
+        if (PlayerPrefs.HasKey(scrollkey))
+            currentStageNum = PlayerPrefs.GetInt(scrollkey);
+        else
+            currentStageNum = 0;
+
+        //StageClear();
     }
 
     private void Update()
@@ -85,6 +116,19 @@ public class Data : MonoBehaviour
         Save();
     }
 
+
+    /// <summary>
+    /// 現在のステージをクリアしたときに呼ぶ
+    /// </summary>
+    public void StageClear()
+    {
+        currentStageNum = PlayerPrefs.GetInt(scrollkey);
+
+        _status[currentStageNum] = (int)STAGE_STATUS.CLEAR;
+
+        Save();
+    }
+
     void Load()
     {
         string s = null;
@@ -94,7 +138,7 @@ public class Data : MonoBehaviour
 
         _status.Clear();
 
-        for(int i=0;i<strArray.Length;i++)
+        for (int i = 0; i < strArray.Length - 1; i++)
         {
             _status.Add(int.Parse(strArray[i]));
             s += _status[i].ToString() + ",";

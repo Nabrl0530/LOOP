@@ -11,9 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Yoonbeom/Scene/yb_ChoiceScene.unity
     guid: 1d48dc1180560304a9e4d057cde1fe2c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Miyamoto/StageSelect_Newer.unity
     guid: 40898767035c3594aa6e171d1e3f9472
+  - enabled: 1
+    path: Assets/Momoka/StageSerectMomo.unity
+    guid: d24eaf53f0710064abbb14638f641535
   - enabled: 0
     path: Assets/Yoonbeom/Scene/Stage 1.unity
     guid: 5f38387d23b16db46aedde4c109c4b6b
