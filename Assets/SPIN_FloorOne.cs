@@ -8,7 +8,7 @@ public class SPIN_FloorOne : MonoBehaviour
     int count;
 
     bool NO_SPIN;
-
+    Player player;
 
     // ƒTƒEƒ“ƒhmiya
     public sound_round sc_round;
@@ -20,6 +20,8 @@ public class SPIN_FloorOne : MonoBehaviour
     {
         Spin = 0;
         count = 0;
+
+        player = GameObject.Find("PlayerCenter").GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class SPIN_FloorOne : MonoBehaviour
         if(count > 0)
         {
             transform.Rotate(0, 1 * Spin, 0);
+            player.Spin_Stage(Spin);
             count--;
 
             if(count == 0)

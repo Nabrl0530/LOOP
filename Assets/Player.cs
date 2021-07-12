@@ -1394,5 +1394,11 @@ public class Player : MonoBehaviour
         {
             catch_point = other.GetComponent<CATCH_POINT>();
         }
-    } 
+    }
+    
+    public void Spin_Stage(int Spin)
+    {
+        //transform.Rotate(0, 1 * Spin, 0);
+        Last_Direction = Quaternion.Euler(0, 1 * Spin, 0) * Last_Direction;
+    }
 }

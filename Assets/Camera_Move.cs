@@ -9,6 +9,7 @@ public class Camera_Move : MonoBehaviour
     // 参照
     public Player sc_player;
     public Player_State sc_state;
+    reflection reflection;
 
     // 定数
     [SerializeField]
@@ -39,6 +40,8 @@ public class Camera_Move : MonoBehaviour
     public GameObject Light_L;
     int diray = 0;
 
+    int KeyWait = 0;
+
     // クリアカメラ
     CinemachineVirtualCamera normal_camera;
     public CinemachineVirtualCamera clear_camera;
@@ -59,7 +62,7 @@ public class Camera_Move : MonoBehaviour
         Height = Height_Default;
         Length_FromCenter_Zoom = 7;
 
-
+        reflection = GameObject.Find("Reflection Probe").GetComponent<reflection>();
 
         // クリアカメラ
         normal_camera = this.GetComponent<CinemachineVirtualCamera>();
@@ -127,6 +130,11 @@ public class Camera_Move : MonoBehaviour
             {
                 Light_L.SetActive(true);
             }
+        }
+
+        if(KeyWait > 0)
+        {
+            KeyWait--;
         }
     }
 
@@ -233,9 +241,15 @@ public class Camera_Move : MonoBehaviour
                     diray = -1;
                 }
 
+                if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxisRaw("Change_c") == -1) && !CLEAR && KeyWait == 0)
+                {
+                    reflection.Changerate();
+                    KeyWait = 60;
+                }
+
                 // 通常視点へ切替//十字ボタン左
                 // ゲームパッド// 原田君用2
-                if ((Input.GetKey(KeyCode.DownArrow) || Input.GetAxisRaw("Juji_yoko") == -1) && !CLEAR)
+                if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetAxisRaw("Juji_yoko") == -1) && !CLEAR)
                 {
                     Set_DefaultCamera();
                     Looking_FromUp_m = false;
@@ -243,7 +257,7 @@ public class Camera_Move : MonoBehaviour
                 }
 
                 // フォローカメラ//十字ボタン右
-                if ((Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1) && !CLEAR)
+                if ((Input.GetKey(KeyCode.RightArrow) || Input.GetAxisRaw("Juji_yoko") == 1) && !CLEAR)
                 {
                     Set_FollowCamera();
                     Looking_FromUp_m = false;
