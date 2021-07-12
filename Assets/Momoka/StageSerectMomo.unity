@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -928,6 +928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 316201556}
   - component: {fileID: 316201557}
+  - component: {fileID: 316201558}
   m_Layer: 0
   m_Name: ok
   m_TagString: Untagged
@@ -1045,6 +1046,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &316201558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316201555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 0
 --- !u!1 &351012432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 351012433}
   - component: {fileID: 351012434}
+  - component: {fileID: 351012435}
   m_Layer: 0
   m_Name: open
   m_TagString: Untagged
@@ -1172,6 +1187,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &351012435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351012432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 0
 --- !u!224 &403625411 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1397708952970216190, guid: c54bb3527f9e349498cbdf987eba1a3f,
@@ -2177,6 +2205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 936290473}
   - component: {fileID: 936290474}
+  - component: {fileID: 936290475}
   m_Layer: 0
   m_Name: move
   m_TagString: Untagged
@@ -2294,6 +2323,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &936290475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936290472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 0
 --- !u!1001 &1014095459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4160,6 +4202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833113138}
   - component: {fileID: 1833113139}
+  - component: {fileID: 1833113140}
   m_Layer: 0
   m_Name: BGM
   m_TagString: Untagged
@@ -4277,6 +4320,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1833113140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833113137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 1
 --- !u!224 &1927206256 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1397708952970216190, guid: c54bb3527f9e349498cbdf987eba1a3f,
@@ -4299,6 +4355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2064901989}
   - component: {fileID: 2064901990}
+  - component: {fileID: 2064901991}
   m_Layer: 0
   m_Name: cancel
   m_TagString: Untagged
@@ -4416,6 +4473,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2064901991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064901988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc7a8ae47c2924d4d805a68b0b48a920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMtrueSEfalse: 0
 --- !u!224 &2081762116 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1397708952970216190, guid: c54bb3527f9e349498cbdf987eba1a3f,
