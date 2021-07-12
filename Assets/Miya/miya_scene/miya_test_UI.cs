@@ -27,6 +27,11 @@ public class miya_test_UI : MonoBehaviour
     Image Back_Exit;
 	Image Back_Reset;
 
+	// 追加
+	Image Back;
+	public Sprite Back_Japanese;
+	public Sprite Back_English;
+
 	// ボリューム
 	static public float Magnification_BGM = 0.5f;
 	static public float Magnification_SE = 0.5f;
@@ -81,7 +86,10 @@ public class miya_test_UI : MonoBehaviour
         Back_Exit	= back.transform.Find("Back_Exit"	).GetComponent<Image>(); Back_Exit.enabled = false;
 		Back_Reset	= back.transform.Find("Back_Reset"	).GetComponent<Image>(); Back_Reset.enabled = false;
 		Witch_Control = (int)Witch_e.BGM;
-		
+
+		// 追加
+		Back = back.GetComponent<Image>();
+
 
 		// ボリューム
 		Magnification_BGM = 0.5f;
@@ -108,6 +116,11 @@ public class miya_test_UI : MonoBehaviour
 
 		if (active)
 		{
+			// 追加
+			if (LanguageSetting.Get_Is_Japanese()) Back.sprite = Back_Japanese;
+			else Back.sprite = Back_English;
+
+
 			// SEテストプレイ
 			if (Input.GetMouseButtonUp(0)) TestSE_audio.Play();
 
