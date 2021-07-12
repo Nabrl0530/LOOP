@@ -15,7 +15,7 @@ public class LanguageSetting : MonoBehaviour
 
     static bool m_is_japanese = true;
 
-
+    static int REFLECTION_MODE = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -52,5 +52,15 @@ public class LanguageSetting : MonoBehaviour
     public void Close_Window()
     {
         m_ui.SetActive(false);
+    }
+
+    public static int Get_MODE()
+    {
+        return REFLECTION_MODE;
+    }
+
+    public static void Set_MODE(int i)
+    {
+        REFLECTION_MODE = i;
     }
 }
