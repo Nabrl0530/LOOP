@@ -22,11 +22,11 @@ public class reflection : MonoBehaviour
         }
         else if(mode == 1)
         {
-            frame = 3;
+            frame = 6;
         }
         else
         {
-            frame = 6;
+            frame = 15;
         }
     }
 
@@ -56,14 +56,14 @@ public class reflection : MonoBehaviour
         else if(mode == 1)
         {
             mode--;
-            frame = 3;
+            frame = 6;
             count = 0;
             LanguageSetting.Set_MODE(mode);
         }
         else
         {
             mode = 2;
-            frame = 6;
+            frame = 15;
             count = 0;
             LanguageSetting.Set_MODE(mode);
         }
