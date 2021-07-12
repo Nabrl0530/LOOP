@@ -249,7 +249,7 @@ public class Camera_Move : MonoBehaviour
 
                 // 通常視点へ切替//十字ボタン左
                 // ゲームパッド// 原田君用2
-                if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetAxisRaw("Juji_yoko") == -1) && !CLEAR)
+                if ((Input.GetKey(KeyCode.P) || Input.GetAxisRaw("Juji_yoko") == -1) && !CLEAR)
                 {
                     Set_DefaultCamera();
                     Looking_FromUp_m = false;
@@ -257,7 +257,7 @@ public class Camera_Move : MonoBehaviour
                 }
 
                 // フォローカメラ//十字ボタン右
-                if ((Input.GetKey(KeyCode.RightArrow) || Input.GetAxisRaw("Juji_yoko") == 1) && !CLEAR)
+                if ((Input.GetKey(KeyCode.L) || Input.GetAxisRaw("Juji_yoko") == 1) && !CLEAR)
                 {
                     Set_FollowCamera();
                     Looking_FromUp_m = false;
