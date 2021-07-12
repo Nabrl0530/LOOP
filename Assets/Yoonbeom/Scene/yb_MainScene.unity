@@ -183,7 +183,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ecbb297b6ef5e9541a5ba14f98b91af2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46c5f0a0dc0698f43b8d1d677a13e611, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -225,8 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite_Japanese: {fileID: 21300000, guid: ecbb297b6ef5e9541a5ba14f98b91af2, type: 3}
-  Sprite_English: {fileID: 21300000, guid: b9c266208a9be99428c1eec25da1bee1, type: 3}
+  Sprite_Japanese: {fileID: 21300000, guid: 46c5f0a0dc0698f43b8d1d677a13e611, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 808664d5a67f14f46b67984efed2763d, type: 3}
   Is_Japanese: 1
 --- !u!1 &150878327
 GameObject:
@@ -536,7 +536,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 69d86def9a91eb4438237d6216b56291, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 770d9996aad27814a931980737b4cc70, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -578,8 +578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite_Japanese: {fileID: 21300000, guid: 69d86def9a91eb4438237d6216b56291, type: 3}
-  Sprite_English: {fileID: 21300000, guid: 75d2b1fbf8ea1d5468f5278d9872a4f4, type: 3}
+  Sprite_Japanese: {fileID: 21300000, guid: 770d9996aad27814a931980737b4cc70, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 4105f45d9e8fb444496ecc92150412b5, type: 3}
   Is_Japanese: 1
 --- !u!1 &340548939
 GameObject:
@@ -892,7 +892,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0bae45335e77ba14bb565549b52cb9a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fa115d2f8fb77eb4aac45d8000f1b106, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -934,8 +934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite_Japanese: {fileID: 21300000, guid: 0bae45335e77ba14bb565549b52cb9a0, type: 3}
-  Sprite_English: {fileID: 21300000, guid: 5ba283dba9c716d4380d3bf69544c7e4, type: 3}
+  Sprite_Japanese: {fileID: 21300000, guid: fa115d2f8fb77eb4aac45d8000f1b106, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 9e7784e4257062547a5d17ad6e1411fe, type: 3}
   Is_Japanese: 1
 --- !u!1001 &647272988
 PrefabInstance:
@@ -1909,7 +1909,7 @@ PrefabInstance:
     - target: {fileID: 275603880229213726, guid: a4c506e04c1e0d748adf080a3359c768,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 912417166773211196, guid: a4c506e04c1e0d748adf080a3359c768,
         type: 3}
@@ -1944,7 +1944,7 @@ PrefabInstance:
     - target: {fileID: 7211120538655970034, guid: a4c506e04c1e0d748adf080a3359c768,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7761922098643520550, guid: a4c506e04c1e0d748adf080a3359c768,
         type: 3}
@@ -2532,7 +2532,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b4bebeb0e8647e04ab9f08fe42bbbdb7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7dbbcbec0fd9eea4d92480b82bfae4ca, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2562,8 +2562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e81c8d9381cbf1448b0c2ede716ac1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite_Japanese: {fileID: 21300000, guid: b4bebeb0e8647e04ab9f08fe42bbbdb7, type: 3}
-  Sprite_English: {fileID: 21300000, guid: f683cbde16db5ee459a1f6b55ff48010, type: 3}
+  Sprite_Japanese: {fileID: 21300000, guid: 7dbbcbec0fd9eea4d92480b82bfae4ca, type: 3}
+  Sprite_English: {fileID: 21300000, guid: 3e9cced65bd8e734abea641919a5d7d7, type: 3}
   Is_Japanese: 1
 --- !u!82 &1923014189 stripped
 AudioSource:
