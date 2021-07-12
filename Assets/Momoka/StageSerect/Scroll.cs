@@ -327,6 +327,13 @@ public class Scroll : MonoBehaviour
             PlayerPrefs.SetInt(scrollkey, currentStagenum);
             PlayerPrefs.Save();
         }
+
+        if (Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("NO"))
+        {
+            sound[(int)SOUND.CANCEL].Play();
+            CFadeManager.FadeOut(0);
+            isPop = true;
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
