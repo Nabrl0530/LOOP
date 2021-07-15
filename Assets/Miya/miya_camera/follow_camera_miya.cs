@@ -34,6 +34,11 @@ public class follow_camera_miya : MonoBehaviour
 		else
 		{
 			_transposer.m_XAxis.m_InputAxisName = name;
+		
+			if (Mathf.Abs(_transposer.m_XAxis.m_InputAxisValue) < 0.05)
+			{
+				_transposer.m_XAxis.m_InputAxisValue = 0;
+			}
 		}
     }
 }

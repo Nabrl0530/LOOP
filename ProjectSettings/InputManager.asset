@@ -438,7 +438,7 @@ InputManager:
     axis: 6
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Horizontal_test
+    m_Name: Horizontal_c
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
