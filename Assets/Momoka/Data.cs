@@ -13,9 +13,14 @@ public class Data : MonoBehaviour
     int currentStageNum;
     [SerializeField] int stageNum;
 
+    const int EStart = 0;
+    const int NStart = 5;
+    const int HStart = 9;
+
     public static Data Instance
     {
-        get{
+        get
+        {
             return instance;
         }
     }
@@ -53,13 +58,13 @@ public class Data : MonoBehaviour
 
 
         //データをロード
-        if(!PlayerPrefs.HasKey(_statusKey))
+        if (!PlayerPrefs.HasKey(_statusKey))
         {
             string s = null;
 
             for (int i = 0; i < stageNum; i++)
             {
-                if (i == 0)
+                if (i == EStart || i == NStart || i == HStart)
                 {
                     _status.Add((int)STAGE_STATUS.OPEN);
                     s += _status[i].ToString() + ",";
@@ -89,11 +94,13 @@ public class Data : MonoBehaviour
     private void Update()
     {
         //デバッグ用
-        if(save)
+        if (save)
         {
             Save();
             save = false;
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            Delete();
     }
 
 
@@ -107,7 +114,7 @@ public class Data : MonoBehaviour
 
     //ステージの状態を更新
     //任意のステージの番号と更新するステータスが必要
-    public void SetStageStatus(int stageNum,STAGE_STATUS status)
+    public void SetStageStatus(int stageNum, STAGE_STATUS status)
     {
         _status[stageNum] = (int)status;
 
@@ -158,5 +165,36 @@ public class Data : MonoBehaviour
 
         PlayerPrefs.SetString(_statusKey, s);
         PlayerPrefs.Save();
+    }
+
+
+    void Delete()
+    {
+        PlayerPrefs.DeleteKey(_statusKey);
+        PlayerPrefs.DeleteKey(scrollkey);
+
+        _status.Clear();
+
+        //データをロード
+        string s = null;
+
+        for (int i = 0; i < stageNum; i++)
+        {
+            if (i == EStart || i == NStart || i == HStart)
+            {
+                _status.Add((int)STAGE_STATUS.OPEN);
+                s += _status[i].ToString() + ",";
+            }
+            else
+            {
+                _status.Add((int)STAGE_STATUS.NONE);
+                s += _status[i].ToString() + ",";
+            }
+        }
+
+        PlayerPrefs.SetString(_statusKey, s);
+        PlayerPrefs.Save();
+
+        CFadeManager.FadeOut(1);
     }
 }

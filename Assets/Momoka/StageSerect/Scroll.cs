@@ -34,6 +34,7 @@ public class Scroll : MonoBehaviour
         OK,
         OPEN,
         CANCEL,
+        NO,
     }
 
     bool con_L; //コントローラー入力左
@@ -120,6 +121,7 @@ public class Scroll : MonoBehaviour
         sound[(int)SOUND.OK].Stop();
         sound[(int)SOUND.OPEN].Stop();
         sound[(int)SOUND.CANCEL].Stop();
+        sound[(int)SOUND.NO].Stop();
 
         //スクロールの初期ポジションをセット
         //ステージに入った記憶がある場合そのステージから選択できる
@@ -302,30 +304,18 @@ public class Scroll : MonoBehaviour
         {
             int yn = data.GetStageStatus(currentStagenum);
 
-            Debug.Log(moveStageNum[currentStagenum]);
-
-            sound[(int)SOUND.OK].Play();
 
             if (yn == (int)Data.STAGE_STATUS.NONE)
-                Debug.Log("未開放");
-            else if (yn == (int)Data.STAGE_STATUS.OPEN)
+                sound[(int)SOUND.NO].Play();
+            else
             {
-               // CFadeManager.FadeOut(moveStageNum[currentStagenum]);
-
+                sound[(int)SOUND.OK].Play();
                 pop.SetActive(true);
                 isPop = true;
-            }
-                
-            else if (yn == (int)Data.STAGE_STATUS.CLEAR)
-            {
-                // CFadeManager.FadeOut(moveStageNum[currentStagenum]);
 
-                pop.SetActive(true);
-                isPop = true;
+                PlayerPrefs.SetInt(scrollkey, currentStagenum);
+                PlayerPrefs.Save();
             }
-
-            PlayerPrefs.SetInt(scrollkey, currentStagenum);
-            PlayerPrefs.Save();
         }
 
         if (Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("NO"))
