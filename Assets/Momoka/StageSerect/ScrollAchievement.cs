@@ -32,8 +32,6 @@ public class ScrollAchievement : MonoBehaviour
         {
             s = "stage" + (i + 1).ToString("00");
 
-            Debug.Log(i + ":" + data.DataNum);
-
             if (data.GetStageStatus(i - 1) == (int)Data.STAGE_STATUS.CLEAR)
             {
                 //ƒNƒŠƒA‚İ‚Â‚¯‚½‚çŸ‚ğopen‚É‚·‚é(Ÿ‚ª‰ğ•ú‚³‚ê‚Ä‚È‚¢ê‡)

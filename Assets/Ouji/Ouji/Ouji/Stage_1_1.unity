@@ -6861,7 +6861,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3914798656235243572, guid: 8185142f161c45b4fa96a7d54d561899, type: 3}
 --- !u!114 &1622815489
@@ -9624,6 +9624,11 @@ PrefabInstance:
       propertyPath: Camera_Move
       value: 
       objectReference: {fileID: 973384607}
+    - target: {fileID: 1933198819186345641, guid: 5ee955f9568192340b8f668b40f45d82,
+        type: 3}
+      propertyPath: m_Direction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2116308542843708332, guid: 5ee955f9568192340b8f668b40f45d82,
         type: 3}
       propertyPath: m_RootOrder

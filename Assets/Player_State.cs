@@ -221,8 +221,8 @@ public class Player_State : MonoBehaviour
             //Debug.Log("F : " + m_CanClimb_forword);
             //Debug.Log("C : " + m_CanClimb_check);
 
-            // ‚æ‚¶“o‚é
-            if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Climb")) && !sc_move.GetSPIN_NOW())
+            // ‚æ‚¶“o‚é Climb
+            if ((Input.GetKey(KeyCode.Space) || Input.GetButton("Run")) && !sc_move.GetSPIN_NOW())
             {
                 // “o‚ê‚é‚à‚Ì‚ª‚ ‚ê‚Î
                 if (m_CanClimb_forword && !m_CanClimb_check)
@@ -388,7 +388,7 @@ public class Player_State : MonoBehaviour
                 }
             }
         }
-        Debug.Log(m_AnimationState);
+        //Debug.Log(m_AnimationState);
         animator.SetInteger("state", m_AnimationState_Motion);
     }
 

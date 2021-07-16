@@ -29,7 +29,7 @@ public class CheckChangeMaterial : MonoBehaviour
         {
             bool is_changed = false;
             //ƒŒƒC‚ÉáŠQ•¨ƒŒƒCƒ„[‚É“ü‚Á‚Ä‚é•¨‚ª“–‚½‚Á‚½‚ç
-            Debug.Log(hit.collider.tag);
+            //Debug.Log(hit.collider.tag);
             foreach(string str in m_tag_list)
             {
                 if (hit.collider.tag == str)

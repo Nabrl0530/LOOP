@@ -100,6 +100,8 @@ MonoBehaviour:
   animator: {fileID: 5089510442327815426}
   UI_menu: {fileID: 0}
   cm: {fileID: 0}
+  the_world: {fileID: 0}
+  sc_follow_camera: {fileID: 0}
   m_AnimationState: 0
   m_AnimationState_Motion: 0
   m_CanAction: 1
@@ -392,7 +394,7 @@ GameObject:
   - component: {fileID: 3813967360232296328}
   - component: {fileID: 3813967360232296327}
   - component: {fileID: 3813967360232296326}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: under
   m_TagString: Untagged
   m_Icon: {fileID: 0}

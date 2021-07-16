@@ -50,6 +50,12 @@ public class Player : MonoBehaviour
     private int Last_State; //直前のステート
     public float mag;
 
+    //動作変更中
+    float pos_y_b;  //前フレームの位置
+    int layerMask = ~(1 << 2 | 1 << 10);    //イグノアとダミーを回避
+    [SerializeField] float l=0.5f;
+    int count = 0;
+
     Vector3 Base_Size;
 
     bool HIT_TOWER = false;
@@ -143,15 +149,49 @@ public class Player : MonoBehaviour
         Clear = false;
         Menu_ON = false;
 
+        /*
+        //objectというタグ名のゲームオブジェクトを複数取得したい時
+        GameObject[] Stage = GameObject.FindGameObjectsWithTag("Stage");
+        //配列の要素一つ一つに対して処理を行う
 
+        foreach (GameObject obj in Stage)
+        {
+            obj.GetComponent<MeshCollider>().convex = false;
+        }
+        */
 
-
-		sc_camera_move = Camera.GetComponent<Camera_Move>();
+        sc_camera_move = Camera.GetComponent<Camera_Move>();
 
 	}
 
     void Update()
     {
+        /*
+        count++;
+
+        if(count==5)
+        {
+            GameObject[] Stage = GameObject.FindGameObjectsWithTag("Stage");
+            //配列の要素一つ一つに対して処理を行う
+
+            foreach (GameObject obj in Stage)
+            {
+                obj.GetComponent<MeshCollider>().convex = true;
+            }
+        }
+
+        if(count==10)
+        {
+            GameObject[] Stage = GameObject.FindGameObjectsWithTag("Stage");
+            //配列の要素一つ一つに対して処理を行う
+
+            foreach (GameObject obj in Stage)
+            {
+                obj.GetComponent<MeshCollider>().convex = false;
+            }
+        }
+        */
+
 		if (!CATCH)
         {
             len = Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.z, 2));
@@ -327,13 +367,13 @@ public class Player : MonoBehaviour
                             direction_move += camera_right * Input.GetAxis("Horizontal_p");
                         }
 
-						// 走る
-						if (Input.GetButton("Run"))
+						// 走る   Run
+						if (Input.GetButton("Climb"))
                         {
                             Speed_Move = Speed_Run;
                             sc_state.Set_IsRunning(true);
                         }
-                        else if (!Input.GetButton("Run"))
+                        else if (!Input.GetButton("Climb"))
                         {
                             Speed_Move = Speed_Walk;
                             sc_state.Set_IsRunning(false);
@@ -355,7 +395,7 @@ public class Player : MonoBehaviour
                     Last_Direction = direction_move;
                 }
 
-                Debug.Log(direction_move);
+                //Debug.Log(direction_move);
 
                 // 移動//進行方向にオブジェクトがあったら法線方向へ回転
                 //Rigid.velocity = direction_move * Speed_Move;
@@ -952,6 +992,61 @@ public class Player : MonoBehaviour
             rot = Quaternion.Slerp(this.transform.rotation, rot, Time.deltaTime * RotateSpeed);
             this.transform.rotation = rot;
         }
+
+        /*
+        //前回よりも位置が大きく下がっていたら落ちてる判定
+        if(transform.position.y < (pos_y_b - 0.001f))
+        {
+            IsUnder_m = false;
+        }
+        else
+        {
+            IsUnder_m = true;
+        }
+
+        if (!IsUnder_m)
+        {
+            Under_count = 0;
+        }
+        else
+        {
+            No_Under = 0;
+        }
+        */
+        /*
+        Vector3 Pos_base = transform.position;
+        Pos_base.y -= l;
+        //Vector3 Pos_End = transform.position;
+        Vector3 Ditector = new Vector3(0, -1, 0);
+
+        RaycastHit hit;
+        if (Physics.Raycast(Pos_base, Ditector, out hit, 30.0f, layerMask))
+        {
+
+            Debug.Log(hit.collider.tag);
+            Debug.Log(transform.position.y - hit.point.y);
+
+            if((transform.position.y - hit.point.y) > 0.75f)
+            {
+                IsUnder_m = false;
+            }
+            else
+            {
+                IsUnder_m = true;
+            }
+        }
+
+        if (!IsUnder_m)
+        {
+            Under_count = 0;
+        }
+        else
+        {
+            No_Under = 0;
+        }
+
+        pos_y_b = transform.position.y;
+        */
 
         if(IsUnder_m && Actcount == 0)
         {

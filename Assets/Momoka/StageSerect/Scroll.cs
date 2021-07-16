@@ -489,18 +489,20 @@ public class Scroll : MonoBehaviour
     }
 
 
-    public void JudgeYesOrNo(bool isEnter)
+    public bool JudgeYesOrNo(bool isEnter)
     {
         if (isEnter)
         {
             sound[(int)SOUND.OK].Play();
             CFadeManager.FadeOut(moveStageNum[currentStagenum]);
+            return true;
         }
         else
         {
             sound[(int)SOUND.CANCEL].Play();
             pop.SetActive(false);
             isPop = false;
+            return false;
         }
     }
 

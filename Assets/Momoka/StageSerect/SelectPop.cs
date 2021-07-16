@@ -12,6 +12,7 @@ public class SelectPop : MonoBehaviour
     [SerializeField] GameObject select;
     bool isEnter = true;
     bool isEnter_b =false;
+    bool End = false;
     int key_wait = 0;
 
     [SerializeField] Vector3 yes = new Vector3(-37, -41, 0);
@@ -26,6 +27,11 @@ public class SelectPop : MonoBehaviour
 
     void Update()
     {
+        if(End)
+        {
+            return;
+        }
+
         Check_Cont();
 
         if (Input.GetKeyDown(KeyCode.A)|| Input.GetKeyDown(KeyCode.D) || con_LR)
@@ -37,7 +43,16 @@ public class SelectPop : MonoBehaviour
         {
             bool a = isEnter;
             isEnter = true;
-            scroll.JudgeYesOrNo(a);
+            if(scroll.JudgeYesOrNo(a))
+            {
+                End = true;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.K) || Input.GetButtonDown("NO"))
+        {
+            isEnter = true;
+            scroll.JudgeYesOrNo(false);          
         }
 
         if (isEnter != isEnter_b)
