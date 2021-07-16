@@ -101,6 +101,9 @@ public class Data : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
             Delete();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            Fullopen();
     }
 
 
@@ -190,6 +193,28 @@ public class Data : MonoBehaviour
                 _status.Add((int)STAGE_STATUS.NONE);
                 s += _status[i].ToString() + ",";
             }
+        }
+
+        PlayerPrefs.SetString(_statusKey, s);
+        PlayerPrefs.Save();
+
+        CFadeManager.FadeOut(1);
+    }
+
+    void Fullopen()
+    {
+        PlayerPrefs.DeleteKey(_statusKey);
+        PlayerPrefs.DeleteKey(scrollkey);
+
+        _status.Clear();
+
+        //データをロード
+        string s = null;
+
+        for (int i = 0; i < stageNum; i++)
+        {
+            _status.Add((int)STAGE_STATUS.OPEN);
+            s += _status[i].ToString() + ",";
         }
 
         PlayerPrefs.SetString(_statusKey, s);
