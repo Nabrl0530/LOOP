@@ -21,8 +21,9 @@ public class UI_MenuCursor : MonoBehaviour
     GameObject Parent;              // 親オブジェクト（MenuCanvas）のための入れ物
     UI_Menu ParentMenu;             // 親オブジェクトについたスクリプトが欲しい
 
-    bool con_U; //コントローラー入力左
-    bool con_D; //コントローラー入力右
+    bool con_U; //コントローラー入力上
+    bool con_D; //コントローラー入力下
+    bool USE_KEY_BORD;
 
     int keywait;
 
@@ -82,7 +83,7 @@ public class UI_MenuCursor : MonoBehaviour
 
 
         // カーソル移動
-        if (Input.GetKeyDown(KeyCode.DownArrow) || con_D)
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || con_D) && keywait == 0)
         {
 
 
@@ -95,9 +96,11 @@ public class UI_MenuCursor : MonoBehaviour
             {
                 CursorPosition = (int)CursorPos.Retry;
             }
+
+            keywait = 25;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) || con_U)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || con_U) && keywait == 0)
         {
 
 
@@ -110,8 +113,15 @@ public class UI_MenuCursor : MonoBehaviour
             {
                 CursorPosition = (int)CursorPos.Return;
             }
+
+            keywait = 25;
         }
-        
+
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
+        {
+            USE_KEY_BORD = true;
+        }
+
         // カーソル位置に合わせて座標を変更
         switch (CursorPosition)
         {
@@ -192,16 +202,26 @@ public class UI_MenuCursor : MonoBehaviour
         con_U = false;
         con_D = false;
 
-        if (UD > 0.5f && keywait == 0)
+        if (UD > 0.5f)
         {
             con_U = true;
-            keywait = 25;
+            //keywait = 25;
         }
 
-        if (UD < -0.5f && keywait == 0)
+        if (UD < -0.5f)
         {
             con_D = true;
-            keywait = 25;
+            //keywait = 25;
+        }
+
+        if (!con_U && !con_D  && !USE_KEY_BORD)
+        {
+            keywait = 0;
+        }
+
+        if (!Input.GetKey(KeyCode.UpArrow) && !Input.GetKey(KeyCode.DownArrow))
+        {
+            USE_KEY_BORD = false;
         }
     }
 }
