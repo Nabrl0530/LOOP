@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Clear_add : MonoBehaviour
 {
+    public Sprite[] img = new Sprite[2];
     RectTransform rt;
     Image image;
     float x, y, a;
@@ -18,6 +19,15 @@ public class UI_Clear_add : MonoBehaviour
         a = 1.0f;
         ON = false;
         image.color = new Vector4(1, 1, 1, 0);
+
+        if(LanguageSetting.Get_Is_Japanese())
+        {
+            image.sprite = img[0];
+        }
+        else
+        {
+            image.sprite = img[1];
+        }
     }
 
     // Update is called once per frame
