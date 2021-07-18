@@ -300,7 +300,7 @@ public class Scroll : MonoBehaviour
                 break;
         }
 
-        if (Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK"))
+        if ((Input.GetKeyDown(KeyCode.J) || Input.GetButtonDown("OK")) && status == STATE.STAY)
         {
             int yn = data.GetStageStatus(currentStagenum);
 

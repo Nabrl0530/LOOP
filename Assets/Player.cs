@@ -1282,7 +1282,7 @@ public class Player : MonoBehaviour
     {
         if (HIT_LEVER)
         {
-            leba.SpinL();
+            leba.SpinR();
         }
     }
 
@@ -1290,7 +1290,7 @@ public class Player : MonoBehaviour
     {
         if (HIT_LEVER)
         {
-            leba.SpinR();
+            leba.SpinL();
         }
     }
 

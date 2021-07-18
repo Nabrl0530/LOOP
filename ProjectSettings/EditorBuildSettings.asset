@@ -65,4 +65,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ouji/Ouji/Ouji/Stage_5_2.unity
     guid: 2ef160162d2dd5d4fbc925d8a9c13d86
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_3_2.unity
+    guid: e93ccf0f293e5eb4c8b6e605f80d5b52
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_4_2.unity
+    guid: 2c891877325ce094ab53ad8b5b60c14b
+  - enabled: 1
+    path: Assets/Ouji/Ouji/Ouji/Stage_5_1.unity
+    guid: 8b0b316832c6d7c4cb9ee7b3b306dc11
   m_configObjects: {}
